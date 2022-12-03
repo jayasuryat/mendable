@@ -3,6 +3,8 @@ plugins {
     application
 }
 
+val mainCliClassName = "com.jayasuryat.mendable.AppKt"
+
 repositories {
     mavenCentral()
 }
@@ -13,9 +15,25 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.jayasuryat.mendable.AppKt")
+    mainClass.set(mainCliClassName)
 }
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks.withType<Jar> {
+
+    manifest {
+        attributes["Main-Class"] = mainCliClassName
+    }
+
+    val dependencies = configurations
+        .runtimeClasspath
+        .get()
+        .map(::zipTree)
+
+    from(dependencies)
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
