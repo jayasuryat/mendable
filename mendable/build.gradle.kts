@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
+
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.10"
     application
@@ -16,6 +18,10 @@ dependencies {
 
 application {
     mainClass.set(mainCliClassName)
+}
+
+kotlin {
+    explicitApi = ExplicitApiMode.Strict
 }
 
 tasks.named<Test>("test") {

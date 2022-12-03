@@ -15,6 +15,28 @@
  */
 package com.jayasuryat.mendable
 
-fun main() {
-    println("CLI says hello to you!")
+import com.jayasuryat.mendable.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposablesReportFile
+import com.jayasuryat.mendable.parser.ComposableReportParser
+import com.jayasuryat.mendable.parser.getReportFiles
+import java.nio.file.Paths
+import kotlin.io.path.absolutePathString
+
+public fun main() {
+
+    println("Mendable CLI says hello to you!")
+
+    // TODO: Read from args
+    val path: String = Paths.get("").absolutePathString()
+    println("Reading files from $path")
+
+    // Reading files from Disk
+    val reportFiles: List<ComposablesReportFile> = getReportFiles(path = path)
+
+    // Parsing them into workable format
+    val parsedReports: List<ComposablesReport> = ComposableReportParser().parse(
+        files = reportFiles,
+    )
+
+    println(parsedReports)
 }
