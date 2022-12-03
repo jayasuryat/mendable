@@ -3,7 +3,7 @@ plugins {
     application
 }
 
-val mainCliClassName = "com.jayasuryat.mendable.AppKt"
+val mainCliClassName = "com.jayasuryat.mendable.MainKt"
 
 repositories {
     mavenCentral()
