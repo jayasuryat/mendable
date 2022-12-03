@@ -1,0 +1,36 @@
+apply {
+    plugin("com.diffplug.spotless")
+}
+
+spotless {
+
+    format("misc") {
+        target("**/*.gradle", "**/*.md", "**/.gitignore")
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    kotlin {
+        toggleOffOn()
+        target("**/*.kt")
+        targetExclude(
+                "$buildDir/**/*.kt",
+                "bin/**/*.kt",
+                "buildSrc/**/*.kt",
+        )
+        ktlint().userData(["disabled_rules": "no-wildcard-imports"])
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+        licenseHeaderFile(rootProject.file("buildScripts/copyright.txt"))
+    }
+
+    kotlinGradle {
+        target("*.gradle.kts")
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+        ktlint()
+    }
+}

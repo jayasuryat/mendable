@@ -4,3 +4,21 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.6/samples
  */
+
+plugins {
+    id("com.diffplug.spotless") version "6.3.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply {
+    from("buildScripts/spotless_pre_commit_hook.gradle")
+}
+
+allprojects.forEach { project ->
+    project.apply {
+        from("${rootProject.rootDir}/buildScripts/spotless.gradle")
+    }
+}
