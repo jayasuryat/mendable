@@ -13,32 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.model
+@file:Suppress("FunctionName")
 
-internal data class ComposablesReport(
-    val module: Module,
-    val composables: List<ComposableDetails>,
-)
+package com.jayasuryat.mendable.html
 
-internal data class ComposableDetails(
-    val functionName: String,
-    val isRestartable: Boolean,
-    val isSkippable: Boolean,
-    val isInline: Boolean,
-    val params: List<Parameter>,
-) {
+import kotlinx.html.BODY
+import kotlinx.html.script
+import kotlinx.html.unsafe
 
-    data class Parameter(
-        val condition: Condition,
-        val name: String,
-        val type: String,
-    ) {
+internal fun BODY.Scripts() {
 
-        enum class Condition {
-            STABLE,
-            UNSTABLE,
-            UNUSED,
-            UNKNOWN;
+    val script = """
+        var elements = document.getElementsByClassName("function-name");
+        for (var i = 0; i < elements.length; i++) {
+            const element = elements[i]
+            const text = element.innerHTML
+            elements[i].addEventListener("click", function() {
+                navigator.clipboard.writeText(text);
+            });
         }
-    }
+    """.trimIndent()
+
+    script { unsafe { raw(script) } }
 }

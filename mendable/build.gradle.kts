@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    implementation("com.google.guava:guava:31.1-jre")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
 }
 
 application {

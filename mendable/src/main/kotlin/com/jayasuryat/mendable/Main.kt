@@ -15,6 +15,8 @@
  */
 package com.jayasuryat.mendable
 
+import com.jayasuryat.mendable.html.MendablePage
+import com.jayasuryat.mendable.html.saveHtmlFile
 import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposablesReportFile
 import com.jayasuryat.mendable.parser.ComposableReportParser
@@ -28,6 +30,7 @@ public fun main() {
 
     // TODO: Read from args
     val path: String = Paths.get("").absolutePathString()
+    val outputDirectory: String = Paths.get("").absolutePathString()
     println("Reading files from $path")
 
     // Reading files from Disk
@@ -38,5 +41,17 @@ public fun main() {
         files = reportFiles,
     )
 
-    println(parsedReports)
+    // Generating HTML report from the parsed reports
+    val html = MendablePage(
+        reports = parsedReports,
+    )
+
+    // Saving the HTML file
+    val savedPath = saveHtmlFile(
+        htmlContent = html,
+        fileName = "index",
+        outputDirectory = outputDirectory,
+    )
+
+    println("Output file saved at $savedPath")
 }
