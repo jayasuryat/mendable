@@ -129,6 +129,7 @@ internal class ComposableReportParser {
 
         return params
             .filter { param -> param.isNotEmpty() }
+            .map { param -> param.trimExtraWhiteSpaces() }
             .map { param ->
 
                 val stabilityAndName: String = param.take(param.indexOf(':')).trim()
@@ -161,6 +162,11 @@ internal class ComposableReportParser {
                     type = type,
                 )
             }
+    }
+
+    private val duplicateWhiteSpaceRegex: Regex by lazy { "\\s+".toRegex() }
+    private fun String.trimExtraWhiteSpaces(): String {
+        return this.replace(regex = duplicateWhiteSpaceRegex, " ")
     }
 
     companion object {
