@@ -23,6 +23,9 @@ internal fun getReportFiles(
     path: String,
 ): List<ComposablesReportFile> {
 
+    println()
+    println("Reading files at path $path")
+
     val rootFile = File(path)
 
     rootFile.listFiles { file -> file.isFile && file.name.endsWith(METRICS_FILE_POSTFIX) }
@@ -55,6 +58,8 @@ internal fun getReportFiles(
 }
 
 private fun logDetails(files: List<ComposablesReportFile>) {
+    if (files.isEmpty()) return
+    println()
     println("${files.count()} metrics file(s) found :")
     val padStart = files.size.toString().length
     files.forEachIndexed { index, file ->

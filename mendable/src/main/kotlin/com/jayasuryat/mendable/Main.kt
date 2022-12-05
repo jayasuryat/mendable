@@ -21,37 +21,41 @@ import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposablesReportFile
 import com.jayasuryat.mendable.parser.ComposableReportParser
 import com.jayasuryat.mendable.parser.getReportFiles
-import java.nio.file.Paths
-import kotlin.io.path.absolutePathString
 
-public fun main() {
+public fun main(args: Array<String>) {
 
-    println("Mendable CLI says hello to you!")
-
-    // TODO: Read from args
-    val path: String = Paths.get("").absolutePathString()
-    val outputDirectory: String = Paths.get("").absolutePathString()
-    println("Reading files from $path")
+    // Reading and parsing arguments
+    val arguments = CliArguments(args = args)
 
     // Reading files from Disk
-    val reportFiles: List<ComposablesReportFile> = getReportFiles(path = path)
+    val reportFiles: List<ComposablesReportFile> = getReportFiles(
+        path = arguments.composablesReportsPath,
+    )
 
     // Parsing them into workable format
     val parsedReports: List<ComposablesReport> = ComposableReportParser().parse(
         files = reportFiles,
     )
 
+    if (parsedReports.isEmpty()) {
+        println()
+        println("No composables.txt files found in the directory : ${arguments.composablesReportsPath}")
+        println("Make sure to point the application to the directory which contains all the composables.txt files via the '--composablesReportsPath' or '--i' arguments.")
+        println("For more help execute the executable with '-h' argument")
+        return
+    }
+
     // Generating HTML report from the parsed reports
-    val html = MendablePage(
+    val html: String = MendablePage(
         reports = parsedReports,
     )
 
     // Saving the HTML file
-    val savedPath = saveHtmlFile(
+    val savedPath: String = saveHtmlFile(
         htmlContent = html,
-        fileName = "index",
-        outputDirectory = outputDirectory,
+        fileName = arguments.outputFileName,
+        outputDirectory = arguments.outputPath,
     )
 
-    println("Output file saved at $savedPath")
+    println("\nOutput file saved at file://$savedPath")
 }
