@@ -116,7 +116,6 @@ java -jar mendable.jar
     -oName Your-project-metrics \
 ```
 For the above command, files will be `read` from '/Users/username/Desktop/Your-project/build/compose_metrics' and the `output` file will be `saved` at '/Users/username/Desktop/Reports' and that file will be `named` 'Your-project-metrics.html'.
-    
 </details>
 
 <div align="center">
