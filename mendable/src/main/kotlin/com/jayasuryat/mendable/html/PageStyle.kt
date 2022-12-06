@@ -247,6 +247,17 @@ internal fun HEAD.PageStyle() {
             //background: #282828;
             background: #2a2a2a;
         }
+
+        .footer {
+            color: ${Colors.onBackground};
+            text-align: center;
+            font-family: 'Inconsolata', monospace;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .footer a{
+            color: inherit;
+        }
         """.trimIndent()
 
     style { unsafe { raw(rawCss) } }

@@ -50,6 +50,8 @@ internal fun MendablePage(
                 reports = reports,
             )
 
+            Footer()
+
             Scripts()
         }
     }
@@ -68,5 +70,14 @@ private fun BODY.ModuleReports(
         div {
             setStyle(margin = "0 0 32px 0")
         }
+    }
+}
+
+private fun BODY.Footer() {
+
+    h1("footer") {
+        br { }
+        +"Made with ❤️️ @ "
+        a(href = "https://github.com/jayasuryat/mendable") { +"Mendable" }
     }
 }
