@@ -84,7 +84,7 @@ With the above setup, you can generate Compose compiler metrics by executing the
 
 ## 4. How do I use Mendable?
 
-> **Note** : The following steps assume that you have a similar `gradle` setup as to the one described in [step 3](https://github.com/jayasuryat/mendable/edit/main/README.md#3-gradle-setup---for-generating-compose-compiler-metrics).
+> **Note** : The following steps assume that you have a similar `gradle` setup as to the one described in [step 3](https://github.com/jayasuryat/mendable#3-gradle-setup---for-generating-compose-compiler-metrics).
 
 It is very straightforward. Download and execute the `jar` file while **pointing it to the appropriate directory** which contains all of the Compose compiler-generated metrics files.
 
@@ -118,3 +118,11 @@ java -jar mendable.jar
 For the above command, files will be `read` from '/Users/username/Desktop/Your-project/build/compose_metrics' and the `output` file will be `saved` at '/Users/username/Desktop/Reports' and that file will be `named` 'Your-project-metrics.html'.
     
 </details>
+
+<div align="center">
+  <br>
+  <h3>And your <code>HTML</code> report should look something like this<h3>
+</div>
+
+![Mendable sample screenshot](https://user-images.githubusercontent.com/37530409/205931460-f1b4191a-c3db-4758-af71-4bbe48b833d8.png)
+
