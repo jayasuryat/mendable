@@ -20,6 +20,7 @@ package com.jayasuryat.mendable.html
 import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.Module
 import kotlinx.html.*
+import kotlin.math.roundToInt
 
 internal fun BODY.Overview(
     reports: List<ComposablesReport>,
@@ -119,7 +120,7 @@ private data class OverviewModel(
                 val restartable = restartableComposables.size
 
                 val skippablePercentage = if (restartable == 0) 100
-                else ((skippable * 100f) / restartable).toInt()
+                else ((skippable * 100f) / restartable).roundToInt()
 
                 ModuleOverview(
                     module = report.module,
@@ -135,7 +136,7 @@ private data class OverviewModel(
             val skippableComposables = moduleOverviews.sumOf { overview -> overview.skippableComposables }
 
             val skippablePercentage = if (restartableComposables == 0) 100
-            else ((skippableComposables * 100f) / restartableComposables).toInt()
+            else ((skippableComposables * 100f) / restartableComposables).roundToInt()
 
             return OverviewModel(
                 totalModules = totalModules,
