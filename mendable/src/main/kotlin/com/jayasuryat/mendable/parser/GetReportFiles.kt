@@ -28,8 +28,6 @@ internal fun getReportFiles(
 
     val rootFile = File(path)
 
-    rootFile.listFiles { file -> file.isFile && file.name.endsWith(METRICS_FILE_POSTFIX) }
-
     val metricFiles: List<File> = rootFile
         .listFiles { file -> file.isFile && file.name.endsWith(METRICS_FILE_POSTFIX) }
         ?.sortedBy { file -> file.name }
@@ -69,4 +67,4 @@ private fun logDetails(files: List<ComposablesReportFile>) {
     }
 }
 
-private const val METRICS_FILE_POSTFIX: String = "-composables.txt"
+internal const val METRICS_FILE_POSTFIX: String = "-composables.txt"
