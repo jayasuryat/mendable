@@ -7,7 +7,7 @@
     </picture>
   </a>
 
-  <h1>A <code>CLI</code> tool to convert <code>multi-module</code> <code>Jetpack Compose</code> compiler <code>metrics</code> into beautiful <code>HTML</code> reports</h1>
+  <h1>A <code>CLI</code> tool to convert <code>multi-module</code></br><code>Jetpack Compose</code> compiler <code>metrics</code></br>into beautiful <code>HTML</code> reports</h1>
   
 
 </div>
