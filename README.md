@@ -7,7 +7,8 @@
     </picture>
   </a>
 
-  <h1>A <code>CLI</code> tool to convert <code>multi-module</code> <code>Jetpack Compose</code> compiler <code>metrics</code> into beautiful <code>HTML</code> reports</h1>
+  <h1>A <code>CLI</code> tool to convert</br><code>multi-module</code> <code>Jetpack Compose</code> compiler <code>metrics</code> into</br>beautiful <code>HTML</code> reports</h1>
+  
 
 </div>
 
@@ -127,7 +128,7 @@ For the above command, files will be `read` from '/Users/username/Desktop/Your-p
 
 ---
 ## Acknowledgements
-Huge thanks to [Shreyas Patil](https://github.com/PatilShreyas). This repo has been inspired from his version of [compose-report-to-html](https://github.com/PatilShreyas/compose-report-to-html) CLI tool.
+Huge thanks to [Shreyas Patil](https://github.com/PatilShreyas). This repo has been inspired by his version of [compose-report-to-html](https://github.com/PatilShreyas/compose-report-to-html) CLI tool.
 
 ## License
 ```
