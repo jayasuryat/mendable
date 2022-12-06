@@ -69,12 +69,19 @@ private fun BODY.ModuleOverviews(
 
                 a(href = "#${module.module.id}") { span(classes = "link-spanner") { +"" } }
 
-                a(classes = "module-overview-title") { +":${module.module.displayName}" }
+                span("module-overview-title") { +":${module.module.name}\n" }
+                br {
+                    span("module-overview-details") {
+                        setStyle(fontSize = "18px")
+                        +"(${module.module.buildVariant})"
+                    }
+                }
+
                 br { }
-                // TODO: Merge  module-overview-details & grid-item
                 br { span("module-overview-details") { +"${module.totalComposables} composables" } }
                 br { span("module-overview-details") { +"${module.restartableComposables} restartable" } }
                 br { span("module-overview-details") { +"${module.skippableComposables} skippable" } }
+                br { span("module-overview-details") { +"${module.restartableComposables - module.skippableComposables} not-skippable" } }
                 br { span("module-overview-details") { +"${module.skippablePercentage}% stable" } }
                 br { }
 

@@ -90,7 +90,7 @@ internal fun HEAD.PageStyle() {
 
         .grid-container {
             display: grid;
-            grid-template-columns: auto auto auto;
+            grid-template-columns: 33% 33% 33%;
             margin: 0 32px 0 32px;
         }
 
