@@ -29,7 +29,7 @@ internal fun BODY.Scripts() {
             const element = elements[i]
             const text = element.innerHTML
             elements[i].addEventListener("click", function() {
-                navigator.clipboard.writeText(text);
+                navigator.clipboard.writeText(text.trim());
             });
         }
     """.trimIndent()
