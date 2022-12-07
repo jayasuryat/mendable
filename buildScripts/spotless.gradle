@@ -6,6 +6,9 @@ spotless {
 
     format("misc") {
         target("**/*.gradle", "**/*.md", "**/.gitignore")
+        targetExclude(
+                "${rootProject.rootDir}/README.md",
+        )
         indentWithSpaces()
         trimTrailingWhitespace()
         endWithNewline()
