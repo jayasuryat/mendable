@@ -154,7 +154,7 @@ Your-project-metrics.html'.
   <h3>And your <code>HTML</code> report should look something like this</h3>
 </div>
 
-![Mendable sample screenshot](https://user-images.githubusercontent.com/37530409/205931460-f1b4191a-c3db-4758-af71-4bbe48b833d8.png)
+![Mendable sample screenshot](https://user-images.githubusercontent.com/37530409/206190055-33332a9c-f953-40d0-82a7-8d8df5d796f0.png)
 
 ---
 
