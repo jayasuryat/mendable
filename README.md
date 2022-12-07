@@ -165,7 +165,7 @@ Your-project-metrics.html'.
 
 ---
 
-## Other stuff to know
+## Other things to know
 * Clicking on the composable's name in the `HTML` report will copy that name to the `clipboard`
 
 * You can build an executable `jar` yourself by executing the following command in the root of the project
