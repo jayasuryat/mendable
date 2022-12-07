@@ -17,13 +17,13 @@
 
 package com.jayasuryat.mendable.html
 
-import com.jayasuryat.mendable.model.ComposableDetails
-import com.jayasuryat.mendable.model.ComposableDetails.Parameter.Condition
-import com.jayasuryat.mendable.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
 import kotlinx.html.*
 
 internal fun BODY.ModuleReport(
-    report: ComposablesReport,
+    report: ModuleReport,
 ) {
 
     val restartable = report.composables.filter { composable -> composable.isRestartable }

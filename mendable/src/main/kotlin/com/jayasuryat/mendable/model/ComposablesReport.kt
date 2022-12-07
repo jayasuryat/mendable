@@ -16,29 +16,46 @@
 package com.jayasuryat.mendable.model
 
 internal data class ComposablesReport(
-    val module: Module,
-    val composables: List<ComposableDetails>,
-)
-
-internal data class ComposableDetails(
-    val functionName: String,
-    val isRestartable: Boolean,
-    val isSkippable: Boolean,
-    val isInline: Boolean,
-    val params: List<Parameter>,
+    val moduleReports: List<ModuleReport>,
+    val overview: Overview,
 ) {
 
-    data class Parameter(
-        val condition: Condition,
-        val name: String,
-        val type: String,
+    val totalModules: Int = moduleReports.count()
+
+    internal data class ModuleReport(
+        val module: Module,
+        val overview: Overview,
+        val composables: List<ComposableDetails>,
     ) {
 
-        enum class Condition {
-            STABLE,
-            UNSTABLE,
-            UNUSED,
-            UNKNOWN;
+        internal data class ComposableDetails(
+            val functionName: String,
+            val isRestartable: Boolean,
+            val isSkippable: Boolean,
+            val isInline: Boolean,
+            val params: List<Parameter>,
+        ) {
+
+            data class Parameter(
+                val condition: Condition,
+                val name: String,
+                val type: String,
+            ) {
+
+                enum class Condition {
+                    STABLE,
+                    UNSTABLE,
+                    UNUSED,
+                    UNKNOWN;
+                }
+            }
         }
     }
+
+    data class Overview(
+        val totalComposables: Int,
+        val restartableComposables: Int,
+        val skippableComposables: Int,
+        val skippablePercentage: Int,
+    )
 }

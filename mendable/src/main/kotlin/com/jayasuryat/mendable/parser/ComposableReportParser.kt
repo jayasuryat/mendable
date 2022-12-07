@@ -15,20 +15,34 @@
  */
 package com.jayasuryat.mendable.parser
 
-import com.jayasuryat.mendable.model.ComposableDetails
-import com.jayasuryat.mendable.model.ComposableDetails.Parameter
 import com.jayasuryat.mendable.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter
+import com.jayasuryat.mendable.model.ComposablesReport.Overview
 import com.jayasuryat.mendable.model.ComposablesReportFile
+import kotlin.math.roundToInt
 
 internal class ComposableReportParser {
 
     fun parse(
         files: List<ComposablesReportFile>
-    ): List<ComposablesReport> = files.map(::parse)
-
-    fun parse(
-        file: ComposablesReportFile
     ): ComposablesReport {
+
+        val moduleReports: List<ModuleReport> = files.map { file -> parse(file) }
+        val overview: Overview = moduleReports
+            .flatMap { report -> report.composables }
+            .toOverview()
+
+        return ComposablesReport(
+            moduleReports = moduleReports,
+            overview = overview,
+        )
+    }
+
+    private fun parse(
+        file: ComposablesReportFile
+    ): ModuleReport {
 
         // Individual lines
         val lines: List<String> = file.content
@@ -48,9 +62,12 @@ internal class ComposableReportParser {
         }
         if (functionBuilder.isNotBlank()) functions.add(functionBuilder.toString())
 
-        return ComposablesReport(
+        val composables = functions.map { function -> function.parseFunction() } // TODO : Handle parsing exceptions
+
+        return ModuleReport(
             module = file.module,
-            composables = functions.map { function -> function.parseFunction() }, // TODO : Handle parsing exceptions
+            composables = composables,
+            overview = composables.toOverview(),
         )
     }
 
@@ -167,6 +184,23 @@ internal class ComposableReportParser {
     private val duplicateWhiteSpaceRegex: Regex by lazy { "\\s+".toRegex() }
     private fun String.trimExtraWhiteSpaces(): String {
         return this.replace(regex = duplicateWhiteSpaceRegex, " ")
+    }
+
+    private fun List<ComposableDetails>.toOverview(): Overview {
+
+        val allComposables = this
+        val restartable = allComposables.filter { composable -> composable.isRestartable }
+        val skippable = restartable.filter { composable -> composable.isSkippable }
+
+        val percentage: Int = if (restartable.isEmpty()) 100
+        else ((skippable.count() * 100f) / restartable.count()).roundToInt()
+
+        return Overview(
+            totalComposables = allComposables.count(),
+            restartableComposables = restartable.count(),
+            skippableComposables = skippable.count(),
+            skippablePercentage = percentage,
+        )
     }
 
     companion object {

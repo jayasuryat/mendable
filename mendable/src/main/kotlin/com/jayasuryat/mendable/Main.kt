@@ -33,11 +33,11 @@ public fun main(args: Array<String>) {
     )
 
     // Parsing them into workable format
-    val parsedReports: List<ComposablesReport> = ComposableReportParser().parse(
+    val parsedReport: ComposablesReport = ComposableReportParser().parse(
         files = reportFiles,
     )
 
-    if (parsedReports.isEmpty()) {
+    if (parsedReport.totalModules == 0) {
         println()
         println("No composables.txt files found in the directory : ${arguments.composablesReportsPath}")
         println("Make sure to point the application to the directory which contains all the composables.txt files via the '--composablesReportsPath' or '--i' arguments.")
@@ -47,7 +47,7 @@ public fun main(args: Array<String>) {
 
     // Generating HTML report from the parsed reports
     val html: String = MendablePage(
-        reports = parsedReports,
+        report = parsedReport,
     )
 
     // Saving the HTML file

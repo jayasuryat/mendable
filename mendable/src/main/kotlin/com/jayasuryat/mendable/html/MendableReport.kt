@@ -18,11 +18,12 @@
 package com.jayasuryat.mendable.html
 
 import com.jayasuryat.mendable.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 
 internal fun MendablePage(
-    reports: List<ComposablesReport>
+    report: ComposablesReport,
 ): String {
 
     return createHTML().html {
@@ -39,7 +40,7 @@ internal fun MendablePage(
 
             // Overview section
             Overview(
-                reports = reports,
+                report = report,
             )
 
             // Divider
@@ -47,7 +48,7 @@ internal fun MendablePage(
 
             // Individual module reports
             ModuleReports(
-                reports = reports,
+                reports = report.moduleReports,
             )
 
             Footer()
@@ -58,7 +59,7 @@ internal fun MendablePage(
 }
 
 private fun BODY.ModuleReports(
-    reports: List<ComposablesReport>,
+    reports: List<ModuleReport>,
 ) {
 
     reports.forEach { report ->
@@ -77,7 +78,7 @@ private fun BODY.Footer() {
 
     h1("footer") {
         br { }
-        +"Made with ❤️️ @ "
+        +"Made with <3 - "
         a(href = "https://github.com/jayasuryat/mendable") { +"Mendable" }
     }
 }
