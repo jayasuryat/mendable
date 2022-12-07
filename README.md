@@ -168,10 +168,13 @@ Your-project-metrics.html'.
 ./gradlew mendable:clean mendable:jar
 ```
 
+## Contributions
+Contributions are super welcome! See [Contributing Guidelines](https://github.com/jayasuryat/mendable/blob/main/CONTRIBUTING.md).
 
+## Discussions
+Have any questions or queries, or want to discuss anything? Feel free and [start a discussion](https://github.com/jayasuryat/mendable/discussions).
 
 ## Acknowledgements
-
 Huge thanks to [Shreyas Patil](https://github.com/PatilShreyas). This repo has been inspired by his version
 of [compose-report-to-html](https://github.com/PatilShreyas/compose-report-to-html) CLI tool.
 
