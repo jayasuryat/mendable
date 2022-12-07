@@ -8,7 +8,7 @@
   </a>
 
   <h1>A <code>CLI</code> tool to convert <code>multi-module</code></br><code>Jetpack Compose</code> compiler <code>metrics</code></br>into beautiful <code>HTML</code> reports</h1>
-  
+
   <a href="https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose" width="200"/></a>
 
 </div>
