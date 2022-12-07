@@ -9,7 +9,12 @@
 
   <h1>A <code>CLI</code> tool to convert <code>multi-module</code></br><code>Jetpack Compose</code> compiler <code>metrics</code></br>into beautiful <code>HTML</code> reports</h1>
 
-  <a href="https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose" width="200"/></a>
+  <a href="https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
+  
+   <p align="center">
+    <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+    <a href="https://github.com/jayasuryat/mendable/actions/workflows/main.yml"><img alt="CI" src="https://github.com/jayasuryat/mendable/actions/workflows/main.yml/badge.svg"/></a>
+  </p>
 
 </div>
 
