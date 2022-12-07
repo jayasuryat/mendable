@@ -11,7 +11,7 @@
   
   <a href="https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar">
     <picture>
-      <img alt="Mendable download" src="https://img.shields.io/badge/Mendable-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose" width="200">
+      <img alt="Mendable download" src="https://img.shields.io/badge/Mendable-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose">
     </picture>
   </a>
 
