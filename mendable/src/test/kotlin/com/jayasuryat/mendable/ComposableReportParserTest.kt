@@ -26,6 +26,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
+import kotlin.math.roundToInt
 
 class ComposableReportParserTest {
 
@@ -50,17 +51,26 @@ class ComposableReportParserTest {
         // Mapping
         val mapped: List<ComposablesReportFile> = getReportFiles(path = temporaryFolder.root.absolutePath)
         require(mapped.size == 1)
-        val reportFile = mapped.first()
 
         // Parsing the mapped values, this is the part being tested
-        val report: ComposablesReport = ComposableReportParser().parse(file = reportFile)
+        val report: ComposablesReport = ComposableReportParser().parse(mapped)
+
+        val overview = report.overview
+        Assertions.assertEquals(overview.totalComposables, 16)
+        Assertions.assertEquals(overview.restartableComposables, 12)
+        Assertions.assertEquals(overview.skippableComposables, 11)
+        val percentage = ((11 * 100f) / 12).roundToInt()
+        Assertions.assertEquals(overview.skippablePercentage, percentage)
+
+        Assertions.assertEquals(report.totalModules, 1)
+
+        val moduleOverview = report.moduleReports.first().overview
+        Assertions.assertEquals(overview, moduleOverview)
 
         val expected = readFileAsTextFromResources(fileName = "composables.json")
         require(!expected.isNullOrBlank())
 
         val actual = GsonBuilder().disableHtmlEscaping().create().toJson(report)
-
-        Assertions.assertEquals(report.composables.size, 16)
         Assertions.assertEquals(expected, actual)
     }
 }
