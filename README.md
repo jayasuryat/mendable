@@ -11,9 +11,11 @@
 
   <a href="https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
   
-   <p align="center">
+  <p align="center">
     <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
-    <a href="https://github.com/jayasuryat/mendable/actions/workflows/main.yml"><img alt="CI" src="https://github.com/jayasuryat/mendable/actions/workflows/main.yml/badge.svg"/></a>
+    <a href="https://androidweekly.net/issues/issue-548"><img alt="AndroidWeekly" src="https://img.shields.io/badge/AndroidWeekly-%23548-2299cc.svg?style=flat&logo=android"/></a>
+    <a href="https://mailchi.mp/kotlinweekly/kotlin-weekly-332"><img alt="KotlinWeekly" src="https://img.shields.io/badge/KotlinWeekly-%23332-7549b5.svg?style=flat&logo=kotlin"/></a>
+        <a href="https://github.com/jayasuryat/mendable/actions/workflows/main.yml"><img alt="CI" src="https://github.com/jayasuryat/mendable/actions/workflows/main.yml/badge.svg"/></a>
   </p>
 
 </div>
