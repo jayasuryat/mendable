@@ -53,6 +53,20 @@ internal class CliArguments(
         description = "Name of the output HTML file",
     ).default(defaultFileName)
 
+    val exportType: ExportType by parser.option(
+        type = ArgType.Choice(toVariant = { ExportType.find(it) }, toString = { it.name }),
+        fullName = "exportType",
+        shortName = "eType",
+        description = "Type of the export",
+    ).default(ExportType.HTML)
+
+    val reportType: ReportType by parser.option(
+        type = ArgType.Choice(toVariant = { ReportType.find(it) }, toString = { it.name }),
+        fullName = "reportType",
+        shortName = "rType",
+        description = "Type of the report",
+    ).default(ReportType.WARNINGS)
+
     init {
         parser.parse(args)
         validateInputs()

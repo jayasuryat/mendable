@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jaya Surya Thotapalli
+ * Copyright 2023 Jaya Surya Thotapalli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,33 +16,30 @@
 package com.jayasuryat.mendable.parser
 
 import com.jayasuryat.mendable.model.ComposablesReport
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter
-import com.jayasuryat.mendable.model.ComposablesReport.Overview
-import com.jayasuryat.mendable.model.ComposablesReportFile
+import com.jayasuryat.mendable.model.ComposeMetricFile
+import com.jayasuryat.mendable.model.Overview
 import kotlin.math.roundToInt
 
-internal class ComposableReportParser {
+internal class WarningReportParser : Parser {
 
-    fun parse(
-        files: List<ComposablesReportFile>
-    ): ComposablesReport {
-
-        val moduleReports: List<ModuleReport> = files.map { file -> parse(file) }
+    override fun parse(files: List<ComposeMetricFile>): ComposablesReport {
+        val moduleReports: List<ComposablesReport.ModuleReport> = files.map { file -> parse(file) }
         val overview: Overview = moduleReports
             .flatMap { report -> report.composables }
             .toOverview()
 
+        val filteredReports = moduleReports.filter { it.overview.skippablePercentage != 100 }
+
         return ComposablesReport(
-            moduleReports = moduleReports,
+            moduleReports = filteredReports,
             overview = overview,
+            totalModuleCount = moduleReports.size
         )
     }
 
     private fun parse(
-        file: ComposablesReportFile
-    ): ModuleReport {
+        file: ComposeMetricFile
+    ): ComposablesReport.ModuleReport {
 
         // Individual lines
         val lines: List<String> = file.content
@@ -64,14 +61,14 @@ internal class ComposableReportParser {
 
         val composables = functions.map { function -> function.parseFunction() } // TODO : Handle parsing exceptions
 
-        return ModuleReport(
+        return ComposablesReport.ModuleReport(
             module = file.module,
             composables = composables,
             overview = composables.toOverview(),
         )
     }
 
-    private fun String.parseFunction(): ComposableDetails {
+    private fun String.parseFunction(): ComposablesReport.ModuleReport.ComposableDetails {
 
         fun String.splitFunctionIntoLines(): List<String> {
 
@@ -108,7 +105,7 @@ internal class ComposableReportParser {
         val isSkippable = beforeFun.contains(SKIPPABLE_IDENTIFIER)
         val isInline = beforeFun.contains(INLINE_IDENTIFIER)
 
-        val params: List<Parameter> = if (lines.size == 1) {
+        val params: List<ComposablesReport.ModuleReport.ComposableDetails.Parameter> = if (lines.size == 1) {
             emptyList()
         } else {
             lines
@@ -117,7 +114,7 @@ internal class ComposableReportParser {
                 .parseParams()
         }
 
-        return ComposableDetails(
+        return ComposablesReport.ModuleReport.ComposableDetails(
             functionName = name,
             isRestartable = isRestartable,
             isSkippable = isSkippable,
@@ -126,7 +123,7 @@ internal class ComposableReportParser {
         )
     }
 
-    private fun List<String>.parseParams(): List<Parameter> {
+    private fun List<String>.parseParams(): List<ComposablesReport.ModuleReport.ComposableDetails.Parameter> {
 
         val params: MutableList<String> = mutableListOf()
 
@@ -159,7 +156,7 @@ internal class ComposableReportParser {
                     .indexOf(' ')
                     .takeIf { it != -1 }
 
-                val condition: Parameter.Condition
+                val condition: ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
                 val paramName: String
 
                 if (splitIndex != null) {
@@ -169,11 +166,11 @@ internal class ComposableReportParser {
                     paramName = stabilityAndName.drop(splitIndex + 1)
                 } else {
                     // Report does not have stability mentioned for this param
-                    condition = Parameter.Condition.UNKNOWN
+                    condition = ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.UNKNOWN
                     paramName = stabilityAndName.trim()
                 }
 
-                Parameter(
+                ComposablesReport.ModuleReport.ComposableDetails.Parameter(
                     condition = condition,
                     name = paramName,
                     type = type,
@@ -186,7 +183,7 @@ internal class ComposableReportParser {
         return this.replace(regex = duplicateWhiteSpaceRegex, " ")
     }
 
-    private fun List<ComposableDetails>.toOverview(): Overview {
+    private fun List<ComposablesReport.ModuleReport.ComposableDetails>.toOverview(): Overview {
 
         val allComposables = this
         val restartable = allComposables.filter { composable -> composable.isRestartable }
@@ -211,12 +208,13 @@ internal class ComposableReportParser {
         private const val INLINE_IDENTIFIER: String = "inline"
 
         object ConditionMapper {
-            fun from(value: String): Parameter.Condition = when (value.lowercase()) {
-                "stable" -> Parameter.Condition.STABLE
-                "unstable" -> Parameter.Condition.UNSTABLE
-                "unused" -> Parameter.Condition.UNUSED
-                else -> error("Unable to parse unrecognized value for condition '$value'")
-            }
+            fun from(value: String): ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition =
+                when (value.lowercase()) {
+                    "stable" -> ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.STABLE
+                    "unstable" -> ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.UNSTABLE
+                    "unused" -> ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.UNUSED
+                    else -> error("Unable to parse unrecognized value for condition '$value'")
+                }
         }
     }
 }

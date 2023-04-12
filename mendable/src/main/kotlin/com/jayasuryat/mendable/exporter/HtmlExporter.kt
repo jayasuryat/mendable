@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jaya Surya Thotapalli
+ * Copyright 2023 Jaya Surya Thotapalli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.model
+package com.jayasuryat.mendable.exporter
 
-import java.io.File
+import com.jayasuryat.mendable.html.MendablePage
+import com.jayasuryat.mendable.html.saveHtmlFile
+import com.jayasuryat.mendable.model.ComposablesReport
 
-internal data class ComposablesReportFile(
-    private val file: File,
-    val module: Module,
-) {
-
-    val content: String by lazy { file.readText() }
+internal class HtmlExporter : Exporter {
+    override fun export(fileName: String, outputPath: String, composableReport: ComposablesReport): String {
+        return saveHtmlFile(
+            htmlContent = MendablePage(composableReport),
+            fileName = fileName,
+            outputDirectory = outputPath,
+        )
+    }
 }

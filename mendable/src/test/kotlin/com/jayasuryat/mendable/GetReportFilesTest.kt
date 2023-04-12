@@ -15,8 +15,8 @@
  */
 package com.jayasuryat.mendable
 
-import com.jayasuryat.mendable.parser.METRICS_FILE_POSTFIX
-import com.jayasuryat.mendable.parser.getReportFiles
+import com.jayasuryat.mendable.filereader.METRICS_FILE_POSTFIX
+import com.jayasuryat.mendable.filereader.getReportFiles
 import org.junit.Rule
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -58,6 +58,46 @@ class GetReportFilesTest {
                 "${name}_${variant}$METRICS_FILE_POSTFIX"
             }
         }.flatten()
+
+        fileNames.forEach { name -> temporaryFolder.newFile(name) }
+
+        val files = getReportFiles(path = temporaryFolder.root.path)
+            .sortedBy { it.module.displayName }
+
+        Assertions.assertEquals(fileNames.size, files.size)
+
+        val filesIterator = files.iterator()
+
+        moduleNames.forEach { name ->
+            buildVariants.forEach { variant ->
+                val module = filesIterator.next().module
+                Assertions.assertEquals(module.name, name)
+                Assertions.assertEquals(module.buildVariant, variant)
+            }
+        }
+    }
+
+    @Test
+    fun `should read child directories`() {
+
+        val moduleNames = listOf(
+            "app",
+            "episodedetails",
+        ).sorted()
+
+        val buildVariants = listOf(
+            "release",
+            "qaRelease",
+        ).sorted()
+
+        val testParentFolderName = "testParentFolder"
+        val fileNames: List<String> = moduleNames.map { name ->
+            buildVariants.map { variant ->
+                "$testParentFolderName/${name}_${variant}$METRICS_FILE_POSTFIX"
+            }
+        }.flatten()
+
+        temporaryFolder.newFolder(testParentFolderName)
 
         fileNames.forEach { name -> temporaryFolder.newFile(name) }
 

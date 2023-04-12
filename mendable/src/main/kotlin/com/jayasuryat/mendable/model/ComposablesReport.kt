@@ -18,10 +18,8 @@ package com.jayasuryat.mendable.model
 internal data class ComposablesReport(
     val moduleReports: List<ModuleReport>,
     val overview: Overview,
+    val totalModuleCount: Int,
 ) {
-
-    val totalModules: Int = moduleReports.count()
-
     internal data class ModuleReport(
         val module: Module,
         val overview: Overview,
@@ -51,11 +49,4 @@ internal data class ComposablesReport(
             }
         }
     }
-
-    data class Overview(
-        val totalComposables: Int,
-        val restartableComposables: Int,
-        val skippableComposables: Int,
-        val skippablePercentage: Int,
-    )
 }

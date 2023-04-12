@@ -15,12 +15,11 @@
  */
 package com.jayasuryat.mendable
 
-import com.jayasuryat.mendable.html.MendablePage
-import com.jayasuryat.mendable.html.saveHtmlFile
+import com.jayasuryat.mendable.filereader.getReportFiles
 import com.jayasuryat.mendable.model.ComposablesReport
-import com.jayasuryat.mendable.model.ComposablesReportFile
-import com.jayasuryat.mendable.parser.ComposableReportParser
-import com.jayasuryat.mendable.parser.getReportFiles
+import com.jayasuryat.mendable.model.ComposeMetricFile
+import com.jayasuryat.mendable.exporter.create as createExporter
+import com.jayasuryat.mendable.parser.create as createParser
 
 public fun main(args: Array<String>) {
 
@@ -28,16 +27,15 @@ public fun main(args: Array<String>) {
     val arguments = CliArguments(args = args)
 
     // Reading files from Disk
-    val reportFiles: List<ComposablesReportFile> = getReportFiles(
+    val metricFiles: List<ComposeMetricFile> = getReportFiles(
         path = arguments.composablesReportsPath,
     )
 
     // Parsing them into workable format
-    val parsedReport: ComposablesReport = ComposableReportParser().parse(
-        files = reportFiles,
-    )
+    val composableReport: ComposablesReport = createParser(reportType = arguments.reportType)
+        .parse(files = metricFiles)
 
-    if (parsedReport.totalModules == 0) {
+    if (composableReport.overview.totalComposables == 0) {
         println()
         println("No composables.txt files found in the directory : ${arguments.composablesReportsPath}")
         println("Make sure to point the application to the directory which contains all the composables.txt files via the '--composablesReportsPath' or '--i' arguments.")
@@ -46,16 +44,12 @@ public fun main(args: Array<String>) {
     }
 
     // Generating HTML report from the parsed reports
-    val html: String = MendablePage(
-        report = parsedReport,
+    val reportPath = createExporter(arguments.exportType).export(
+        fileName = arguments.outputFileName,
+        outputPath = arguments.outputPath,
+        composableReport = composableReport
     )
 
     // Saving the HTML file
-    val savedPath: String = saveHtmlFile(
-        htmlContent = html,
-        fileName = arguments.outputFileName,
-        outputDirectory = arguments.outputPath,
-    )
-
-    println("\nOutput file saved at file://$savedPath")
+    println("\nOutput file saved at file://$reportPath")
 }

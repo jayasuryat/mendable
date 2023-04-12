@@ -29,7 +29,7 @@ internal fun BODY.Overview(
     // All modules combined overview
     div("overview-div") {
 
-        +"Scanned ${report.totalModules} ${if (report.totalModules > 1) "modules" else "module"}"
+        +"Scanned ${report.totalModuleCount} ${if (report.totalModuleCount > 1) "modules" else "module"}"
         br { +"${overview.totalComposables} composables" }
         br { +"${overview.restartableComposables} restartable" }
         br { +"${overview.skippableComposables} skippable" }
@@ -45,7 +45,7 @@ internal fun BODY.Overview(
         }
     }
 
-    if (report.totalModules > 1) {
+    if (report.totalModuleCount > 1) {
 
         ModuleOverviews(
             moduleReports = report.moduleReports,
