@@ -50,8 +50,8 @@ class FullyReportParserTest {
         Assertions.assertEquals(report.totalModuleCount, expectedTotalModuleCount)
 
         val expectedJson = getExpectedJsonForFullyReport()
+        val expected = Gson().fromJson(expectedJson, ComposablesReport::class.java)
 
-        val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
-        Assertions.assertEquals(expectedJson, actual)
+        Assertions.assertEquals(expected, report)
     }
 }
