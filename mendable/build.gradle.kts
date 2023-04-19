@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 
 plugins {
@@ -31,6 +32,9 @@ kotlin {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+    testLogging {
+        exceptionFormat = TestExceptionFormat.FULL
+    }
 }
 
 tasks.withType<Jar> {
