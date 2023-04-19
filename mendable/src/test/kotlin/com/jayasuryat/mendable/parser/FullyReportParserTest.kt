@@ -15,7 +15,7 @@
  */
 package com.jayasuryat.mendable.parser
 
-import com.google.gson.GsonBuilder
+import com.google.gson.Gson
 import com.jayasuryat.mendable.getExpectedJsonForFullyReport
 import com.jayasuryat.mendable.getReportFromTestFile
 import com.jayasuryat.mendable.model.ComposablesReport
