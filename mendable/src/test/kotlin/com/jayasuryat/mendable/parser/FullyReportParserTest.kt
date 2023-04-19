@@ -15,7 +15,7 @@
  */
 package com.jayasuryat.mendable.parser
 
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.jayasuryat.mendable.getExpectedJsonForFullyReport
 import com.jayasuryat.mendable.getReportFromTestFile
 import com.jayasuryat.mendable.model.ComposablesReport
@@ -50,8 +50,8 @@ class FullyReportParserTest {
         Assertions.assertEquals(report.totalModuleCount, expectedTotalModuleCount)
 
         val expectedJson = getExpectedJsonForFullyReport()
-        val expected = Gson().fromJson(expectedJson, ComposablesReport::class.java)
 
-        Assertions.assertEquals(expected, report)
+        val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
+        Assertions.assertEquals(expectedJson, actual)
     }
 }
