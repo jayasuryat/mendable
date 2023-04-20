@@ -16,6 +16,7 @@ dependencies {
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.skyscreamer:jsonassert:1.5.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")

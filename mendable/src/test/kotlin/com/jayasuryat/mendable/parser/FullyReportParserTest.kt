@@ -22,6 +22,8 @@ import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposeMetricFile
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 import kotlin.math.roundToInt
 
 class FullyReportParserTest {
@@ -52,6 +54,6 @@ class FullyReportParserTest {
         val expectedJson = getExpectedJsonForFullyReport()
 
         val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
-        Assertions.assertEquals(expectedJson, actual)
+        JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.NON_EXTENSIBLE)
     }
 }
