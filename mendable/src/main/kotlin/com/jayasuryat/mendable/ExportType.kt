@@ -17,15 +17,21 @@ package com.jayasuryat.mendable
 
 internal enum class ExportType {
 
-    HTML, JSON;
+    HTML,
+    JSON,
+    ;
 
     companion object {
+
         fun find(type: String): ExportType {
-            return if (JSON.name.equals(type, ignoreCase = true)) {
-                JSON
-            } else {
-                HTML
-            }
+
+            return ExportType
+                .values()
+                .firstOrNull { entry: ExportType -> entry.name.equals(type, ignoreCase = true) }
+                ?: error(
+                    "$type does not match with any entries of enum `${ExportType::class.java.canonicalName}`." +
+                        " Valid choices are ${ExportType.values().map { it.name }}"
+                )
         }
     }
 }

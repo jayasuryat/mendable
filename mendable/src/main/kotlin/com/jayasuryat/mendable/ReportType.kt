@@ -17,14 +17,21 @@ package com.jayasuryat.mendable
 
 internal enum class ReportType {
 
-    FULLY, WARNINGS;
+    FULLY,
+    WARNINGS,
+    ;
+
     companion object {
+
         fun find(type: String): ReportType {
-            return if (WARNINGS.name.equals(type, ignoreCase = true)) {
-                WARNINGS
-            } else {
-                FULLY
-            }
+
+            return ReportType
+                .values()
+                .firstOrNull { entry: ReportType -> entry.name.equals(type, ignoreCase = true) }
+                ?: error(
+                    "$type does not match with any entries of enum `${ReportType::class.java.canonicalName}`." +
+                        " Valid choices are ${ReportType.values().map { it.name }}"
+                )
         }
     }
 }
