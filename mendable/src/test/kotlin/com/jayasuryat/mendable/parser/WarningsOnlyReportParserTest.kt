@@ -44,15 +44,16 @@ class WarningsOnlyReportParserTest {
         val expectedSkippableCount = 12
         val expectedPercentage = ((expectedSkippableCount * 100f) / expectedRestartableCount).roundToInt()
         val expectedTotalModuleCount = 2
+        val expectedReportedModuleCount = 1
+        val expectedSkippedModuleCount = expectedTotalModuleCount - expectedReportedModuleCount
 
         Assertions.assertEquals(overview.totalComposables, expectedTotalComposablesCount)
         Assertions.assertEquals(overview.restartableComposables, expectedRestartableCount)
         Assertions.assertEquals(overview.skippableComposables, expectedSkippableCount)
         Assertions.assertEquals(overview.skippablePercentage, expectedPercentage)
         Assertions.assertEquals(report.totalModulesScanned, expectedTotalModuleCount)
-        // TODO: This test needs to updated.
-        //  totalModulesScanned, totalModulesReported & totalModulesFiltered need to be properly tested
-        //  And the json is also out of date now due to the changed schema
+        Assertions.assertEquals(report.totalModulesReported, expectedReportedModuleCount)
+        Assertions.assertEquals(report.totalModulesFiltered, expectedSkippedModuleCount)
 
         val expectedJson = getExpectedJsonForWarningReport()
 

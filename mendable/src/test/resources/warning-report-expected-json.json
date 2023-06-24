@@ -358,5 +358,7 @@
     "skippableComposables": 12,
     "skippablePercentage": 92
   },
-  "totalModuleCount": 2
+  "totalModulesScanned": 2,
+  "totalModulesReported": 1,
+  "totalModulesFiltered": 1
 }
