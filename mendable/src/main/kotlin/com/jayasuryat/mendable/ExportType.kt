@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jaya Surya Thotapalli
+ * Copyright 2023 Jaya Surya Thotapalli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,23 @@
  */
 package com.jayasuryat.mendable
 
-fun Any.readFileAsTextFromResources(fileName: String): String? {
-    return this::class.java.classLoader
-        ?.getResourceAsStream(fileName)
-        ?.bufferedReader()
-        ?.readText()
+internal enum class ExportType {
+
+    HTML,
+    JSON,
+    ;
+
+    companion object {
+
+        fun find(type: String): ExportType {
+
+            return ExportType
+                .values()
+                .firstOrNull { entry: ExportType -> entry.name.equals(type, ignoreCase = true) }
+                ?: error(
+                    "$type does not match with any entries of enum `${ExportType::class.java.canonicalName}`." +
+                        " Valid choices are ${ExportType.values().map { it.name }}"
+                )
+        }
+    }
 }

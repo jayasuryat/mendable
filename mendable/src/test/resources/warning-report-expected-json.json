@@ -1,0 +1,364 @@
+{
+  "moduleReports": [
+    {
+      "module": {
+        "name": "app",
+        "buildVariant": "release",
+        "id": "app_release",
+        "displayName": "app (release)"
+      },
+      "overview": {
+        "totalComposables": 16,
+        "restartableComposables": 12,
+        "skippableComposables": 11,
+        "skippablePercentage": 92
+      },
+      "composables": [
+        {
+          "functionName": "PreviewVC",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": []
+        },
+        {
+          "functionName": "PreviewVI",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": []
+        },
+        {
+          "functionName": "PreviewVP",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": []
+        },
+        {
+          "functionName": "Preview",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "UNKNOWN",
+              "name": "args",
+              "type": "LoginArgs"
+            }
+          ]
+        },
+        {
+          "functionName": "LanguageItem",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "modifier",
+              "type": "Modifier? = @static Companion"
+            },
+            {
+              "condition": "UNKNOWN",
+              "name": "language",
+              "type": "Language"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onClick",
+              "type": "Function0<Unit>"
+            }
+          ]
+        },
+        {
+          "functionName": "WebView",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "modifier",
+              "type": "Modifier? = @static Companion"
+            },
+            {
+              "condition": "STABLE",
+              "name": "url",
+              "type": "String"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onPageLoaded",
+              "type": "Function0<Unit>? = @static {}"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onScrollInitiated",
+              "type": "Function0<Unit>? = @static {}"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onScrolledToBottom",
+              "type": "Function0<Unit>? = @static {}"
+            }
+          ]
+        },
+        {
+          "functionName": "Content",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "modifier",
+              "type": "Modifier? = @static Companion"
+            },
+            {
+              "condition": "STABLE",
+              "name": "url",
+              "type": "String"
+            },
+            {
+              "condition": "STABLE",
+              "name": "isLoading",
+              "type": "State<Boolean>"
+            },
+            {
+              "condition": "STABLE",
+              "name": "dismiss",
+              "type": "Function0<Unit>"
+            },
+            {
+              "condition": "UNKNOWN",
+              "name": "webClient",
+              "type": "WebClient"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onRetry",
+              "type": "Function0<Unit>? = @static {}"
+            }
+          ]
+        },
+        {
+          "functionName": "Theme",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "colors",
+              "type": "Colors? = @static DefaultLightColorPalette"
+            },
+            {
+              "condition": "STABLE",
+              "name": "typography",
+              "type": "Typography? = @dynamic getDefaultTypography()"
+            },
+            {
+              "condition": "STABLE",
+              "name": "shapes",
+              "type": "Shapes? = @static DefaultShapes"
+            },
+            {
+              "condition": "STABLE",
+              "name": "content",
+              "type": "Function2<Composer, Int, Unit>"
+            }
+          ]
+        },
+        {
+          "functionName": "defaultColor",
+          "isRestartable": false,
+          "isSkippable": false,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "UNUSED",
+              "name": "stable <this>",
+              "type": "NoRippleTheme"
+            }
+          ]
+        },
+        {
+          "functionName": "rippleAlpha",
+          "isRestartable": false,
+          "isSkippable": false,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "UNUSED",
+              "name": "stable <this>",
+              "type": "NoRippleTheme"
+            }
+          ]
+        },
+        {
+          "functionName": "<get-success>",
+          "isRestartable": false,
+          "isSkippable": false,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "UNUSED",
+              "name": "stable <this>",
+              "type": "Colors"
+            }
+          ]
+        },
+        {
+          "functionName": "<get-onSuccess>",
+          "isRestartable": false,
+          "isSkippable": false,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "UNUSED",
+              "name": "stable <this>",
+              "type": "Colors"
+            }
+          ]
+        },
+        {
+          "functionName": "withTheme",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "content",
+              "type": "Function2<Composer, Int, Unit>"
+            },
+            {
+              "condition": "UNUSED",
+              "name": "stable <this>",
+              "type": "ThemeProvider"
+            }
+          ]
+        },
+        {
+          "functionName": "DateRangePicker",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "modifier",
+              "type": "Modifier? = @static Companion"
+            },
+            {
+              "condition": "UNSTABLE",
+              "name": "state",
+              "type": "CalendarState? = @dynamic remember({CalendarState ( )}, $composer, 0)"
+            },
+            {
+              "condition": "STABLE",
+              "name": "title",
+              "type": "String"
+            },
+            {
+              "condition": "STABLE",
+              "name": "applyTitle",
+              "type": "String? = @dynamic stringResource(string.apply, $composer, 0)"
+            },
+            {
+              "condition": "STABLE",
+              "name": "cancelTitle",
+              "type": "String? = @dynamic stringResource(string.cancel, $composer, 0)"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onCancelClicked",
+              "type": "Function0<Unit>"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onApplyClicked",
+              "type": "Function2<@[ParameterName(name = 'startDate')] LocalDate, @[ParameterName(name = 'endDate')] LocalDate?, Unit>"
+            }
+          ]
+        },
+        {
+          "functionName": "Settings",
+          "isRestartable": true,
+          "isSkippable": false,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "modifier",
+              "type": "Modifier? = @static Companion"
+            },
+            {
+              "condition": "UNKNOWN",
+              "name": "header",
+              "type": "Header"
+            },
+            {
+              "condition": "STABLE",
+              "name": "username",
+              "type": "String"
+            },
+            {
+              "condition": "STABLE",
+              "name": "appName",
+              "type": "String"
+            },
+            {
+              "condition": "UNSTABLE",
+              "name": "settingsItems",
+              "type": "List<SettingsItem>"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onSettingsItemClicked",
+              "type": "Function1<@[ParameterName(name = 'item')] SettingsDisplayItem, Unit>"
+            }
+          ]
+        },
+        {
+          "functionName": "SwipeDismissSnackbarHost",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": [
+            {
+              "condition": "STABLE",
+              "name": "hostState",
+              "type": "SnackbarHostState"
+            },
+            {
+              "condition": "STABLE",
+              "name": "modifier",
+              "type": "Modifier? = @static Companion"
+            },
+            {
+              "condition": "STABLE",
+              "name": "onDismiss",
+              "type": "Function0<Unit>? = @dynamic $composer.cache($composer.changed(hostState)) {{hostState . currentSnackbarData ?. dismiss ( )}}"
+            },
+            {
+              "condition": "STABLE",
+              "name": "snackbar",
+              "type": "Function3<SnackbarData, Composer, Int, Unit>? = @static composableLambda($composer, -1270928980, true) { data: SnackbarData, $composer: Composer?, $changed: Int ->if ( isTraceInProgress ( ) ) {traceEventStart ( -1270928980 , $changed , -1 , \"app.tivi.common.compose.ui.SwipeDismissSnackbarHost.<anonymous> (SwipeDismissSnackbar.kt:63)\" )}SwipeDismissSnackbar ( data , onDismiss , null , $composer , 0b1000 or 0b01110000 and $dirty shr 0b0011 , 0b0100 )if ( isTraceInProgress ( ) ) {"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "overview": {
+    "totalComposables": 17,
+    "restartableComposables": 13,
+    "skippableComposables": 12,
+    "skippablePercentage": 92
+  },
+  "totalModulesScanned": 2,
+  "totalModulesReported": 1,
+  "totalModulesFiltered": 1
+}

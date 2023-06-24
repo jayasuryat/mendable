@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jaya Surya Thotapalli
+ * Copyright 2023 Jaya Surya Thotapalli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,14 @@ import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
 import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails
 import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
 import com.jayasuryat.mendable.model.ComposablesReport.Overview
-import com.jayasuryat.mendable.model.ComposablesReportFile
+import com.jayasuryat.mendable.model.ComposeMetricFile
 import kotlin.math.roundToInt
 
-internal class ComposableReportParser {
+internal class ComposableReportParser : Parser {
 
-    fun parse(
-        files: List<ComposablesReportFile>
-    ): ComposablesReport {
+    override fun parse(files: List<ComposeMetricFile>): ComposablesReport {
 
         val moduleReports: List<ModuleReport> = files.map { file -> parse(file) }
         val overview: Overview = moduleReports
@@ -37,11 +36,13 @@ internal class ComposableReportParser {
         return ComposablesReport(
             moduleReports = moduleReports,
             overview = overview,
+            totalModulesScanned = moduleReports.size,
+            totalModulesReported = moduleReports.size,
         )
     }
 
     private fun parse(
-        file: ComposablesReportFile
+        file: ComposeMetricFile,
     ): ModuleReport {
 
         // Individual lines
@@ -159,7 +160,7 @@ internal class ComposableReportParser {
                     .indexOf(' ')
                     .takeIf { it != -1 }
 
-                val condition: Parameter.Condition
+                val condition: Condition
                 val paramName: String
 
                 if (splitIndex != null) {
@@ -169,7 +170,7 @@ internal class ComposableReportParser {
                     paramName = stabilityAndName.drop(splitIndex + 1)
                 } else {
                     // Report does not have stability mentioned for this param
-                    condition = Parameter.Condition.UNKNOWN
+                    condition = Condition.UNKNOWN
                     paramName = stabilityAndName.trim()
                 }
 
@@ -211,12 +212,13 @@ internal class ComposableReportParser {
         private const val INLINE_IDENTIFIER: String = "inline"
 
         object ConditionMapper {
-            fun from(value: String): Parameter.Condition = when (value.lowercase()) {
-                "stable" -> Parameter.Condition.STABLE
-                "unstable" -> Parameter.Condition.UNSTABLE
-                "unused" -> Parameter.Condition.UNUSED
-                else -> error("Unable to parse unrecognized value for condition '$value'")
-            }
+            fun from(value: String): Condition =
+                when (value.lowercase()) {
+                    "stable" -> Condition.STABLE
+                    "unstable" -> Condition.UNSTABLE
+                    "unused" -> Condition.UNUSED
+                    else -> error("Unable to parse unrecognized value for condition '$value'")
+                }
         }
     }
 }

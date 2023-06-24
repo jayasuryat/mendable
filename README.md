@@ -7,9 +7,9 @@
     </picture>
   </a>
 
-  <h1>A <code>CLI</code> tool to convert <code>multi-module</code></br><code>Jetpack Compose</code> compiler <code>metrics</code></br>into beautiful <code>HTML</code> reports</h1>
+  <h1>A <code>CLI</code> tool to convert <code>multi-module</code></br><code>Jetpack Compose</code> compiler <code>metrics</code></br>into beautiful <code>HTML</code> and <code>JSON</code> reports</h1>
 
-  <a href="https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.5.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
+  <a href="https://github.com/jayasuryat/mendable/releases/download/0.6.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.6.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
   
   <p align="center">
     <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
@@ -45,16 +45,15 @@ reasonably readable. But, over time these files get big and unwieldy to work wit
 each-and-every `composable` in those `txt files` becomes cumbersome and clumsy. Also, these reports are spread across
 different `files` for different `modules`.
 
-**That is where Mendable comes in and takes care of generating `HTML reports` for `Compose` `compiler metrics`, which
+**That is where Mendable comes in and takes care of generating `HTML or  JSON reports` for `Compose` `compiler metrics`, which
 are much easier to work with. And Mendable only presents `composable` methods which need your attention, and highlights
 the issue-causing part with appropriate colors. It filters out the rest of the `composables` which are
 non-problematic.**
 
 Mendable also takes reports of `multiple modules` and merges them into different sections of a single
-beautiful `HTML page` to reduce going back and forth while working.
+beautiful `HTML page` or `Formatted JSON report` to reduce going back and forth while working.
 
-> **Note** : Mendable only generates HTML report for the composables metrics. In other words, it only targets
-> the '<module>-composables.txt` files.
+> **Note** : To generate report, Mendable targets the '<module>-composables.txt` files.
 
 <details>
   <summary><h2>3. Gradle setup - for generating Compose compiler metrics</h2></summary>
@@ -120,11 +119,13 @@ It is very straightforward. Download and execute the `jar` file while **pointing
 contains all the Compose compiler-generated metrics files.
 
 Mendable will take care of the rest. It will figure out metrics files of individual `modules`, `parse` them, `compute`
-and `generate` a beautiful `HTML report` for you.
+and `generate` a beautiful `report` for you.
 
-### 4.1 ✨ Generate HTML report with a single command ✨
+### 4.1 ✨ Generate report with a single command ✨
 
-[Download](https://github.com/jayasuryat/mendable/releases/download/0.5.0/mendable.jar) and place the `jar` file in the same folder which contains all the generated Compose compiler metrics (
+#### ✨ Generate HTML report with a single command ✨
+
+[Download](https://github.com/jayasuryat/mendable/releases/download/0.6.0/mendable.jar) and place the `jar` file in the same folder which contains all the generated Compose compiler metrics (
 should be YourProject/build/compose_metrics). And then execute the `jar` file with the following `command`.
 
 ```
@@ -133,6 +134,19 @@ java -jar mendable.jar
 
 After executing this `command` there should be `index.html` file generated in the same folder, which will contain the
 combined metrics of all the modules.
+
+#### ✨ Generate JSON report with a single command ✨
+
+[Download](https://github.com/jayasuryat/mendable/releases/download/0.6.0/mendable.jar) and place the `jar` file in the same folder which contains all the generated Compose compiler metrics (
+should be YourProject/build/compose_metrics). And then execute the `jar` file with the following `command`.
+
+```
+java -jar mendable.jar --exportType json
+```
+
+After executing this `command` there should be `index.json` file generated in the same folder, which will contain the
+combined metrics of all the modules.
+
 
 <details>
     <summary><h3>4.2 Generate HTML report by specifying paths manually</h3></summary>
@@ -144,7 +158,9 @@ and writing files to custom locations. The following are the supported options v
 java -jar mendable.jar
     --composablesReportsPath, -i  [Default value : <Current working dir>] -> Path to the directory containing all of the composables.txt files
     --htmlOutputPath, -o          [Default value : <Current working dir>] -> HTML output directory
-    --outputName, -oName          [Default value : "index"]               -> Name of the output HTML file
+    --outputName, -oName          [Default value : "index"]               -> Name of the output file
+    --exportType, -eType          [Default value : "html"]                -> Export type of the output file
+    --reportType, -rType          [Default value : "fully"]               -> Report type of the output file
     --help, -h                                                            -> Usage info
 ```
 
@@ -155,6 +171,8 @@ java -jar mendable.jar
     -i /Users/username/Desktop/Your-project/build/compose_metrics \
     -o /Users/username/Desktop/Reports \
     -oName Your-project-metrics \
+    -eType json \
+    -rType warning \
 ```
 
 For the above command, files will be `read` from '/Users/username/Desktop/Your-project/build/compose_metrics' and

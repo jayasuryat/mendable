@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jaya Surya Thotapalli
+ * Copyright 2023 Jaya Surya Thotapalli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.model
+package com.jayasuryat.mendable.parser
 
-import java.io.File
+import com.jayasuryat.mendable.IncludeModules
 
-internal data class ComposablesReportFile(
-    private val file: File,
-    val module: Module,
-) {
+internal fun Parser.Companion.create(
+    includeModules: IncludeModules,
+): Parser {
 
-    val content: String by lazy { file.readText() }
+    return when (includeModules) {
+
+        IncludeModules.ALL -> ComposableReportParser()
+
+        IncludeModules.WITH_WARNINGS -> WarningsOnlyReportParser(
+            backingParser = ComposableReportParser(),
+        )
+    }
 }

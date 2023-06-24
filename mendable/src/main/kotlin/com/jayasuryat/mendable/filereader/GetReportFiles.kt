@@ -13,27 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.parser
+package com.jayasuryat.mendable.filereader
 
-import com.jayasuryat.mendable.model.ComposablesReportFile
+import com.jayasuryat.mendable.model.ComposeMetricFile
 import com.jayasuryat.mendable.model.Module
 import java.io.File
 
 internal fun getReportFiles(
     path: String,
-): List<ComposablesReportFile> {
+): List<ComposeMetricFile> {
 
     println()
     println("Reading files at path $path")
 
     val rootFile = File(path)
 
-    val metricFiles: List<File> = rootFile
-        .listFiles { file -> file.isFile && file.name.endsWith(METRICS_FILE_POSTFIX) }
-        ?.sortedBy { file -> file.name }
-        ?: return emptyList()
-
-    return metricFiles.map { file ->
+    return findComposeFiles(rootFile).map { file ->
 
         // Example file name : compose_release-composables.txt
 
@@ -45,7 +40,7 @@ internal fun getReportFiles(
             endIndex = name.length - METRICS_FILE_POSTFIX.length,
         ).toString()
 
-        ComposablesReportFile(
+        ComposeMetricFile(
             file = file,
             module = Module(
                 name = moduleName,
@@ -55,7 +50,22 @@ internal fun getReportFiles(
     }.also(::logDetails)
 }
 
-private fun logDetails(files: List<ComposablesReportFile>) {
+private fun findComposeFiles(directory: File): List<File> {
+    if (!directory.isDirectory) {
+        return emptyList()
+    }
+    val list = mutableListOf<File>()
+    directory.listFiles().orEmpty().forEach { file ->
+        when {
+            file.isDirectory -> list.addAll(findComposeFiles(file))
+            file.isFile && file.name.endsWith(METRICS_FILE_POSTFIX) -> list.add(file)
+            else -> { /* Do nothing */ }
+        }
+    }
+    list.sortedBy { file -> file.name }
+    return list
+}
+private fun logDetails(files: List<ComposeMetricFile>) {
     if (files.isEmpty()) return
     println()
     println("${files.count()} metrics file(s) found :")
