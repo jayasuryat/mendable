@@ -18,5 +18,12 @@ package com.jayasuryat.mendable.exporter
 import com.jayasuryat.mendable.model.ComposablesReport
 
 internal interface Exporter {
-    fun export(fileName: String, outputPath: String, composableReport: ComposablesReport): String
+
+    fun export(
+        fileName: String,
+        outputPath: String,
+        composableReport: ComposablesReport,
+    ): String
+
+    companion object
 }

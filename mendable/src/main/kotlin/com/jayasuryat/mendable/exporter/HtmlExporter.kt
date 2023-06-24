@@ -16,15 +16,33 @@
 package com.jayasuryat.mendable.exporter
 
 import com.jayasuryat.mendable.html.MendablePage
-import com.jayasuryat.mendable.html.saveHtmlFile
 import com.jayasuryat.mendable.model.ComposablesReport
+import java.io.File
+import java.nio.file.Paths
+import kotlin.io.path.absolutePathString
 
 internal class HtmlExporter : Exporter {
-    override fun export(fileName: String, outputPath: String, composableReport: ComposablesReport): String {
+
+    override fun export(
+        fileName: String,
+        outputPath: String,
+        composableReport: ComposablesReport,
+    ): String {
         return saveHtmlFile(
             htmlContent = MendablePage(composableReport),
             fileName = fileName,
             outputDirectory = outputPath,
         )
+    }
+
+    private fun saveHtmlFile(
+        htmlContent: String,
+        fileName: String = "index",
+        outputDirectory: String,
+    ): String {
+        val directory = File(Paths.get(outputDirectory).absolutePathString())
+        val file = File("${directory.absolutePath}/$fileName.html")
+        file.writeText(htmlContent)
+        return file.canonicalPath
     }
 }

@@ -15,11 +15,17 @@
  */
 package com.jayasuryat.mendable.model
 
+import kotlin.LazyThreadSafetyMode.NONE
+
 internal data class ComposablesReport(
     val moduleReports: List<ModuleReport>,
     val overview: Overview,
-    val totalModuleCount: Int,
+    val totalModulesScanned: Int,
+    val totalModulesReported: Int,
 ) {
+
+    val totalModulesFiltered: Int by lazy(NONE) { totalModulesScanned - totalModulesReported }
+
     internal data class ModuleReport(
         val module: Module,
         val overview: Overview,
@@ -49,4 +55,11 @@ internal data class ComposablesReport(
             }
         }
     }
+
+    data class Overview(
+        val totalComposables: Int,
+        val restartableComposables: Int,
+        val skippableComposables: Int,
+        val skippablePercentage: Int,
+    )
 }

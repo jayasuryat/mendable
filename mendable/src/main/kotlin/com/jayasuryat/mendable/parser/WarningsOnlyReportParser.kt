@@ -18,9 +18,23 @@ package com.jayasuryat.mendable.parser
 import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposeMetricFile
 
-internal interface Parser {
+internal class WarningsOnlyReportParser(
+    private val backingParser: Parser,
+) : Parser {
 
-    fun parse(files: List<ComposeMetricFile>): ComposablesReport
+    override fun parse(files: List<ComposeMetricFile>): ComposablesReport {
 
-    companion object
+        val backingReport = backingParser.parse(files)
+
+        val moduleReports: List<ComposablesReport.ModuleReport> = backingReport.moduleReports
+
+        val filteredReports = moduleReports.filter { it.overview.skippablePercentage != 100 }
+
+        return ComposablesReport(
+            moduleReports = filteredReports,
+            overview = backingReport.overview,
+            totalModulesScanned = backingReport.moduleReports.size,
+            totalModulesReported = filteredReports.size,
+        )
+    }
 }

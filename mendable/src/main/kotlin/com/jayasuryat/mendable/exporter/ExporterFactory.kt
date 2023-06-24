@@ -17,7 +17,10 @@ package com.jayasuryat.mendable.exporter
 
 import com.jayasuryat.mendable.ExportType
 
-internal fun create(exportType: ExportType): Exporter {
+internal fun Exporter.Companion.create(
+    exportType: ExportType,
+): Exporter {
+
     return when (exportType) {
         ExportType.HTML -> HtmlExporter()
         ExportType.JSON -> JSONExporter()

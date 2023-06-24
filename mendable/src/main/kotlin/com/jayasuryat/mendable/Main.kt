@@ -15,11 +15,13 @@
  */
 package com.jayasuryat.mendable
 
+import com.jayasuryat.mendable.exporter.Exporter
+import com.jayasuryat.mendable.exporter.create
 import com.jayasuryat.mendable.filereader.getReportFiles
 import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposeMetricFile
-import com.jayasuryat.mendable.exporter.create as createExporter
-import com.jayasuryat.mendable.parser.create as createParser
+import com.jayasuryat.mendable.parser.Parser
+import com.jayasuryat.mendable.parser.create
 
 public fun main(args: Array<String>) {
 
@@ -32,7 +34,8 @@ public fun main(args: Array<String>) {
     )
 
     // Parsing them into workable format
-    val composableReport: ComposablesReport = createParser(reportType = arguments.reportType)
+    val composableReport: ComposablesReport = Parser
+        .create(includeModules = arguments.includeModules)
         .parse(files = metricFiles)
 
     if (composableReport.overview.totalComposables == 0) {
@@ -44,12 +47,14 @@ public fun main(args: Array<String>) {
     }
 
     // Generating HTML report from the parsed reports
-    val reportPath = createExporter(arguments.exportType).export(
-        fileName = arguments.outputFileName,
-        outputPath = arguments.outputPath,
-        composableReport = composableReport
-    )
+    val reportPath = Exporter
+        .create(arguments.exportType)
+        .export(
+            fileName = arguments.outputFileName,
+            outputPath = arguments.outputPath,
+            composableReport = composableReport
+        )
 
-    // Saving the HTML file
+    // Saving the output file
     println("\nOutput file saved at file://$reportPath")
 }

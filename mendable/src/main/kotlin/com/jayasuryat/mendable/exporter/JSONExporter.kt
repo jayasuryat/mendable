@@ -22,7 +22,12 @@ import java.nio.file.Paths
 import kotlin.io.path.absolutePathString
 
 internal class JSONExporter : Exporter {
-    override fun export(fileName: String, outputPath: String, composableReport: ComposablesReport): String {
+
+    override fun export(
+        fileName: String,
+        outputPath: String,
+        composableReport: ComposablesReport,
+    ): String {
         return saveJsonFile(
             json = GsonBuilder().setPrettyPrinting().create().toJson(composableReport),
             fileName = fileName,

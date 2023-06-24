@@ -15,11 +15,18 @@
  */
 package com.jayasuryat.mendable.parser
 
-import com.jayasuryat.mendable.ReportType
+import com.jayasuryat.mendable.IncludeModules
 
-internal fun create(reportType: ReportType): Parser {
-    return when (reportType) {
-        ReportType.FULLY -> FullyReportParser()
-        ReportType.WARNINGS -> WarningReportParser()
+internal fun Parser.Companion.create(
+    includeModules: IncludeModules,
+): Parser {
+
+    return when (includeModules) {
+
+        IncludeModules.ALL -> ComposableReportParser()
+
+        IncludeModules.WITH_WARNINGS -> WarningsOnlyReportParser(
+            backingParser = ComposableReportParser(),
+        )
     }
 }

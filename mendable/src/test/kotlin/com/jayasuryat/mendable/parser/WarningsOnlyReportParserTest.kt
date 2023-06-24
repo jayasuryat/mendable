@@ -16,19 +16,19 @@
 package com.jayasuryat.mendable.parser
 
 import com.google.gson.GsonBuilder
-import com.jayasuryat.mendable.getExpectedJsonForFullyReport
+import com.jayasuryat.mendable.getExpectedJsonForWarningReport
 import com.jayasuryat.mendable.getReportFromTestFile
 import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposeMetricFile
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
 import kotlin.math.roundToInt
 
-class FullyReportParserTest {
+class WarningsOnlyReportParserTest {
 
-    private val parser = FullyReportParser()
+    private val parser = WarningsOnlyReportParser(
+        backingParser = ComposableReportParser()
+    )
 
     @Test
     fun `ComposableReportParser should parse all composables correctly`() {
@@ -49,11 +49,14 @@ class FullyReportParserTest {
         Assertions.assertEquals(overview.restartableComposables, expectedRestartableCount)
         Assertions.assertEquals(overview.skippableComposables, expectedSkippableCount)
         Assertions.assertEquals(overview.skippablePercentage, expectedPercentage)
-        Assertions.assertEquals(report.totalModuleCount, expectedTotalModuleCount)
+        Assertions.assertEquals(report.totalModulesScanned, expectedTotalModuleCount)
+        // TODO: This test needs to updated.
+        //  totalModulesScanned, totalModulesReported & totalModulesFiltered need to be properly tested
+        //  And the json is also out of date now due to the changed schema
 
-        val expectedJson = getExpectedJsonForFullyReport()
+        val expectedJson = getExpectedJsonForWarningReport()
 
         val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
-        JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.NON_EXTENSIBLE)
+        Assertions.assertEquals(expectedJson, actual)
     }
 }

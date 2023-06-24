@@ -16,17 +16,19 @@
 package com.jayasuryat.mendable.parser
 
 import com.google.gson.GsonBuilder
-import com.jayasuryat.mendable.getExpectedJsonForWarningReport
+import com.jayasuryat.mendable.getExpectedJsonForFullyReport
 import com.jayasuryat.mendable.getReportFromTestFile
 import com.jayasuryat.mendable.model.ComposablesReport
 import com.jayasuryat.mendable.model.ComposeMetricFile
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 import kotlin.math.roundToInt
 
-class WarningReportParserTest {
+class ComposableReportParserTest {
 
-    private val parser = WarningReportParser()
+    private val parser = ComposableReportParser()
 
     @Test
     fun `ComposableReportParser should parse all composables correctly`() {
@@ -47,11 +49,13 @@ class WarningReportParserTest {
         Assertions.assertEquals(overview.restartableComposables, expectedRestartableCount)
         Assertions.assertEquals(overview.skippableComposables, expectedSkippableCount)
         Assertions.assertEquals(overview.skippablePercentage, expectedPercentage)
-        Assertions.assertEquals(report.totalModuleCount, expectedTotalModuleCount)
+        Assertions.assertEquals(report.totalModulesScanned, expectedTotalModuleCount)
+        Assertions.assertEquals(report.totalModulesReported, expectedTotalModuleCount)
+        Assertions.assertEquals(report.totalModulesFiltered, 0)
 
-        val expectedJson = getExpectedJsonForWarningReport()
+        val expectedJson = getExpectedJsonForFullyReport()
 
         val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
-        Assertions.assertEquals(expectedJson, actual)
+        JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.NON_EXTENSIBLE)
     }
 }

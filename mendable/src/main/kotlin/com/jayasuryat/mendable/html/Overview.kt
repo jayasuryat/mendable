@@ -29,7 +29,13 @@ internal fun BODY.Overview(
     // All modules combined overview
     div("overview-div") {
 
-        +"Scanned ${report.totalModuleCount} ${if (report.totalModuleCount > 1) "modules" else "module"}"
+        +"${report.totalModulesScanned} ${if (report.totalModulesScanned > 1) "modules" else "module"} scanned"
+
+        if (report.totalModulesScanned != report.totalModulesReported) {
+            br { +"${report.totalModulesReported}  ${if (report.totalModulesReported > 1) "modules" else "module"} reported" }
+            br { +"${report.totalModulesFiltered}  ${if (report.totalModulesFiltered > 1) "modules" else "module"} filtered" }
+        }
+
         br { +"${overview.totalComposables} composables" }
         br { +"${overview.restartableComposables} restartable" }
         br { +"${overview.skippableComposables} skippable" }
@@ -45,7 +51,7 @@ internal fun BODY.Overview(
         }
     }
 
-    if (report.totalModuleCount > 1) {
+    if (report.totalModulesReported > 1) {
 
         ModuleOverviews(
             moduleReports = report.moduleReports,

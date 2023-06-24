@@ -16,30 +16,34 @@
 package com.jayasuryat.mendable.parser
 
 import com.jayasuryat.mendable.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter
+import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
+import com.jayasuryat.mendable.model.ComposablesReport.Overview
 import com.jayasuryat.mendable.model.ComposeMetricFile
-import com.jayasuryat.mendable.model.Overview
 import kotlin.math.roundToInt
 
-internal class WarningReportParser : Parser {
+internal class ComposableReportParser : Parser {
 
     override fun parse(files: List<ComposeMetricFile>): ComposablesReport {
-        val moduleReports: List<ComposablesReport.ModuleReport> = files.map { file -> parse(file) }
+
+        val moduleReports: List<ModuleReport> = files.map { file -> parse(file) }
         val overview: Overview = moduleReports
             .flatMap { report -> report.composables }
             .toOverview()
 
-        val filteredReports = moduleReports.filter { it.overview.skippablePercentage != 100 }
-
         return ComposablesReport(
-            moduleReports = filteredReports,
+            moduleReports = moduleReports,
             overview = overview,
-            totalModuleCount = moduleReports.size
+            totalModulesScanned = moduleReports.size,
+            totalModulesReported = moduleReports.size,
         )
     }
 
     private fun parse(
-        file: ComposeMetricFile
-    ): ComposablesReport.ModuleReport {
+        file: ComposeMetricFile,
+    ): ModuleReport {
 
         // Individual lines
         val lines: List<String> = file.content
@@ -61,14 +65,14 @@ internal class WarningReportParser : Parser {
 
         val composables = functions.map { function -> function.parseFunction() } // TODO : Handle parsing exceptions
 
-        return ComposablesReport.ModuleReport(
+        return ModuleReport(
             module = file.module,
             composables = composables,
             overview = composables.toOverview(),
         )
     }
 
-    private fun String.parseFunction(): ComposablesReport.ModuleReport.ComposableDetails {
+    private fun String.parseFunction(): ComposableDetails {
 
         fun String.splitFunctionIntoLines(): List<String> {
 
@@ -105,7 +109,7 @@ internal class WarningReportParser : Parser {
         val isSkippable = beforeFun.contains(SKIPPABLE_IDENTIFIER)
         val isInline = beforeFun.contains(INLINE_IDENTIFIER)
 
-        val params: List<ComposablesReport.ModuleReport.ComposableDetails.Parameter> = if (lines.size == 1) {
+        val params: List<Parameter> = if (lines.size == 1) {
             emptyList()
         } else {
             lines
@@ -114,7 +118,7 @@ internal class WarningReportParser : Parser {
                 .parseParams()
         }
 
-        return ComposablesReport.ModuleReport.ComposableDetails(
+        return ComposableDetails(
             functionName = name,
             isRestartable = isRestartable,
             isSkippable = isSkippable,
@@ -123,7 +127,7 @@ internal class WarningReportParser : Parser {
         )
     }
 
-    private fun List<String>.parseParams(): List<ComposablesReport.ModuleReport.ComposableDetails.Parameter> {
+    private fun List<String>.parseParams(): List<Parameter> {
 
         val params: MutableList<String> = mutableListOf()
 
@@ -156,7 +160,7 @@ internal class WarningReportParser : Parser {
                     .indexOf(' ')
                     .takeIf { it != -1 }
 
-                val condition: ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
+                val condition: Condition
                 val paramName: String
 
                 if (splitIndex != null) {
@@ -166,11 +170,11 @@ internal class WarningReportParser : Parser {
                     paramName = stabilityAndName.drop(splitIndex + 1)
                 } else {
                     // Report does not have stability mentioned for this param
-                    condition = ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.UNKNOWN
+                    condition = Condition.UNKNOWN
                     paramName = stabilityAndName.trim()
                 }
 
-                ComposablesReport.ModuleReport.ComposableDetails.Parameter(
+                Parameter(
                     condition = condition,
                     name = paramName,
                     type = type,
@@ -183,7 +187,7 @@ internal class WarningReportParser : Parser {
         return this.replace(regex = duplicateWhiteSpaceRegex, " ")
     }
 
-    private fun List<ComposablesReport.ModuleReport.ComposableDetails>.toOverview(): Overview {
+    private fun List<ComposableDetails>.toOverview(): Overview {
 
         val allComposables = this
         val restartable = allComposables.filter { composable -> composable.isRestartable }
@@ -208,11 +212,11 @@ internal class WarningReportParser : Parser {
         private const val INLINE_IDENTIFIER: String = "inline"
 
         object ConditionMapper {
-            fun from(value: String): ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition =
+            fun from(value: String): Condition =
                 when (value.lowercase()) {
-                    "stable" -> ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.STABLE
-                    "unstable" -> ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.UNSTABLE
-                    "unused" -> ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition.UNUSED
+                    "stable" -> Condition.STABLE
+                    "unstable" -> Condition.UNSTABLE
+                    "unused" -> Condition.UNUSED
                     else -> error("Unable to parse unrecognized value for condition '$value'")
                 }
         }
