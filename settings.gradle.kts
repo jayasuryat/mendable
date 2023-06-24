@@ -1,3 +1,3 @@
-rootProject.name = "mendable-maunal-updates"
+rootProject.name = "Mendable"
 
 include("mendable")

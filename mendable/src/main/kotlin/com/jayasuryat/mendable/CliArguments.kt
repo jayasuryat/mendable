@@ -60,12 +60,12 @@ internal class CliArguments(
         description = "Type of the export",
     ).default(ExportType.HTML)
 
-    val reportType: ReportType by parser.option(
-        type = ArgType.Choice(toVariant = { ReportType.find(it) }, toString = { it.name }),
+    val includeModules: IncludeModules by parser.option(
+        type = ArgType.Choice(toVariant = { IncludeModules.find(it) }, toString = { it.name }),
         fullName = "reportType",
         shortName = "rType",
         description = "Type of the report",
-    ).default(ReportType.WARNINGS)
+    ).default(IncludeModules.WITH_WARNINGS)
 
     init {
         parser.parse(args)

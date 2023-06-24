@@ -15,22 +15,22 @@
  */
 package com.jayasuryat.mendable
 
-internal enum class ReportType {
+internal enum class IncludeModules {
 
-    FULLY,
-    WARNINGS,
+    ALL,
+    WITH_WARNINGS,
     ;
 
     companion object {
 
-        fun find(type: String): ReportType {
+        fun find(type: String): IncludeModules {
 
-            return ReportType
+            return IncludeModules
                 .values()
-                .firstOrNull { entry: ReportType -> entry.name.equals(type, ignoreCase = true) }
+                .firstOrNull { entry: IncludeModules -> entry.name.equals(type, ignoreCase = true) }
                 ?: error(
-                    "$type does not match with any entries of enum `${ReportType::class.java.canonicalName}`." +
-                        " Valid choices are ${ReportType.values().map { it.name }}"
+                    "$type does not match with any entries of enum `${IncludeModules::class.java.canonicalName}`." +
+                        " Valid choices are ${IncludeModules.values().map { it.name }}"
                 )
         }
     }
