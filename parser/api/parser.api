@@ -1,0 +1,87 @@
+public abstract interface class com/jayasuryat/mendable/parser/Parser {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/Parser$Companion;
+	public abstract fun parse (Ljava/util/List;)Lcom/jayasuryat/mendable/parser/model/ComposablesReport;
+}
+
+public final class com/jayasuryat/mendable/parser/Parser$Companion {
+}
+
+public final class com/jayasuryat/mendable/parser/ParserApiKt {
+	public static final fun create (Lcom/jayasuryat/mendable/parser/Parser$Companion;)Lcom/jayasuryat/mendable/parser/Parser;
+	public static final fun parse (Lcom/jayasuryat/mendable/metricsfile/MetricsFile;)Lcom/jayasuryat/mendable/parser/model/ComposablesReport;
+	public static final fun parse (Ljava/util/List;)Lcom/jayasuryat/mendable/parser/model/ComposablesReport;
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposablesReport$Companion;
+	public fun <init> (Ljava/util/List;Lcom/jayasuryat/mendable/parser/model/ComposablesReport$Overview;II)V
+	public final fun getModuleReports ()Ljava/util/List;
+	public final fun getOverview ()Lcom/jayasuryat/mendable/parser/model/ComposablesReport$Overview;
+	public final fun getTotalModulesFiltered ()I
+	public final fun getTotalModulesReported ()I
+	public final fun getTotalModulesScanned ()I
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$Companion {
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$Companion;
+	public fun <init> (Lcom/jayasuryat/mendable/metricsfile/Module;Lcom/jayasuryat/mendable/parser/model/ComposablesReport$Overview;Ljava/util/List;)V
+	public final fun getComposables ()Ljava/util/List;
+	public final fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public final fun getOverview ()Lcom/jayasuryat/mendable/parser/model/ComposablesReport$Overview;
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$Companion {
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Companion;
+	public fun <init> (Ljava/lang/String;ZZZLjava/util/List;)V
+	public final fun getFunctionName ()Ljava/lang/String;
+	public final fun getParams ()Ljava/util/List;
+	public final fun isInline ()Z
+	public final fun isRestartable ()Z
+	public final fun isSkippable ()Z
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Companion {
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Companion;
+	public fun <init> (Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getCondition ()Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getType ()Ljava/lang/String;
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Companion {
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition : java/lang/Enum {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition$Companion;
+	public static final field STABLE Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+	public static final field UNKNOWN Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+	public static final field UNSTABLE Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+	public static final field UNUSED Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+	public static fun values ()[Lcom/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition;
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$ModuleReport$ComposableDetails$Parameter$Condition$Companion {
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$Overview {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposablesReport$Overview$Companion;
+	public fun <init> (IIII)V
+	public final fun getRestartableComposables ()I
+	public final fun getSkippableComposables ()I
+	public final fun getSkippablePercentage ()I
+	public final fun getTotalComposables ()I
+}
+
+public final class com/jayasuryat/mendable/parser/model/ComposablesReport$Overview$Companion {
+}
+

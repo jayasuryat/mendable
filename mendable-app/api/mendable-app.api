@@ -1,0 +1,4 @@
+public final class com/jayasuryat/mendable/app/MainKt {
+	public static final fun main ([Ljava/lang/String;)V
+}
+
