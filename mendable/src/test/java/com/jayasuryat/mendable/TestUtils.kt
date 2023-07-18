@@ -15,25 +15,22 @@
  */
 package com.jayasuryat.mendable
 
-import com.jayasuryat.mendable.filereader.getReportFiles
-import com.jayasuryat.mendable.model.ComposeMetricFile
+import com.jayasuryat.mendable.metricsfile.MetricsFile
+import com.jayasuryat.mendable.scanner.scanForMetricsFiles
 import java.io.File
 
-internal fun Any.getReportFromTestFile(): List<ComposeMetricFile> {
-    val testFilePath = javaClass.classLoader?.getResource("app_release-composables.txt")?.path.orEmpty()
-    val resourceFolderPath = File(testFilePath).parentFile.path
-    return getReportFiles(path = resourceFolderPath)
+internal fun Any.getTestMetricsFilesFromResources(): List<MetricsFile> {
+
+    val testFilePath: String = javaClass.classLoader
+        ?.getResource("app_release-composables.txt")
+        ?.path.orEmpty()
+
+    val parentPath: String = File(testFilePath).parent
+
+    return scanForMetricsFiles(parentPath)
 }
 
-internal fun Any.getExpectedJsonForWarningReport(): String {
-    return readFileAsTextFromResources(fileName = "warning-report-expected-json.json").orEmpty()
-}
-
-internal fun Any.getExpectedJsonForFullyReport(): String {
-    return readFileAsTextFromResources(fileName = "fully-report-expected-json.json").orEmpty()
-}
-
-private fun Any.readFileAsTextFromResources(fileName: String): String? {
+internal fun Any.readFileAsTextFromResources(fileName: String): String? {
     return this::class.java.classLoader
         ?.getResourceAsStream(fileName)
         ?.bufferedReader()

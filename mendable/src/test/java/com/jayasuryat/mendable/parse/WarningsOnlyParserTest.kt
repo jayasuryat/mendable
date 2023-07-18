@@ -13,27 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.parser
+package com.jayasuryat.mendable.parse
 
 import com.google.gson.GsonBuilder
-import com.jayasuryat.mendable.getExpectedJsonForFullyReport
-import com.jayasuryat.mendable.getReportFromTestFile
-import com.jayasuryat.mendable.model.ComposablesReport
-import com.jayasuryat.mendable.model.ComposeMetricFile
+import com.jayasuryat.mendable.getTestMetricsFilesFromResources
+import com.jayasuryat.mendable.metricsfile.MetricsFile
+import com.jayasuryat.mendable.parser.Parser
+import com.jayasuryat.mendable.parser.create
+import com.jayasuryat.mendable.parser.model.ComposablesReport
+import com.jayasuryat.mendable.readFileAsTextFromResources
+import org.junit.Test
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import kotlin.math.roundToInt
 
-class ComposableReportParserTest {
+internal class WarningsOnlyParserTest {
 
-    private val parser = ComposableReportParser()
+    private val parser: WarningsOnlyParser = WarningsOnlyParser(
+        backingParser = Parser.create()
+    )
 
     @Test
-    fun `ComposableReportParser should parse all composables correctly`() {
-        // Read and get report from app_release-composables.txt
-        val mapped: List<ComposeMetricFile> = getReportFromTestFile()
+    fun `WarningsOnlyParser should parse all composables correctly`() {
+        // Read and get all the report files from test resources folder
+        val mapped: List<MetricsFile> = getTestMetricsFilesFromResources()
 
         // Parsing the mapped values, this is the part being tested
         val report: ComposablesReport = parser.parse(mapped)
@@ -44,16 +48,17 @@ class ComposableReportParserTest {
         val expectedSkippableCount = 12
         val expectedPercentage = ((expectedSkippableCount * 100f) / expectedRestartableCount).roundToInt()
         val expectedTotalModuleCount = 2
+        val expectedReportedModuleCount = 1
 
         Assertions.assertEquals(overview.totalComposables, expectedTotalComposablesCount)
         Assertions.assertEquals(overview.restartableComposables, expectedRestartableCount)
         Assertions.assertEquals(overview.skippableComposables, expectedSkippableCount)
         Assertions.assertEquals(overview.skippablePercentage, expectedPercentage)
         Assertions.assertEquals(report.totalModulesScanned, expectedTotalModuleCount)
-        Assertions.assertEquals(report.totalModulesReported, expectedTotalModuleCount)
-        Assertions.assertEquals(report.totalModulesFiltered, 0)
+        Assertions.assertEquals(report.totalModulesReported, expectedReportedModuleCount)
+        Assertions.assertEquals(report.totalModulesFiltered, expectedTotalModuleCount - expectedReportedModuleCount)
 
-        val expectedJson = getExpectedJsonForFullyReport()
+        val expectedJson = readFileAsTextFromResources(fileName = "warning-report-expected-json.json")!!
 
         val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
         JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.NON_EXTENSIBLE)
