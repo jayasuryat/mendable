@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.html
+package com.jayasuryat.mendable.export.html
 
 import kotlinx.html.HEAD
 import kotlinx.html.style

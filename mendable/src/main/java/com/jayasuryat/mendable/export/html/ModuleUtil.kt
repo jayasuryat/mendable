@@ -13,25 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable
+package com.jayasuryat.mendable.export.html
 
-internal enum class ExportType {
+import com.jayasuryat.mendable.metricsfile.Module
 
-    HTML,
-    JSON,
-    ;
+internal val Module.id: String
+    get() = "${name}_$buildVariant"
 
-    companion object {
-
-        fun find(type: String): ExportType {
-
-            return ExportType
-                .values()
-                .firstOrNull { entry: ExportType -> entry.name.equals(type, ignoreCase = true) }
-                ?: error(
-                    "$type does not match with any entries of enum `${ExportType::class.java.canonicalName}`." +
-                        " Valid choices are ${ExportType.values().map { it.name }}"
-                )
-        }
-    }
-}
+internal val Module.displayName: String
+    get() = "$name ($buildVariant)"

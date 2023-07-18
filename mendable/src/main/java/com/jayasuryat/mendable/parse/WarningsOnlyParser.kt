@@ -13,16 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.parser
+package com.jayasuryat.mendable.parse
 
-import com.jayasuryat.mendable.model.ComposablesReport
-import com.jayasuryat.mendable.model.ComposeMetricFile
+import com.jayasuryat.mendable.metricsfile.MetricsFile
+import com.jayasuryat.mendable.parser.Parser
+import com.jayasuryat.mendable.parser.model.ComposablesReport
 
-internal class WarningsOnlyReportParser(
+internal class WarningsOnlyParser(
     private val backingParser: Parser,
 ) : Parser {
 
-    override fun parse(files: List<ComposeMetricFile>): ComposablesReport {
+    override fun parse(
+        files: List<MetricsFile>,
+    ): ComposablesReport {
 
         val backingReport = backingParser.parse(files)
 

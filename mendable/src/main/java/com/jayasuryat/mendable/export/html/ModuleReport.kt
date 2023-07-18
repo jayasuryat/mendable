@@ -15,11 +15,11 @@
  */
 @file:Suppress("FunctionName")
 
-package com.jayasuryat.mendable.html
+package com.jayasuryat.mendable.export.html
 
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
+import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport
+import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport.ComposableDetails
+import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
 import kotlinx.html.*
 
 internal fun BODY.ModuleReport(

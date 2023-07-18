@@ -15,14 +15,14 @@
  */
 @file:Suppress("FunctionName")
 
-package com.jayasuryat.mendable.html
+package com.jayasuryat.mendable.export.html
 
-import com.jayasuryat.mendable.model.ComposablesReport
-import com.jayasuryat.mendable.model.ComposablesReport.ModuleReport
+import com.jayasuryat.mendable.parser.model.ComposablesReport
+import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 
-internal fun MendablePage(
+internal fun MendableHtmlPage(
     report: ComposablesReport,
 ): String {
 

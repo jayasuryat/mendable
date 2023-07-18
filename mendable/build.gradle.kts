@@ -1,15 +1,15 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
-
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.10"
-    application
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm")
 }
 
-val mainCliClassName = "com.jayasuryat.mendable.MainKt"
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
-repositories {
-    mavenCentral()
+kotlin {
+    explicitApi()
 }
 
 dependencies {
@@ -17,39 +17,15 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.skyscreamer:jsonassert:1.5.1")
+    testImplementation("com.google.code.gson:gson:2.10.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation(project(":scanner"))
 
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
     implementation("com.google.code.gson:gson:2.10.1")
-}
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
 
-application {
-    mainClass.set(mainCliClassName)
-}
-
-kotlin {
-    explicitApi = ExplicitApiMode.Strict
-}
-
-tasks.named<Test>("test") {
-    useJUnitPlatform()
-    testLogging {
-        exceptionFormat = TestExceptionFormat.FULL
-    }
-}
-
-tasks.withType<Jar> {
-
-    manifest {
-        attributes["Main-Class"] = mainCliClassName
-    }
-
-    val dependencies = configurations
-        .runtimeClasspath
-        .get()
-        .map(::zipTree)
-
-    from(dependencies)
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    api(project(":metrics-file"))
+    implementation(project(":scanner"))
+    implementation(project(":parser"))
 }

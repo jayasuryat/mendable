@@ -15,9 +15,9 @@
  */
 @file:Suppress("FunctionName")
 
-package com.jayasuryat.mendable.html
+package com.jayasuryat.mendable.export.html
 
-import com.jayasuryat.mendable.model.ComposablesReport
+import com.jayasuryat.mendable.parser.model.ComposablesReport
 import kotlinx.html.*
 
 internal fun BODY.Overview(

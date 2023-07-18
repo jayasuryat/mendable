@@ -15,7 +15,7 @@
  */
 @file:Suppress("FunctionName")
 
-package com.jayasuryat.mendable.html
+package com.jayasuryat.mendable.export.html
 
 import kotlinx.html.BODY
 import kotlinx.html.script

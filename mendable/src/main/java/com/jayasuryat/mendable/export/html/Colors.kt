@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.model
+package com.jayasuryat.mendable.export.html
 
-internal data class Module(
-    val name: String,
-    val buildVariant: String,
-) {
+internal object Colors {
+    const val background: String = "#2B2B2B"
+    const val onBackground: String = "#FFFFFF"
+    const val primary: String = "#3D3F41"
+    const val success: String = "#647E55"
+}
 
-    val id: String = "${name}_$buildVariant"
-    val displayName: String = "$name ($buildVariant)"
+internal object CodeColors {
+    const val default: String = "#a5b6c7"
+    const val reserved: String = "#d87416"
+    const val declaration: String = "#ffc45a"
+    const val annotation: String = "#bbb600"
+    const val error: String = "#B83F3C"
+    const val warning: String = "#525037"
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jaya Surya Thotapalli
+ * Copyright 2023 Jaya Surya Thotapalli
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.html
+package com.jayasuryat.mendable.export.json
 
-internal object Colors {
-    const val background: String = "#2B2B2B"
-    const val onBackground: String = "#FFFFFF"
-    const val primary: String = "#3D3F41"
-    const val success: String = "#647E55"
-}
+import com.google.gson.GsonBuilder
+import com.jayasuryat.mendable.parser.model.ComposablesReport
 
-internal object CodeColors {
-    const val default: String = "#a5b6c7"
-    const val reserved: String = "#d87416"
-    const val declaration: String = "#ffc45a"
-    const val annotation: String = "#bbb600"
-    const val error: String = "#B83F3C"
-    const val warning: String = "#525037"
+internal fun ComposablesReport.jsonExportContent(): String {
+
+    return GsonBuilder()
+        .setPrettyPrinting()
+        .create()
+        .toJson(this)
 }
