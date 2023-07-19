@@ -1,0 +1,21 @@
+public final class com/jayasuryat/mendable/metricsfile/MetricsFile {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/MetricsFile$Companion;
+	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getFile ()Ljava/io/File;
+	public final fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/metricsfile/MetricsFile$Companion {
+}
+
+public final class com/jayasuryat/mendable/metricsfile/Module {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/Module$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getBuildVariant ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+}
+
+public final class com/jayasuryat/mendable/metricsfile/Module$Companion {
+}
+

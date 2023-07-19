@@ -348,6 +348,27 @@
           ]
         }
       ]
+    },
+    {
+      "module": {
+        "name": "child",
+        "buildVariant": "release"
+      },
+      "overview": {
+        "totalComposables": 1,
+        "restartableComposables": 1,
+        "skippableComposables": 1,
+        "skippablePercentage": 100
+      },
+      "composables": [
+        {
+          "functionName": "PreviewVC",
+          "isRestartable": true,
+          "isSkippable": true,
+          "isInline": false,
+          "params": []
+        }
+      ]
     }
   ],
   "overview": {
@@ -357,6 +378,6 @@
     "skippablePercentage": 92
   },
   "totalModulesScanned": 2,
-  "totalModulesReported": 1,
-  "totalModulesFiltered": 1
+  "totalModulesReported": 2,
+  "totalModulesFiltered": 0
 }

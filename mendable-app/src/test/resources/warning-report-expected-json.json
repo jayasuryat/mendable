@@ -3,7 +3,9 @@
     {
       "module": {
         "name": "app",
-        "buildVariant": "release"
+        "buildVariant": "release",
+        "id": "app_release",
+        "displayName": "app (release)"
       },
       "overview": {
         "totalComposables": 16,
