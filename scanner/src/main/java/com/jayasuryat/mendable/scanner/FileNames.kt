@@ -15,4 +15,14 @@
  */
 package com.jayasuryat.mendable.scanner
 
-internal const val METRICS_FILE_POSTFIX: String = "-composables.txt"
+internal const val COMPOSABLE_SIGNATURES_REPORT_POSTFIX: String = "-composables.txt"
+internal const val CLASS_STABILITY_REPORT_POSTFIX: String = "-classes.txt"
+internal const val COMPOSABLE_TABULAR_REPORT_POSTFIX: String = "-composables.csv"
+internal const val MODULE_METRICS_POSTFIX: String = "-module.json"
+
+internal val allPostfixes: List<String> = listOf(
+    COMPOSABLE_SIGNATURES_REPORT_POSTFIX,
+    CLASS_STABILITY_REPORT_POSTFIX,
+    COMPOSABLE_TABULAR_REPORT_POSTFIX,
+    MODULE_METRICS_POSTFIX,
+)
