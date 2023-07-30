@@ -15,6 +15,9 @@
  */
 package com.jayasuryat.mendable.metricsfile
 
+/**
+ * [Module] represents a subproject (a gradle module for example).
+ */
 public class Module(
     public val name: String,
     public val buildVariant: String,
