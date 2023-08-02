@@ -1,0 +1,70 @@
+stable class ChangeSort {
+  stable val sort: SortOption
+  <runtime stability> = Stable
+}
+stable class ToggleFollowedShowsOnly {
+  <runtime stability> = Stable
+}
+stable class PopularShowsUiState {
+  runtime val items: LazyPagingItems<EntryWithShow<PopularShowEntry>>{ app.cash.paging.compose.LazyPagingItems_nonAndroidKt.LazyPagingItems<EntryWithShow<PopularShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.PopularEntryWithShow }> }
+  stable val eventSink: Function1<PopularShowsUiEvent, Unit>
+}
+stable class DiscoverUiState {
+  unstable val user: TraktUser?
+  stable val authState: TraktAuthState
+  unstable val trendingItems: List<EntryWithShow<TrendingShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.TrendingEntryWithShow }>
+  stable val trendingRefreshing: Boolean
+  unstable val popularItems: List<EntryWithShow<PopularShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.PopularEntryWithShow }>
+  stable val popularRefreshing: Boolean
+  unstable val recommendedItems: List<EntryWithShow<RecommendedShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.RecommendedEntryWithShow }>
+  stable val recommendedRefreshing: Boolean
+  unstable val nextEpisodeWithShowToWatch: EpisodeWithSeasonWithShow?
+  runtime val message: UiMessage?
+  stable val eventSink: Function1<DiscoverUiEvent, Unit>
+}
+unstable class MainActivity {
+  unstable var component: MainActivityComponent
+  unstable val viewModel$delegate: Lazy<MainActivityViewModel>
+  unstable val preferences$delegate: Lazy<TiviPreferences>
+  unstable val analytics$delegate: Lazy<Analytics>
+  <runtime stability> = Unstable
+}
+unstable class EpisodeDetailsPresenter {
+  stable val screen: EpisodeDetailsScreen
+  stable val navigator: Navigator
+  unstable val updateEpisodeDetails: UpdateEpisodeDetails
+  unstable val observeEpisodeDetails: ObserveEpisodeDetails
+  unstable val observeEpisodeWatches: ObserveEpisodeWatches
+  unstable val removeEpisodeWatches: RemoveEpisodeWatches
+  unstable val removeEpisodeWatch: RemoveEpisodeWatch
+  unstable val logger: Logger
+  <runtime stability> = Unstable
+}
+runtime class BottomSheetOverlay {
+  runtime val model: Model
+  stable val onDismiss: Function0<Result>
+  stable val tonalElevation: Dp
+  stable val scrimColor: Color
+  stable val content: @[Composable] Function2<Model, OverlayNavigator<Result>, Unit>
+  <runtime stability> = Parameter(Model)
+}
+runtime class ChangePasswordArgs {
+  stable val userId: String
+  stable val userType: UserType
+  stable val footerText: Int
+  stable val appNameWithVersion: String
+  runtime var CREATOR: Creator<ChangePasswordArgs>
+  <runtime stability> = Uncertain(Creator)
+}
+runtime class Language {
+  stable val title: String
+  stable val icon: Int
+  runtime val currentLanguageProvider: CurrentLanguageProvider
+  <runtime stability> = Uncertain(CurrentLanguageProvider)
+}
+runtime class DialogOverlay {
+  runtime val model: Model
+  stable val onDismiss: Function0<Result>
+  stable val content: @[Composable] Function2<Model, OverlayNavigator<Result>, Unit>
+  <runtime stability> = Parameter(Model)
+}
