@@ -17,13 +17,13 @@
 
 package com.jayasuryat.mendable.export.html
 
-import com.jayasuryat.mendable.parser.model.ComposablesReport
-import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel.*
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 
 internal fun MendableHtmlPage(
-    report: ComposablesReport,
+    report: ComposeCompilerMetricsExportModel,
 ): String {
 
     return createHTML().html {
@@ -48,7 +48,7 @@ internal fun MendableHtmlPage(
 
             // Individual module reports
             ModuleReports(
-                reports = report.moduleReports,
+                reports = report.modules,
             )
 
             Footer()
@@ -59,13 +59,13 @@ internal fun MendableHtmlPage(
 }
 
 private fun BODY.ModuleReports(
-    reports: List<ModuleReport>,
+    reports: List<ModuleDetails>,
 ) {
 
     reports.forEach { report ->
 
         ModuleReport(
-            report = report,
+            report = report.report,
         )
 
         div {
