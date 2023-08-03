@@ -17,7 +17,7 @@ package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
 
-public class ModuleMetricsReport(
+public class ModuleMetrics(
     override val module: Module,
     public val details: Details,
 ) : ComposeCompilerMetrics {

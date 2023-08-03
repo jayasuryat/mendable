@@ -19,7 +19,7 @@ import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.*
 import com.jayasuryat.mendable.parser.model.ClassStabilityReport
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.model.ComposableTabularReport
-import com.jayasuryat.mendable.parser.model.ModuleMetricsReport
+import com.jayasuryat.mendable.parser.model.ModuleMetrics
 
 public interface ComposableSignaturesReportFileParser {
     public fun parse(
@@ -42,7 +42,7 @@ public interface ComposableTabularReportFileParser {
 public interface ModuleMetricsFileParser {
     public fun parse(
         file: ModuleMetricsFile,
-    ): ModuleMetricsReport
+    ): ModuleMetrics
 }
 
 public class ComposeCompilerMetricsParser internal constructor(

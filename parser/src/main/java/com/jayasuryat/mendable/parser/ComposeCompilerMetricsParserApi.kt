@@ -20,7 +20,10 @@ import com.jayasuryat.mendable.parser.impl.ClassStabilityReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ComposableSignaturesReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ComposableTabularReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ModuleMetricsFileParserImpl
-import com.jayasuryat.mendable.parser.model.ComposeCompilerMetrics
+import com.jayasuryat.mendable.parser.model.ClassStabilityReport
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
+import com.jayasuryat.mendable.parser.model.ComposableTabularReport
+import com.jayasuryat.mendable.parser.model.ModuleMetrics
 
 public fun getComposeCompilerMetricsParser(
     composableSignaturesReportFileParser: ComposableSignaturesReportFileParser = ComposableSignaturesReportFileParserImpl(),
@@ -53,22 +56,22 @@ public fun getModuleMetricsFileParser(): ModuleMetricsFileParser {
     return ModuleMetricsFileParserImpl()
 }
 
-public fun ComposableSignaturesReportFile.parse(): ComposeCompilerMetrics {
+public fun ComposableSignaturesReportFile.parse(): ComposableSignaturesReport {
     val parser = getComposableSignaturesReportFileParser()
     return parser.parse(this)
 }
 
-public fun ClassStabilityReportFile.parse(): ComposeCompilerMetrics {
+public fun ClassStabilityReportFile.parse(): ClassStabilityReport {
     val parser = getClassStabilityReportFileParser()
     return parser.parse(this)
 }
 
-public fun ComposableTabularReportFile.parse(): ComposeCompilerMetrics {
+public fun ComposableTabularReportFile.parse(): ComposableTabularReport {
     val parser = getComposableTabularReportFileParser()
     return parser.parse(this)
 }
 
-public fun ModuleMetricsFile.parse(): ComposeCompilerMetrics {
+public fun ModuleMetricsFile.parse(): ModuleMetrics {
     val parser = getModuleMetricsFileParser()
     return parser.parse(this)
 }

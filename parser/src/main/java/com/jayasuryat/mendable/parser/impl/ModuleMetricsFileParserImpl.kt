@@ -18,16 +18,16 @@ package com.jayasuryat.mendable.parser.impl
 import com.google.gson.Gson
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.ModuleMetricsFile
 import com.jayasuryat.mendable.parser.ModuleMetricsFileParser
-import com.jayasuryat.mendable.parser.model.ModuleMetricsReport
+import com.jayasuryat.mendable.parser.model.ModuleMetrics
 
 internal class ModuleMetricsFileParserImpl : ModuleMetricsFileParser {
 
     override fun parse(
         file: ModuleMetricsFile,
-    ): ModuleMetricsReport {
+    ): ModuleMetrics {
         val content: String = file.file.readText()
-        val details = Gson().fromJson(content, ModuleMetricsReport.Details::class.java)
-        return ModuleMetricsReport(
+        val details = Gson().fromJson(content, ModuleMetrics.Details::class.java)
+        return ModuleMetrics(
             module = file.module,
             details = details,
         )
