@@ -17,11 +17,11 @@
 
 package com.jayasuryat.mendable.export.html
 
-import com.jayasuryat.mendable.parser.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
 import kotlinx.html.*
 
 internal fun BODY.Overview(
-    report: ComposablesReport,
+    report: ComposeCompilerMetricsExportModel,
 ) {
 
     val overview = report.overview
@@ -54,19 +54,21 @@ internal fun BODY.Overview(
     if (report.totalModulesReported > 1) {
 
         ModuleOverviews(
-            moduleReports = report.moduleReports,
+            moduleReports = report.modules,
         )
     }
 }
 
 private fun BODY.ModuleOverviews(
-    moduleReports: List<ComposablesReport.ModuleReport>,
+    moduleReports: List<ComposeCompilerMetricsExportModel.ModuleDetails>,
 ) {
 
     // Individual modules grid
     div("grid-container") {
 
-        moduleReports.forEach { module ->
+        moduleReports.forEach { moduleDetails ->
+
+            val module = moduleDetails.report
 
             // Grid item
             div("grid-item") {
@@ -81,7 +83,7 @@ private fun BODY.ModuleOverviews(
                     }
                 }
 
-                val overview = module.overview
+                val overview = moduleDetails.overview
 
                 br { }
                 br { span("module-overview-details") { +"${overview.totalComposables} composables" } }

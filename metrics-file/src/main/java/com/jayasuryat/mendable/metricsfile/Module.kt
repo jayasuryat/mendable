@@ -15,10 +15,17 @@
  */
 package com.jayasuryat.mendable.metricsfile
 
+/**
+ * [Module] represents a subproject (a gradle module for example).
+ */
 public class Module(
     public val name: String,
     public val buildVariant: String,
 ) {
+
+    public override fun toString(): String {
+        return "Module(name='$name', buildVariant='$buildVariant')"
+    }
 
     public companion object
 }

@@ -1,10 +1,32 @@
-public final class com/jayasuryat/mendable/scanner/RecursiveScannerKt {
-	public static final fun scanForMetricsFilesRecursively (Ljava/io/File;)Ljava/util/List;
-	public static final fun scanForMetricsFilesRecursively (Ljava/lang/String;)Ljava/util/List;
+public final class com/jayasuryat/mendable/scanner/DefaultModuleFactory : com/jayasuryat/mendable/scanner/ModuleFactory {
+	public fun <init> ()V
+	public fun parseModule (Ljava/lang/String;)Lcom/jayasuryat/mendable/metricsfile/Module;
 }
 
-public final class com/jayasuryat/mendable/scanner/ScannerKt {
-	public static final fun scanForMetricsFiles (Ljava/io/File;)Ljava/util/List;
-	public static final fun scanForMetricsFiles (Ljava/lang/String;)Ljava/util/List;
+public abstract interface class com/jayasuryat/mendable/scanner/ModuleFactory {
+	public abstract fun parseModule (Ljava/lang/String;)Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/scanner/ScanerApiKt {
+	public static final fun scanForAllComposeCompilerMetricsFiles (Ljava/io/File;Z)Ljava/util/List;
+	public static final fun scanForAllComposeCompilerMetricsFiles (Ljava/lang/String;Z)Ljava/util/List;
+	public static synthetic fun scanForAllComposeCompilerMetricsFiles$default (Ljava/io/File;ZILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun scanForAllComposeCompilerMetricsFiles$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/util/List;
+	public static final fun scanForClassStabilityReportFiles (Ljava/io/File;Z)Ljava/util/List;
+	public static final fun scanForClassStabilityReportFiles (Ljava/lang/String;Z)Ljava/util/List;
+	public static synthetic fun scanForClassStabilityReportFiles$default (Ljava/io/File;ZILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun scanForClassStabilityReportFiles$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/util/List;
+	public static final fun scanForComposableSignaturesReportFiles (Ljava/io/File;Z)Ljava/util/List;
+	public static final fun scanForComposableSignaturesReportFiles (Ljava/lang/String;Z)Ljava/util/List;
+	public static synthetic fun scanForComposableSignaturesReportFiles$default (Ljava/io/File;ZILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun scanForComposableSignaturesReportFiles$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/util/List;
+	public static final fun scanForComposableTabularReportFiles (Ljava/io/File;Z)Ljava/util/List;
+	public static final fun scanForComposableTabularReportFiles (Ljava/lang/String;Z)Ljava/util/List;
+	public static synthetic fun scanForComposableTabularReportFiles$default (Ljava/io/File;ZILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun scanForComposableTabularReportFiles$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/util/List;
+	public static final fun scanForModuleMetricsFiles (Ljava/io/File;Z)Ljava/util/List;
+	public static final fun scanForModuleMetricsFiles (Ljava/lang/String;Z)Ljava/util/List;
+	public static synthetic fun scanForModuleMetricsFiles$default (Ljava/io/File;ZILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun scanForModuleMetricsFiles$default (Ljava/lang/String;ZILjava/lang/Object;)Ljava/util/List;
 }
 

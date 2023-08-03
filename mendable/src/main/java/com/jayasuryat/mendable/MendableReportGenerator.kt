@@ -19,13 +19,14 @@ import com.jayasuryat.mendable.MendableReportGeneratorRequest.ExportType
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.IncludeModules
 import com.jayasuryat.mendable.export.html.MendableHtmlPage
 import com.jayasuryat.mendable.export.json.jsonExportContent
-import com.jayasuryat.mendable.metricsfile.MetricsFile
-import com.jayasuryat.mendable.parse.WarningsOnlyParser
-import com.jayasuryat.mendable.parser.Parser
-import com.jayasuryat.mendable.parser.create
-import com.jayasuryat.mendable.parser.model.ComposablesReport
-import com.jayasuryat.mendable.scanner.scanForMetricsFiles
-import com.jayasuryat.mendable.scanner.scanForMetricsFilesRecursively
+import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.ComposableSignaturesReportFile
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel.ModuleDetails
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel.Overview
+import com.jayasuryat.mendable.parser.getComposableSignaturesReportFileParser
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport.ComposableDetails
+import com.jayasuryat.mendable.scanner.scanForComposableSignaturesReportFiles
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +34,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.absolutePathString
+import kotlin.math.roundToInt
 
 public class MendableReportGenerator(
     private val computationDispatcher: CoroutineDispatcher = Dispatchers.Default,
@@ -68,9 +70,9 @@ public class MendableReportGenerator(
 
         progress(Progress.Initiated)
 
-        val metricsFiles: List<MetricsFile> = withContext(ioDispatcher) {
-            collectMetricsFiles(
-                path = request.scanPath,
+        val metricsFiles: List<ComposableSignaturesReportFile> = withContext(ioDispatcher) {
+            scanForComposableSignaturesReportFiles(
+                directory = request.scanPath,
                 scanRecursively = request.scanRecursively,
             )
         }
@@ -83,30 +85,29 @@ public class MendableReportGenerator(
 
         progress(Progress.MetricsFilesFound(files = metricsFiles))
 
-        val parsed: ComposablesReport = withContext(computationDispatcher) {
-            metricsFiles.parseMetrics(
-                includeModules = request.includeModules,
-            )
+        val parsed: List<ComposableSignaturesReport> = withContext(computationDispatcher) {
+            metricsFiles.parseMetrics()
         }
 
         progress(
             Progress.MetricsFilesParsed(
-                parsedSuccessfully = parsed.moduleReports.size,
-                failedToParse = metricsFiles.size - parsed.moduleReports.size,
+                parsedSuccessfully = parsed.size,
+                failedToParse = metricsFiles.size - parsed.size,
             )
         )
 
         val meta = withContext(computationDispatcher) {
-            parsed.getExportContent(
-                type = request.exportType,
-            )
+            parsed.toExportModel(includeModules = request.includeModules)
+                .getExportContent(type = request.exportType)
         }
+
         val saveDir = withContext(ioDispatcher) {
             meta.save(
                 outputName = request.outputFileName,
                 outputDirectory = request.outputPath,
             )
         }
+
         val successResult = Progress.SuccessfullyCompleted(
             outputPath = saveDir,
             exportType = request.exportType,
@@ -131,29 +132,63 @@ public class MendableReportGenerator(
         require(outputFileName.isNotEmpty()) { "outputFileName cannot be empty" }
     }
 
-    private fun collectMetricsFiles(
-        path: String,
-        scanRecursively: Boolean,
-    ): List<MetricsFile> {
-        return if (scanRecursively) scanForMetricsFiles(path)
-        else scanForMetricsFilesRecursively(path)
+    private fun List<ComposableSignaturesReportFile>.parseMetrics(): List<ComposableSignaturesReport> {
+        val parser = getComposableSignaturesReportFileParser()
+        return this.mapNotNull { file ->
+            runCatching { parser.parse(file) }.getOrNull()
+        }
     }
 
-    private fun List<MetricsFile>.parseMetrics(
+    private fun List<ComposableSignaturesReport>.toExportModel(
         includeModules: IncludeModules,
-    ): ComposablesReport {
+    ): ComposeCompilerMetricsExportModel {
 
-        val parser = when (includeModules) {
-            IncludeModules.ALL -> Parser.create()
-            IncludeModules.WITH_WARNINGS -> WarningsOnlyParser(
-                backingParser = Parser.create(),
+        fun List<ComposableSignaturesReport>.filterWithWarnings(): List<ComposableSignaturesReport> {
+            return this.filter { report ->
+                report.composables.any { composable -> composable.isRestartable && !composable.isSkippable }
+            }
+        }
+
+        fun List<ComposableSignaturesReport>.toOverview(): Overview {
+
+            val allComposables: List<ComposableDetails> = this.flatMap { report -> report.composables }
+            val restartable = allComposables.filter { composable -> composable.isRestartable }
+            val skippable = restartable.filter { composable -> composable.isSkippable }
+
+            val percentage: Int = if (restartable.isEmpty()) 100
+            else ((skippable.count() * 100f) / restartable.count()).roundToInt()
+
+            return Overview(
+                totalComposables = allComposables.size,
+                restartableComposables = restartable.size,
+                skippableComposables = skippable.size,
+                skippablePercentage = percentage,
             )
         }
 
-        return parser.parse(files = this)
+        fun ComposableSignaturesReport.toModuleDetails(): ModuleDetails {
+            return ModuleDetails(
+                overview = listOf(this).toOverview(),
+                report = this,
+            )
+        }
+
+        val parsed: List<ComposableSignaturesReport> = this
+        val reporting: List<ComposableSignaturesReport> = when (includeModules) {
+            IncludeModules.ALL -> parsed
+            IncludeModules.WITH_WARNINGS -> parsed.filterWithWarnings()
+        }
+        val mapped = reporting.map { report -> report.toModuleDetails() }
+
+        return ComposeCompilerMetricsExportModel(
+            modules = mapped,
+            overview = parsed.toOverview(),
+            totalModulesScanned = parsed.size,
+            totalModulesReported = reporting.size,
+        )
     }
 
-    private fun ComposablesReport.getExportContent(
+    private fun ComposeCompilerMetricsExportModel.getExportContent(
         type: ExportType,
     ): ExportMeta {
 
@@ -191,12 +226,13 @@ public class MendableReportGenerator(
     public sealed interface Progress {
 
         public sealed interface Result
+
         public object Initiated : Progress {
             override fun toString(): String = "Progress.Initiated"
         }
 
         public class MetricsFilesFound(
-            public val files: List<MetricsFile>,
+            public val files: List<ComposableSignaturesReportFile>,
         ) : Progress {
             override fun toString(): String = "Progress.MetricsFilesFound(files=$files)"
         }

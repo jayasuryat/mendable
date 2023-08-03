@@ -1,0 +1,329 @@
+{
+  "module": {
+    "name": "app",
+    "buildVariant": "qaRelease"
+  },
+  "classes": [
+    {
+      "name": "ChangeSort",
+      "condition": "Stable",
+      "runtimeStability": "Stable",
+      "fields": [
+        {
+          "name": "sort",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "SortOption"
+        }
+      ]
+    },
+    {
+      "name": "ToggleFollowedShowsOnly",
+      "condition": "Stable",
+      "runtimeStability": "Stable",
+      "fields": []
+    },
+    {
+      "name": "PopularShowsUiState",
+      "condition": "Stable",
+      "runtimeStability": null,
+      "fields": [
+        {
+          "name": "items",
+          "condition": "Runtime",
+          "declarationType": "Val",
+          "type": "LazyPagingItems<EntryWithShow<PopularShowEntry>>{ app.cash.paging.compose.LazyPagingItems_nonAndroidKt.LazyPagingItems<EntryWithShow<PopularShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.PopularEntryWithShow }> }"
+        },
+        {
+          "name": "eventSink",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Function1<PopularShowsUiEvent, Unit>"
+        }
+      ]
+    },
+    {
+      "name": "DiscoverUiState",
+      "condition": "Stable",
+      "runtimeStability": null,
+      "fields": [
+        {
+          "name": "user",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "TraktUser?"
+        },
+        {
+          "name": "authState",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "TraktAuthState"
+        },
+        {
+          "name": "trendingItems",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "List<EntryWithShow<TrendingShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.TrendingEntryWithShow }>"
+        },
+        {
+          "name": "trendingRefreshing",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Boolean"
+        },
+        {
+          "name": "popularItems",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "List<EntryWithShow<PopularShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.PopularEntryWithShow }>"
+        },
+        {
+          "name": "popularRefreshing",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Boolean"
+        },
+        {
+          "name": "recommendedItems",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "List<EntryWithShow<RecommendedShowEntry>{ app.tivi.data.compoundmodels.EntryWithShowKt.RecommendedEntryWithShow }>"
+        },
+        {
+          "name": "recommendedRefreshing",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Boolean"
+        },
+        {
+          "name": "nextEpisodeWithShowToWatch",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "EpisodeWithSeasonWithShow?"
+        },
+        {
+          "name": "message",
+          "condition": "Runtime",
+          "declarationType": "Val",
+          "type": "UiMessage?"
+        },
+        {
+          "name": "eventSink",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Function1<DiscoverUiEvent, Unit>"
+        }
+      ]
+    },
+    {
+      "name": "MainActivity",
+      "condition": "Unstable",
+      "runtimeStability": "Unstable",
+      "fields": [
+        {
+          "name": "component",
+          "condition": "Unstable",
+          "declarationType": "Var",
+          "type": "MainActivityComponent"
+        },
+        {
+          "name": "viewModel$delegate",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "Lazy<MainActivityViewModel>"
+        },
+        {
+          "name": "preferences$delegate",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "Lazy<TiviPreferences>"
+        },
+        {
+          "name": "analytics$delegate",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "Lazy<Analytics>"
+        }
+      ]
+    },
+    {
+      "name": "EpisodeDetailsPresenter",
+      "condition": "Unstable",
+      "runtimeStability": "Unstable",
+      "fields": [
+        {
+          "name": "screen",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "EpisodeDetailsScreen"
+        },
+        {
+          "name": "navigator",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Navigator"
+        },
+        {
+          "name": "updateEpisodeDetails",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "UpdateEpisodeDetails"
+        },
+        {
+          "name": "observeEpisodeDetails",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "ObserveEpisodeDetails"
+        },
+        {
+          "name": "observeEpisodeWatches",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "ObserveEpisodeWatches"
+        },
+        {
+          "name": "removeEpisodeWatches",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "RemoveEpisodeWatches"
+        },
+        {
+          "name": "removeEpisodeWatch",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "RemoveEpisodeWatch"
+        },
+        {
+          "name": "logger",
+          "condition": "Unstable",
+          "declarationType": "Val",
+          "type": "Logger"
+        }
+      ]
+    },
+    {
+      "name": "BottomSheetOverlay",
+      "condition": "Runtime",
+      "runtimeStability": "Parameter(Model)",
+      "fields": [
+        {
+          "name": "model",
+          "condition": "Runtime",
+          "declarationType": "Val",
+          "type": "Model"
+        },
+        {
+          "name": "onDismiss",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Function0<Result>"
+        },
+        {
+          "name": "tonalElevation",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Dp"
+        },
+        {
+          "name": "scrimColor",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Color"
+        },
+        {
+          "name": "content",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "@[Composable] Function2<Model, OverlayNavigator<Result>, Unit>"
+        }
+      ]
+    },
+    {
+      "name": "ChangePasswordArgs",
+      "condition": "Runtime",
+      "runtimeStability": "Uncertain(Creator)",
+      "fields": [
+        {
+          "name": "userId",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "String"
+        },
+        {
+          "name": "userType",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "UserType"
+        },
+        {
+          "name": "footerText",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Int"
+        },
+        {
+          "name": "appNameWithVersion",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "String"
+        },
+        {
+          "name": "CREATOR",
+          "condition": "Runtime",
+          "declarationType": "Var",
+          "type": "Creator<ChangePasswordArgs>"
+        }
+      ]
+    },
+    {
+      "name": "Language",
+      "condition": "Runtime",
+      "runtimeStability": "Uncertain(CurrentLanguageProvider)",
+      "fields": [
+        {
+          "name": "title",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "String"
+        },
+        {
+          "name": "icon",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Int"
+        },
+        {
+          "name": "currentLanguageProvider",
+          "condition": "Runtime",
+          "declarationType": "Val",
+          "type": "CurrentLanguageProvider"
+        }
+      ]
+    },
+    {
+      "name": "DialogOverlay",
+      "condition": "Runtime",
+      "runtimeStability": "Parameter(Model)",
+      "fields": [
+        {
+          "name": "model",
+          "condition": "Runtime",
+          "declarationType": "Val",
+          "type": "Model"
+        },
+        {
+          "name": "onDismiss",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "Function0<Result>"
+        },
+        {
+          "name": "content",
+          "condition": "Stable",
+          "declarationType": "Val",
+          "type": "@[Composable] Function2<Model, OverlayNavigator<Result>, Unit>"
+        }
+      ]
+    }
+  ]
+}

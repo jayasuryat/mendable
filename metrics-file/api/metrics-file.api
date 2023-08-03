@@ -1,12 +1,50 @@
-public final class com/jayasuryat/mendable/metricsfile/MetricsFile {
-	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/MetricsFile$Companion;
-	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
-	public final fun getContent ()Ljava/lang/String;
-	public final fun getFile ()Ljava/io/File;
-	public final fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+public abstract interface class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$Companion;
+	public abstract fun getFile ()Ljava/io/File;
+	public abstract fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
 }
 
-public final class com/jayasuryat/mendable/metricsfile/MetricsFile$Companion {
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile$Companion;
+	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun getFile ()Ljava/io/File;
+	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile$Companion {
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$Companion {
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile$Companion;
+	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun getFile ()Ljava/io/File;
+	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile$Companion {
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile$Companion;
+	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun getFile ()Ljava/io/File;
+	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile$Companion {
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
+	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile$Companion;
+	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun getFile ()Ljava/io/File;
+	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile$Companion {
 }
 
 public final class com/jayasuryat/mendable/metricsfile/Module {
@@ -14,6 +52,7 @@ public final class com/jayasuryat/mendable/metricsfile/Module {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun getBuildVariant ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/metricsfile/Module$Companion {

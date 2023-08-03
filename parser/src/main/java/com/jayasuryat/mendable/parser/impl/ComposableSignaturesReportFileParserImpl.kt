@@ -13,72 +13,63 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.parser
+package com.jayasuryat.mendable.parser.impl
 
-import com.jayasuryat.mendable.metricsfile.MetricsFile
-import com.jayasuryat.mendable.parser.model.ComposablesReport
-import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport
-import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport.ComposableDetails
-import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter
-import com.jayasuryat.mendable.parser.model.ComposablesReport.ModuleReport.ComposableDetails.Parameter.Condition
-import com.jayasuryat.mendable.parser.model.ComposablesReport.Overview
-import kotlin.math.roundToInt
+import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.ComposableSignaturesReportFile
+import com.jayasuryat.mendable.parser.ComposableSignaturesReportFileParser
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport.ComposableDetails.Parameter
 
-internal class ComposableReportParser : Parser {
+internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesReportFileParser {
 
-    override fun parse(files: List<MetricsFile>): ComposablesReport {
+    override fun parse(
+        file: ComposableSignaturesReportFile,
+    ): ComposableSignaturesReport {
 
-        val moduleReports: List<ModuleReport> = files.map { file -> parse(file) }
-        val overview: Overview = moduleReports
-            .flatMap { report -> report.composables }
-            .toOverview()
+        val composables: List<ComposableSignaturesReport.ComposableDetails> = file.file
+            .readText()
+            .parseComposables()
 
-        return ComposablesReport(
-            moduleReports = moduleReports,
-            overview = overview,
-            totalModulesScanned = moduleReports.size,
-            totalModulesReported = moduleReports.size,
+        return ComposableSignaturesReport(
+            module = file.module,
+            composables = composables,
         )
     }
 
-    private fun parse(
-        file: MetricsFile,
-    ): ModuleReport {
+    private fun String.parseComposables(): List<ComposableSignaturesReport.ComposableDetails> {
+
+        val content = this
 
         // Individual lines
-        val lines: List<String> = file.content
+        val lines: List<String> = content
             .split("\n")
             .filter { line -> line.isNotBlank() }
 
         // List of all the functions in the file
-        val functions: MutableList<String> = mutableListOf()
+        val functions: MutableList<List<String>> = mutableListOf()
+        val functionBuilder = mutableListOf<String>()
 
-        val functionBuilder = StringBuilder()
         for (line in lines) {
-            if (line.contains(FUNCTION_IDENTIFIER)) {
-                if (functionBuilder.isNotBlank()) functions.add(functionBuilder.toString())
+            if (line.contains(FUNCTION_IDENTIFIER) && functionBuilder.isNotEmpty()) {
+                functions += functionBuilder.toList()
                 functionBuilder.clear()
             }
-            functionBuilder.appendLine(line)
+            functionBuilder += line
         }
-        if (functionBuilder.isNotBlank()) functions.add(functionBuilder.toString())
+        if (functionBuilder.isNotEmpty()) {
+            functions += functionBuilder.toList()
+            functionBuilder.clear()
+        }
 
         // TODO : Handle parsing exceptions
-        val composables = functions.map { function -> function.parseFunction() }
-
-        return ModuleReport(
-            module = file.module,
-            composables = composables,
-            overview = composables.toOverview(),
-        )
+        return functions.map { function -> function.parseComposable() }
     }
 
-    private fun String.parseFunction(): ComposableDetails {
+    private fun List<String>.parseComposable(): ComposableSignaturesReport.ComposableDetails {
 
-        fun String.splitFunctionIntoLines(): List<String> {
+        fun List<String>.cleanFunction(): List<String> {
 
-            val lines = this.split("\n")
-                .filter { line -> line.isNotBlank() }
+            val lines = this.filter { line -> line.isNotBlank() }
                 .map { line -> line.trim() }
 
             val modFunction: MutableList<String> = mutableListOf()
@@ -98,7 +89,7 @@ internal class ComposableReportParser : Parser {
         }
 
         // Individual lines of a function
-        val lines: List<String> = this.splitFunctionIntoLines()
+        val lines: List<String> = this.cleanFunction()
 
         val firstLine = lines.first()
 
@@ -119,7 +110,7 @@ internal class ComposableReportParser : Parser {
                 .parseParams()
         }
 
-        return ComposableDetails(
+        return ComposableSignaturesReport.ComposableDetails(
             functionName = name,
             isRestartable = isRestartable,
             isSkippable = isSkippable,
@@ -161,17 +152,20 @@ internal class ComposableReportParser : Parser {
                     .indexOf(' ')
                     .takeIf { it != -1 }
 
-                val condition: Condition
+                val condition: Parameter.Condition
                 val paramName: String
 
                 if (splitIndex != null) {
                     // Report has stability mentioned for this param
                     val conditionString = stabilityAndName.take(splitIndex)
-                    condition = Condition.from(conditionString)
+                    condition =
+                        Parameter.Condition.from(
+                            conditionString
+                        )
                     paramName = stabilityAndName.drop(splitIndex + 1)
                 } else {
                     // Report does not have stability mentioned for this param
-                    condition = Condition.UNKNOWN
+                    condition = Parameter.Condition.UNKNOWN
                     paramName = stabilityAndName.trim()
                 }
 
@@ -188,28 +182,11 @@ internal class ComposableReportParser : Parser {
         return this.replace(regex = duplicateWhiteSpaceRegex, " ")
     }
 
-    private fun List<ComposableDetails>.toOverview(): Overview {
-
-        val allComposables = this
-        val restartable = allComposables.filter { composable -> composable.isRestartable }
-        val skippable = restartable.filter { composable -> composable.isSkippable }
-
-        val percentage: Int = if (restartable.isEmpty()) 100
-        else ((skippable.count() * 100f) / restartable.count()).roundToInt()
-
-        return Overview(
-            totalComposables = allComposables.count(),
-            restartableComposables = restartable.count(),
-            skippableComposables = skippable.count(),
-            skippablePercentage = percentage,
-        )
-    }
-
-    private fun Condition.Companion.from(value: String): Condition {
+    private fun Parameter.Condition.Companion.from(value: String): Parameter.Condition {
         return when (value.lowercase()) {
-            "stable" -> Condition.STABLE
-            "unstable" -> Condition.UNSTABLE
-            "unused" -> Condition.UNUSED
+            "stable" -> Parameter.Condition.STABLE
+            "unstable" -> Parameter.Condition.UNSTABLE
+            "unused" -> Parameter.Condition.UNUSED
             else -> error("Unable to parse unrecognized value for condition '$value'")
         }
     }

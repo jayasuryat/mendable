@@ -15,6 +15,7 @@ kotlin {
 dependencies {
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.6.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
     api(project(":metrics-file"))

@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jayasuryat.mendable.parser
+package com.jayasuryat.mendable.parser.model
 
-import com.jayasuryat.mendable.metricsfile.MetricsFile
-import com.jayasuryat.mendable.parser.model.ComposablesReport
+import com.jayasuryat.mendable.metricsfile.Module
 
-public fun Parser.Companion.create(): Parser = ComposableReportParser()
+public sealed interface ComposeCompilerMetrics {
 
-public fun MetricsFile.parse(): ComposablesReport {
-    return Parser.create()
-        .parse(listOf(this))
-}
-
-public fun List<MetricsFile>.parse(): ComposablesReport {
-    return Parser.create()
-        .parse(this)
+    public val module: Module
 }

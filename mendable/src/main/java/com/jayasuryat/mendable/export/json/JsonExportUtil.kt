@@ -16,9 +16,9 @@
 package com.jayasuryat.mendable.export.json
 
 import com.google.gson.GsonBuilder
-import com.jayasuryat.mendable.parser.model.ComposablesReport
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
 
-internal fun ComposablesReport.jsonExportContent(): String {
+internal fun ComposeCompilerMetricsExportModel.jsonExportContent(): String {
 
     return GsonBuilder()
         .setPrettyPrinting()

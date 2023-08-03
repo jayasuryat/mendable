@@ -15,9 +15,11 @@
  */
 package com.jayasuryat.mendable
 
+import com.google.gson.Gson
 import com.jayasuryat.mendable.MendableReportGenerator.Progress
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.ExportType
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.IncludeModules
+import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -187,5 +189,34 @@ internal class MendableReportGeneratorTest {
         Assert.assertTrue(progresses.removeFirst() is Progress.MetricsFilesFound)
         Assert.assertTrue(progresses.removeFirst() is Progress.MetricsFilesParsed)
         Assert.assertTrue(progresses.removeFirst() is Progress.SuccessfullyCompleted)
+    }
+
+    @Test
+    fun `should skip files without warnings steps of generation`() = runTest {
+
+        val path = this::class.java.classLoader?.getResource("app_release-composables.txt")?.path
+        require(!path.isNullOrEmpty())
+
+        val resourceRoot = File(path).parent
+
+        val request = MendableReportGeneratorRequest(
+            scanPath = resourceRoot,
+            outputPath = temporaryFolder.root.path,
+            scanRecursively = false,
+            outputFileName = "report",
+            exportType = ExportType.JSON,
+            includeModules = IncludeModules.WITH_WARNINGS,
+        )
+
+        val result: Progress.Result = generator.generate(request = request)
+        Assert.assertTrue(result is Progress.SuccessfullyCompleted)
+
+        val outputPath = (result as Progress.SuccessfullyCompleted).outputPath
+        val outputContent = File(outputPath).readText()
+        val outputModel = Gson().fromJson(outputContent, ComposeCompilerMetricsExportModel::class.java)
+
+        Assert.assertEquals(2, outputModel.totalModulesScanned)
+        Assert.assertEquals(1, outputModel.totalModulesReported)
+        Assert.assertEquals(1, outputModel.totalModulesFiltered)
     }
 }
