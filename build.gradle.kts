@@ -1,7 +1,11 @@
+
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.diffplug.spotless") version "6.3.0"
-    id("org.jetbrains.kotlin.jvm") version "1.8.0" apply false
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.binary.compatibility.validator)
+    alias(libs.plugins.spotless)
 }
 
 apply {
@@ -12,4 +16,8 @@ allprojects.forEach { project ->
     project.apply {
         from("${rootProject.rootDir}/buildScripts/spotless.gradle")
     }
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
 }

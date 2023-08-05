@@ -1,11 +1,5 @@
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    kotlin("jvm")
 }
 
 kotlin {
@@ -14,18 +8,18 @@ kotlin {
 
 dependencies {
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.skyscreamer:jsonassert:1.5.1")
-    testImplementation("com.google.code.gson:gson:2.10.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-    testImplementation(project(":scanner"))
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.junit)
+    testImplementation(libs.jsonassert)
+    testImplementation(libs.gson)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(projects.scanner)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.8.0")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation(libs.kotlinx.html.jvm)
+    implementation(libs.gson)
+    implementation(libs.kotlinx.coroutines.core)
 
-    api(project(":metrics-file"))
-    implementation(project(":scanner"))
-    implementation(project(":parser"))
+    api(projects.metricsFile)
+    implementation(projects.scanner)
+    implementation(projects.parser)
 }

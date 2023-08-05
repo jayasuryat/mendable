@@ -1,8 +1,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+    kotlin("jvm")
     application
 }
 
@@ -10,15 +9,15 @@ val mainCliClassName = "com.jayasuryat.mendable.app.MainKt"
 
 dependencies {
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.6.2")
-    testImplementation("org.skyscreamer:jsonassert:1.5.1")
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.jsonassert)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.cli)
 
-    implementation(project(":mendable"))
+    implementation(projects.mendable)
 }
 
 application {
@@ -26,7 +25,7 @@ application {
 }
 
 kotlin {
-    explicitApi = ExplicitApiMode.Strict
+    explicitApi()
 }
 
 tasks.named<Test>("test") {
