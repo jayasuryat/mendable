@@ -100,7 +100,7 @@ internal class CliArguments(
         message: String,
         exitCode: Int = 1,
     ): Nothing {
-        println("\nError: $message\n")
+        System.err.println("\nError: $message\n")
         systemExit.exit(exitCode)
     }
 }

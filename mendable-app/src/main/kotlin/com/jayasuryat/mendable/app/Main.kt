@@ -43,15 +43,18 @@ public fun main(args: Array<String>) {
 
     val progressPrinter = ProgressPrinter(
         request = request,
-        systemExit = systemExit,
     )
 
     runBlocking {
 
         // Scan, parse & generate mendable report.
-        MendableReportGenerator()
+        val result = MendableReportGenerator()
             .generate(request = request) { progress ->
                 progressPrinter.print(progress)
             }
+
+        if (result !is MendableReportGenerator.Progress.SuccessfullyCompleted) {
+            systemExit.exit(1)
+        }
     }
 }

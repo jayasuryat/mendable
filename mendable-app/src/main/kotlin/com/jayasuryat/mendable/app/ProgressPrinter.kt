@@ -17,33 +17,34 @@ package com.jayasuryat.mendable.app
 
 import com.jayasuryat.mendable.MendableReportGenerator.Progress
 import com.jayasuryat.mendable.MendableReportGeneratorRequest
-import com.jayasuryat.mendable.app.system.SystemExit
 import java.io.PrintWriter
 import java.io.StringWriter
 
 internal class ProgressPrinter(
     private val request: MendableReportGeneratorRequest,
-    private val systemExit: SystemExit,
 ) {
 
     fun print(progress: Progress) {
 
-        val message: String = when (progress) {
-            is Progress.Initiated -> progress.message()
-            is Progress.MetricsFilesFound -> progress.message()
-            is Progress.MetricsFilesParsed -> progress.message()
-            is Progress.NoMetricsFilesFound -> progress.message()
-            is Progress.SuccessfullyCompleted -> progress.message()
-            is Progress.Error -> progress.message()
-        }
+        when (progress) {
 
-        println(message)
-        if (progress is Progress.Result) systemExit.exit(1)
+            is Progress.Initiated -> progress.message().println()
+
+            is Progress.MetricsFilesFound -> progress.message().println()
+
+            is Progress.MetricsFilesParsed -> progress.message().println()
+
+            is Progress.SuccessfullyCompleted -> progress.message().println()
+
+            is Progress.NoMetricsFilesFound -> progress.message().printError()
+
+            is Progress.Error -> progress.message().printError()
+        }
     }
 
     @Suppress("UnusedReceiverParameter")
     private fun Progress.Initiated.message(): String {
-        return "Inputs have been validated. Scanning files ${if (request.scanRecursively) "recursively " else ""}in ${request.scanPath} directory"
+        return "Scanning files ${if (request.scanRecursively) "recursively " else ""}in ${request.scanPath} directory\n"
     }
 
     private fun Progress.MetricsFilesFound.message(): String {
@@ -67,24 +68,27 @@ internal class ProgressPrinter(
     private fun Progress.NoMetricsFilesFound.message(): String {
         return """
             No composables.txt files found in the directory : ${request.scanPath}
-            Make sure to point the application to the directory which contains all the composables.txt files via the '--composablesReportsPath' or '--i' arguments.
-            For more help execute the executable with '-h' argument
+            Make sure to point the application to the directory which contains all the composables.txt files via the '--composablesReportsPath' or '--i' argument.
+            For more help execute the jar with '-h' argument
         """.trimIndent()
     }
 
     private fun Progress.SuccessfullyCompleted.message(): String {
-        return "$exportType report successfully saved at $outputPath"
-    }
-
-    private fun Progress.Error.message(): String {
-        return "Error : ${this.throwable.asLog()}"
-    }
-
-    private fun Throwable.asLog(): String {
-        val stringWriter = StringWriter(256)
-        val printWriter = PrintWriter(stringWriter, false)
-        printStackTrace(printWriter)
-        printWriter.flush()
-        return stringWriter.toString()
+        return "$exportType report successfully saved at file://$outputPath"
     }
 }
+
+private fun Progress.Error.message(): String {
+    return "Error : ${this.throwable.asLog()}"
+}
+
+private fun Throwable.asLog(): String {
+    val stringWriter = StringWriter(256)
+    val printWriter = PrintWriter(stringWriter, false)
+    printStackTrace(printWriter)
+    printWriter.flush()
+    return stringWriter.toString()
+}
+
+private fun String.println(): Unit = println(this)
+private fun String.printError(): Unit = System.err.println(this)
