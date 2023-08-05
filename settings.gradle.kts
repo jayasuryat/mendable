@@ -1,4 +1,5 @@
-rootProject.name = "Mendable"
+// https://github.com/gradle/gradle/issues/16608
+rootProject.name = "Mendable-project"
 
 pluginManagement {
     repositories {
@@ -21,3 +22,5 @@ include(":scanner")
 include(":parser")
 include(":metrics-file")
 include(":mendable")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

@@ -1,11 +1,5 @@
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    kotlin("jvm")
 }
 
 kotlin {
@@ -14,9 +8,9 @@ kotlin {
 
 dependencies {
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.6.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation(libs.junit)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotlin.test.junit5)
 
-    api(project(":metrics-file"))
+    api(projects.metricsFile)
 }

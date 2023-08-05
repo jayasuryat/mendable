@@ -1,0 +1,38 @@
+[versions]
+
+kotlin = "1.8.0"
+
+junit = "4.13.2"
+kotestAssertionsCore = "5.6.2"
+jsonassert = "1.5.1"
+kotlinxCoroutinesTest = "1.7.3"
+
+kotlinxCli = "0.3.5"
+kotlinxHtmlJvm = "0.8.0"
+kotlinxCoroutines = "1.7.1"
+
+gson = "2.10.1"
+
+# Plugins
+spoltess = "6.3.0"
+binaryCompatibilityValidator = "0.13.2"
+
+[libraries]
+
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotestAssertionsCore" }
+jsonassert = { group = "org.skyscreamer", name = "jsonassert", version.ref = "jsonassert" }
+
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+kotlinx-html-jvm = { group = "org.jetbrains.kotlinx", name = "kotlinx-html-jvm", version.ref = "kotlinxHtmlJvm" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-cli = { group = "org.jetbrains.kotlinx", name = "kotlinx-cli", version.ref = "kotlinxCli" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spoltess" }
