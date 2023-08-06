@@ -34,6 +34,7 @@ public class ComposableSignaturesReport(
             public val condition: Condition,
             public val name: String,
             public val type: String,
+            public val defaultValue: String?,
         ) {
 
             public enum class Condition {
