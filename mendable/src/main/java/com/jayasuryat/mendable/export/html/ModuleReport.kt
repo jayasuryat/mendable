@@ -117,20 +117,28 @@ private fun DIV.Composable(
                             Condition.UNSTABLE -> {
                                 span {
                                     setStyle(color = CodeColors.error)
-                                    +"${param.name}: ${param.type}, // Not stable\n"
+                                    val defaultValue = if (param.defaultValue == null) ""
+                                    else " = ${param.defaultValue}"
+                                    +"${param.name}: ${param.type}$defaultValue, // Not stable\n"
                                 }
                             }
 
                             Condition.UNKNOWN -> {
                                 span {
                                     setStyle(backgroundColor = CodeColors.warning)
-                                    +"${param.name}: ${param.type}, // Stability unknown\n"
+                                    val defaultValue = if (param.defaultValue == null) ""
+                                    else " = ${param.defaultValue}"
+                                    +"${param.name}: ${param.type}$defaultValue, // Stability unknown\n"
                                 }
                             }
 
                             Condition.STABLE,
                             Condition.UNUSED -> {
-                                span { +"${param.name}: ${param.type}" }
+                                span {
+                                    val defaultValue = if (param.defaultValue == null) ""
+                                    else " = ${param.defaultValue}"
+                                    +"${param.name}: ${param.type}$defaultValue"
+                                }
                                 span {
                                     setStyle(color = CodeColors.reserved)
                                     +",\n"
