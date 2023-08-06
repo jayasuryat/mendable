@@ -73,6 +73,7 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Cla
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType$Companion;
 	public static final field Val Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType;
 	public static final field Var Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType;
 	public static fun values ()[Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType;
 }
@@ -113,6 +114,7 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Con
 	public static final field Runtime Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
 	public static final field Stable Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
 	public static final field Unstable Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
 	public static fun values ()[Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
 }
@@ -161,6 +163,7 @@ public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesRepo
 	public static final field UNKNOWN Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
 	public static final field UNSTABLE Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
 	public static final field UNUSED Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
 	public static fun values ()[Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
 }

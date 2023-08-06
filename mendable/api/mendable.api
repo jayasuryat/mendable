@@ -63,6 +63,7 @@ public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$Export
 	public static final field Companion Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType$Companion;
 	public static final field HTML Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public static final field JSON Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public static fun values ()[Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 }
@@ -75,6 +76,7 @@ public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$Includ
 	public static final field ALL Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public static final field Companion Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules$Companion;
 	public static final field WITH_WARNINGS Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public static fun values ()[Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 }
