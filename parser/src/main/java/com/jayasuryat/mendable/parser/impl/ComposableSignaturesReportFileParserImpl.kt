@@ -17,6 +17,7 @@ package com.jayasuryat.mendable.parser.impl
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.ComposableSignaturesReportFile
 import com.jayasuryat.mendable.parser.ComposableSignaturesReportFileParser
+import com.jayasuryat.mendable.parser.impl.ComposableSignaturesReportFileParserImpl.Companion.DEFAULT_VALUE_IDENTIFIER
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport.ComposableDetails.Parameter
 
@@ -143,7 +144,13 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
             .map { param ->
 
                 val stabilityAndName: String = param.take(param.indexOf(':')).trim()
-                val type: String = param.drop(param.indexOf(':') + 1).trim()
+                val typeAndDefaultValue: String = param.drop(param.indexOf(':') + 1).trim()
+                val type = typeAndDefaultValue.extractType(identifier = DEFAULT_VALUE_IDENTIFIER)
+                val defaultValue: String? = typeAndDefaultValue
+                    .removePrefix(type)
+                    .removePrefix(DEFAULT_VALUE_IDENTIFIER)
+                    .trim()
+                    .takeIf { value -> value.isNotBlank() }
 
                 // Example : "stable modifier: Modifier"
                 // Or this could just be "modifier", and the "stable"/"unstable" part could be missing as well
@@ -173,6 +180,7 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
                     condition = condition,
                     name = paramName,
                     type = type,
+                    defaultValue = defaultValue,
                 )
             }
     }
@@ -197,5 +205,45 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
         private const val RESTARTABLE_IDENTIFIER: String = "restartable"
         private const val SKIPPABLE_IDENTIFIER: String = "skippable"
         private const val INLINE_IDENTIFIER: String = "inline"
+
+        // Internal for testing, otherwise should have been private
+        internal const val DEFAULT_VALUE_IDENTIFIER: String = " = "
     }
+}
+
+/**
+ * Extract types from type signatures which may have type and their default value in the same string.
+ * For example, for "Test<Int> = {}" "Test<Int>" would be returned.
+ */
+internal fun String.extractType(
+    identifier: String = DEFAULT_VALUE_IDENTIFIER,
+): String {
+
+    // This property does not have a default value
+    if (!this.contains(identifier)) return this
+
+    // This property does not have any generic types, so type extraction is straightforward
+    if (!this.contains('<')) return this.take(this.indexOf(identifier))
+
+    var symbolStack = 0
+    var symbolsReached = false
+    this.forEachIndexed { index, char ->
+
+        when (char) {
+            '<' -> {
+                symbolStack++
+                symbolsReached = true
+            }
+
+            '>' -> symbolStack--
+        }
+
+        if (symbolsReached && symbolStack == 0) {
+            val typeEndIndex = this@extractType.indexOf(identifier, startIndex = index)
+            return if (typeEndIndex == -1) this.substring(0, index + 1)
+            else this.substring(0, typeEndIndex)
+        }
+    }
+
+    return this
 }
