@@ -145,8 +145,9 @@ public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesRepo
 
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Companion;
-	public fun <init> (Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;Ljava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun getCondition ()Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
+	public final fun getDefaultValue ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getType ()Ljava/lang/String;
 }
