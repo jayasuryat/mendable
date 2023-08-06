@@ -99,3 +99,43 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compo
   }
 
 }
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Discover(
+  stable state: DiscoverUiState
+  stable refresh: Function0<Unit>
+  stable openUser: Function0<Unit>
+  stable openShowDetails: Function3<@[ParameterName(name = 'showId')] Long, @[ParameterName(name = 'seasonId')] Long?, @[ParameterName(name = 'episodeId')] Long?, Unit>
+  stable openTrendingShows: Function0<Unit>
+  stable openRecommendedShows: Function0<Unit>
+  stable openPopularShows: Function0<Unit>
+  stable onMessageShown: Function1<@[ParameterName(name = 'id')] Long, Unit>
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun Header(
+  stable title: String
+  stable modifier: Modifier? = @static Companion
+  stable loading: Boolean = @static false
+  stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>? = @static ComposableSingletons$DiscoverKt.lambda-6
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun FilterSortPanel(
+  stable filterExpanded: Boolean
+  stable filterIcon: Function2<Composer, Int, Unit>
+  stable filterTextField: Function2<Composer, Int, Unit>
+  stable modifier: Modifier? = @static Companion
+  stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Search(
+  stable state: SearchUiState
+  stable openShowDetails: Function1<@[ParameterName(name = 'showId')] Long, Unit>? = @static { it: Long ->
+
+}
+
+  stable onSearchQueryChanged: Function1<@[ParameterName(name = 'query')] String, Unit>? = @static { it: String ->
+
+}
+
+  stable onMessageShown: Function1<@[ParameterName(name = 'id')] Long, Unit>? = @static { it: Long ->
+
+}
+
+  stable modifier: Modifier? = @static Companion
+)

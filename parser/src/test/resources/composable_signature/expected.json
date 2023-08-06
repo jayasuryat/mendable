@@ -47,7 +47,8 @@
         {
           "condition": "STABLE",
           "name": "modifier",
-          "type": "Modifier? = @static Companion"
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         },
         {
           "condition": "UNKNOWN",
@@ -70,7 +71,8 @@
         {
           "condition": "STABLE",
           "name": "modifier",
-          "type": "Modifier? = @static Companion"
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         },
         {
           "condition": "STABLE",
@@ -80,17 +82,20 @@
         {
           "condition": "STABLE",
           "name": "onPageLoaded",
-          "type": "Function0<Unit>? = @static {}"
+          "type": "Function0<Unit>?",
+          "defaultValue": "@static {}"
         },
         {
           "condition": "STABLE",
           "name": "onScrollInitiated",
-          "type": "Function0<Unit>? = @static {}"
+          "type": "Function0<Unit>?",
+          "defaultValue": "@static {}"
         },
         {
           "condition": "STABLE",
           "name": "onScrolledToBottom",
-          "type": "Function0<Unit>? = @static {}"
+          "type": "Function0<Unit>?",
+          "defaultValue": "@static {}"
         }
       ]
     },
@@ -103,7 +108,8 @@
         {
           "condition": "STABLE",
           "name": "modifier",
-          "type": "Modifier? = @static Companion"
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         },
         {
           "condition": "STABLE",
@@ -128,7 +134,8 @@
         {
           "condition": "STABLE",
           "name": "onRetry",
-          "type": "Function0<Unit>? = @static {}"
+          "type": "Function0<Unit>?",
+          "defaultValue": "@static {}"
         }
       ]
     },
@@ -141,17 +148,20 @@
         {
           "condition": "STABLE",
           "name": "colors",
-          "type": "Colors? = @static DefaultLightColorPalette"
+          "type": "Colors?",
+          "defaultValue": "@static DefaultLightColorPalette"
         },
         {
           "condition": "STABLE",
           "name": "typography",
-          "type": "Typography? = @dynamic getDefaultTypography()"
+          "type": "Typography?",
+          "defaultValue": "@dynamic getDefaultTypography()"
         },
         {
           "condition": "STABLE",
           "name": "shapes",
-          "type": "Shapes? = @static DefaultShapes"
+          "type": "Shapes?",
+          "defaultValue": "@static DefaultShapes"
         },
         {
           "condition": "STABLE",
@@ -239,12 +249,14 @@
         {
           "condition": "STABLE",
           "name": "modifier",
-          "type": "Modifier? = @static Companion"
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         },
         {
           "condition": "UNSTABLE",
           "name": "state",
-          "type": "CalendarState? = @dynamic remember({CalendarState ( )}, $composer, 0)"
+          "type": "CalendarState?",
+          "defaultValue": "@dynamic remember({CalendarState ( )}, $composer, 0)"
         },
         {
           "condition": "STABLE",
@@ -254,12 +266,14 @@
         {
           "condition": "STABLE",
           "name": "applyTitle",
-          "type": "String? = @dynamic stringResource(string.apply, $composer, 0)"
+          "type": "String?",
+          "defaultValue": "@dynamic stringResource(string.apply, $composer, 0)"
         },
         {
           "condition": "STABLE",
           "name": "cancelTitle",
-          "type": "String? = @dynamic stringResource(string.cancel, $composer, 0)"
+          "type": "String?",
+          "defaultValue": "@dynamic stringResource(string.cancel, $composer, 0)"
         },
         {
           "condition": "STABLE",
@@ -282,7 +296,8 @@
         {
           "condition": "STABLE",
           "name": "modifier",
-          "type": "Modifier? = @static Companion"
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         },
         {
           "condition": "UNKNOWN",
@@ -325,17 +340,176 @@
         {
           "condition": "STABLE",
           "name": "modifier",
-          "type": "Modifier? = @static Companion"
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         },
         {
           "condition": "STABLE",
           "name": "onDismiss",
-          "type": "Function0<Unit>? = @dynamic $composer.cache($composer.changed(hostState)) {{hostState . currentSnackbarData ?. dismiss ( )}}"
+          "type": "Function0<Unit>?",
+          "defaultValue": "@dynamic $composer.cache($composer.changed(hostState)) {{hostState . currentSnackbarData ?. dismiss ( )}}"
         },
         {
           "condition": "STABLE",
           "name": "snackbar",
-          "type": "Function3<SnackbarData, Composer, Int, Unit>? = @static composableLambda($composer, -1270928980, true) { data: SnackbarData, $composer: Composer?, $changed: Int ->if ( isTraceInProgress ( ) ) {traceEventStart ( -1270928980 , $changed , -1 , \"app.tivi.common.compose.ui.SwipeDismissSnackbarHost.<anonymous> (SwipeDismissSnackbar.kt:63)\" )}SwipeDismissSnackbar ( data , onDismiss , null , $composer , 0b1000 or 0b01110000 and $dirty shr 0b0011 , 0b0100 )if ( isTraceInProgress ( ) ) {"
+          "type": "Function3<SnackbarData, Composer, Int, Unit>?",
+          "defaultValue": "@static composableLambda($composer, -1270928980, true) { data: SnackbarData, $composer: Composer?, $changed: Int ->if ( isTraceInProgress ( ) ) {traceEventStart ( -1270928980 , $changed , -1 , \"app.tivi.common.compose.ui.SwipeDismissSnackbarHost.<anonymous> (SwipeDismissSnackbar.kt:63)\" )}SwipeDismissSnackbar ( data , onDismiss , null , $composer , 0b1000 or 0b01110000 and $dirty shr 0b0011 , 0b0100 )if ( isTraceInProgress ( ) ) {"
+        }
+      ]
+    },
+    {
+      "functionName": "Discover",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "state",
+          "type": "DiscoverUiState"
+        },
+        {
+          "condition": "STABLE",
+          "name": "refresh",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openUser",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openShowDetails",
+          "type": "Function3<@[ParameterName(name = 'showId')] Long, @[ParameterName(name = 'seasonId')] Long?, @[ParameterName(name = 'episodeId')] Long?, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openTrendingShows",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openRecommendedShows",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openPopularShows",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onMessageShown",
+          "type": "Function1<@[ParameterName(name = 'id')] Long, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "Header",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "title",
+          "type": "String"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "loading",
+          "type": "Boolean",
+          "defaultValue": "@static false"
+        },
+        {
+          "condition": "STABLE",
+          "name": "content",
+          "type": "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>?",
+          "defaultValue": "@static ComposableSingletons$DiscoverKt.lambda-6"
+        }
+      ]
+    },
+    {
+      "functionName": "FilterSortPanel",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "filterExpanded",
+          "type": "Boolean"
+        },
+        {
+          "condition": "STABLE",
+          "name": "filterIcon",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "filterTextField",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "content",
+          "type": "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>"
+        }
+      ]
+    },
+    {
+      "functionName": "Search",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "state",
+          "type": "SearchUiState"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openShowDetails",
+          "type": "Function1<@[ParameterName(name = 'showId')] Long, Unit>?",
+          "defaultValue": "@static { it: Long ->}"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onSearchQueryChanged",
+          "type": "Function1<@[ParameterName(name = 'query')] String, Unit>?",
+          "defaultValue": "@static { it: String ->}"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onMessageShown",
+          "type": "Function1<@[ParameterName(name = 'id')] Long, Unit>?",
+          "defaultValue": "@static { it: Long ->}"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
         }
       ]
     }

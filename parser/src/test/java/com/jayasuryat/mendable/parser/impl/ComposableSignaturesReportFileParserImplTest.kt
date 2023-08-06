@@ -18,10 +18,12 @@ package com.jayasuryat.mendable.parser.impl
 import com.google.gson.GsonBuilder
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.ComposableSignaturesReportFile
 import com.jayasuryat.mendable.parser.ComposableSignaturesReportFileParser
+import com.jayasuryat.mendable.parser.impl.ComposableSignaturesReportFileParserImpl.Companion.DEFAULT_VALUE_IDENTIFIER
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.util.getComposableSignaturesReportFileFromResources
 import com.jayasuryat.mendable.parser.util.readFileAsTextFromResources
 import io.kotest.assertions.json.*
+import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 internal class ComposableSignaturesReportFileParserImplTest {
@@ -49,5 +51,37 @@ internal class ComposableSignaturesReportFileParserImplTest {
             typeCoercion = TypeCoercion.Disabled
             expectedJson
         }
+    }
+
+    @Test
+    fun `extract type appropriately from strings with default types`() {
+
+        val input = listOf(
+            "Test<Int> = {}",
+            "Test = {}",
+            "Function1<@[ParameterName(name = 'showId')] Long, Unit>? = @static { it: Long -> }",
+            "Function1<@[ParameterName(name = 'id')] Long, Unit>",
+            "Function2<@[ParameterName(name = 'startDate')] LocalDate, @[ParameterName(name = 'endDate')] LocalDate?, Unit>",
+            "Function3<@[ParameterName(name = 'showId')] Long, @[ParameterName(name = 'seasonId')] Long?, @[ParameterName(name = 'episodeId')] Long?, Unit>",
+            "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>? = @static ComposableSingletons\$DiscoverKt.lambda-6",
+            "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>",
+        )
+
+        val expected = listOf(
+            "Test<Int>",
+            "Test",
+            "Function1<@[ParameterName(name = 'showId')] Long, Unit>?",
+            "Function1<@[ParameterName(name = 'id')] Long, Unit>",
+            "Function2<@[ParameterName(name = 'startDate')] LocalDate, @[ParameterName(name = 'endDate')] LocalDate?, Unit>",
+            "Function3<@[ParameterName(name = 'showId')] Long, @[ParameterName(name = 'seasonId')] Long?, @[ParameterName(name = 'episodeId')] Long?, Unit>",
+            "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>?",
+            "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>",
+        )
+
+        input.zip(expected)
+            .forEach { (input: String, expected: String) ->
+                val output = input.extractType(identifier = DEFAULT_VALUE_IDENTIFIER)
+                output shouldBe expected
+            }
     }
 }
