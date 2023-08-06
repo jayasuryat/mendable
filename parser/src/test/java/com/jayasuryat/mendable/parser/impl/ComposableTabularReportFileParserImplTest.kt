@@ -21,9 +21,8 @@ import com.jayasuryat.mendable.parser.ComposableTabularReportFileParser
 import com.jayasuryat.mendable.parser.model.ComposableTabularReport
 import com.jayasuryat.mendable.parser.util.getComposableTabularReportFileFromResources
 import com.jayasuryat.mendable.parser.util.readFileAsTextFromResources
+import io.kotest.assertions.json.*
 import org.junit.Test
-import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
 
 class ComposableTabularReportFileParserImplTest {
 
@@ -41,6 +40,14 @@ class ComposableTabularReportFileParserImplTest {
         val expectedJson = readFileAsTextFromResources("composable_tabular/expected.json")
 
         val actual = GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(report)
-        JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.NON_EXTENSIBLE)
+
+        actual shouldEqualJson {
+            propertyOrder = PropertyOrder.Lenient
+            arrayOrder = ArrayOrder.Lenient
+            fieldComparison = FieldComparison.Strict
+            numberFormat = NumberFormat.Strict
+            typeCoercion = TypeCoercion.Disabled
+            expectedJson
+        }
     }
 }

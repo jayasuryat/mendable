@@ -9,10 +9,9 @@ val mainCliClassName = "com.jayasuryat.mendable.app.MainKt"
 
 dependencies {
 
-    testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.junit)
     testImplementation(libs.kotest.assertions.core)
-    testImplementation(libs.jsonassert)
+    testImplementation(libs.kotest.assertions.json)
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.cli)
@@ -29,7 +28,6 @@ kotlin {
 }
 
 tasks.named<Test>("test") {
-    useJUnitPlatform()
     testLogging {
         exceptionFormat = TestExceptionFormat.FULL
     }

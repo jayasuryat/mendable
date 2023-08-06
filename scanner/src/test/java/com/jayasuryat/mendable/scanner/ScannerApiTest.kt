@@ -16,11 +16,11 @@
 package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
+import io.kotest.matchers.shouldBe
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
 import org.junit.rules.TemporaryFolder
 
 internal class ScannerApiTest {
@@ -29,12 +29,12 @@ internal class ScannerApiTest {
     @JvmField
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
-    @BeforeEach
+    @Before
     fun setup() {
         temporaryFolder.create()
     }
 
-    @AfterEach
+    @After
     fun teardown() {
         temporaryFolder.delete()
     }
@@ -55,10 +55,10 @@ internal class ScannerApiTest {
             scanRecursively = false
         )
 
-        Assertions.assertEquals(1, reports.size)
+        reports.size shouldBe 1
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
 
     @Test
@@ -76,10 +76,10 @@ internal class ScannerApiTest {
             scanRecursively = false
         )
 
-        Assertions.assertEquals(1, reports.size)
+        reports.size shouldBe 1
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
 
     @Test
@@ -97,10 +97,10 @@ internal class ScannerApiTest {
             scanRecursively = false
         )
 
-        Assertions.assertEquals(1, reports.size)
+        reports.size shouldBe 1
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
 
     @Test
@@ -118,10 +118,10 @@ internal class ScannerApiTest {
             scanRecursively = false
         )
 
-        Assertions.assertEquals(1, reports.size)
+        reports.size shouldBe 1
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
     // endregion
 
@@ -141,10 +141,10 @@ internal class ScannerApiTest {
             scanRecursively = true,
         )
 
-        Assertions.assertEquals(2, reports.size)
+        reports.size shouldBe 2
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
 
     @Test
@@ -162,10 +162,10 @@ internal class ScannerApiTest {
             scanRecursively = true,
         )
 
-        Assertions.assertEquals(2, reports.size)
+        reports.size shouldBe 2
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
 
     @Test
@@ -183,10 +183,10 @@ internal class ScannerApiTest {
             scanRecursively = true,
         )
 
-        Assertions.assertEquals(2, reports.size)
+        reports.size shouldBe 2
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
 
     @Test
@@ -204,10 +204,10 @@ internal class ScannerApiTest {
             scanRecursively = true,
         )
 
-        Assertions.assertEquals(2, reports.size)
+        reports.size shouldBe 2
 
         val report = reports.first()
-        Assertions.assertEquals(fileName, report.file.name)
+        report.file.name shouldBe fileName
     }
     // endregion
 
@@ -231,11 +231,11 @@ internal class ScannerApiTest {
             scanRecursively = false,
         )
 
-        Assertions.assertEquals(1, reports.size)
+        reports.size shouldBe 1
 
         val report = reports.first()
-        Assertions.assertEquals(root, report.file.name)
-        Assertions.assertEquals(temporaryFolder.root.path, report.file.parent)
+        report.file.name shouldBe root
+        report.file.parent shouldBe temporaryFolder.root.path
     }
 
     @Test
@@ -258,13 +258,13 @@ internal class ScannerApiTest {
             scanRecursively = true,
         ).sortedBy { report -> report.file.name }
 
-        Assertions.assertEquals(3, reports.size)
+        reports.size shouldBe 3
 
         val expectedFileNames: List<String> = listOf(root, nest1, nest2).sorted()
 
         reports.zip(expectedFileNames)
             .forEach { (report, name) ->
-                Assertions.assertEquals(name, report.file.name)
+                report.file.name shouldBe name
             }
     }
 }

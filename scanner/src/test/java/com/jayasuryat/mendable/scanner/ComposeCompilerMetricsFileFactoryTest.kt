@@ -17,7 +17,7 @@ package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
 import io.kotest.assertions.throwables.shouldThrow
-import org.junit.Assert
+import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.Test
 import java.io.File
 
@@ -36,7 +36,7 @@ internal class ComposeCompilerMetricsFileFactoryTest {
             moduleFactory = moduleFactory,
         )
 
-        Assert.assertTrue(produced is ComposeCompilerMetricsFile.ComposableSignaturesReportFile)
+        produced.shouldBeInstanceOf<ComposeCompilerMetricsFile.ComposableSignaturesReportFile>()
     }
 
     @Test
@@ -50,7 +50,7 @@ internal class ComposeCompilerMetricsFileFactoryTest {
             moduleFactory = moduleFactory,
         )
 
-        Assert.assertTrue(produced is ComposeCompilerMetricsFile.ClassStabilityReportFile)
+        produced.shouldBeInstanceOf<ComposeCompilerMetricsFile.ClassStabilityReportFile>()
     }
 
     @Test
@@ -64,7 +64,7 @@ internal class ComposeCompilerMetricsFileFactoryTest {
             moduleFactory = moduleFactory,
         )
 
-        Assert.assertTrue(produced is ComposeCompilerMetricsFile.ComposableTabularReportFile)
+        produced.shouldBeInstanceOf<ComposeCompilerMetricsFile.ComposableTabularReportFile>()
     }
 
     @Test
@@ -78,7 +78,7 @@ internal class ComposeCompilerMetricsFileFactoryTest {
             moduleFactory = moduleFactory,
         )
 
-        Assert.assertTrue(produced is ComposeCompilerMetricsFile.ModuleMetricsFile)
+        produced.shouldBeInstanceOf<ComposeCompilerMetricsFile.ModuleMetricsFile>()
     }
 
     @Test

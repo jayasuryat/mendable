@@ -16,7 +16,7 @@
 package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.Module
-import org.junit.Assert
+import io.kotest.matchers.shouldBe
 import org.junit.Test
 
 internal class DefaultModuleFactoryTest {
@@ -31,8 +31,8 @@ internal class DefaultModuleFactoryTest {
             fileName = fileName,
         )
 
-        Assert.assertEquals("app", module.name)
-        Assert.assertEquals("qaRelease", module.buildVariant)
+        module.name shouldBe "app"
+        module.buildVariant shouldBe "qaRelease"
     }
 
     // While the expected outputs of this test are not really what one might expect. This test is just present to
@@ -47,8 +47,8 @@ internal class DefaultModuleFactoryTest {
             fileName = fileName,
         )
 
-        Assert.assertEquals("feature_a_build", module.name)
-        Assert.assertEquals("variant", module.buildVariant)
+        module.name shouldBe "feature_a_build"
+        module.buildVariant shouldBe "variant"
     }
 
     @Test
@@ -59,8 +59,8 @@ internal class DefaultModuleFactoryTest {
             fileName = fileName,
         )
 
-        Assert.assertEquals("compose", module.name)
-        Assert.assertEquals("release", module.buildVariant)
+        module.name shouldBe "compose"
+        module.buildVariant shouldBe "release"
     }
 
     @Test
@@ -70,9 +70,8 @@ internal class DefaultModuleFactoryTest {
         val module: Module = factory.parseModule(
             fileName = fileName,
         )
-
-        Assert.assertEquals("discover", module.name)
-        Assert.assertEquals("release", module.buildVariant)
+        module.name shouldBe "discover"
+        module.buildVariant shouldBe "release"
     }
 
     @Test
@@ -83,8 +82,8 @@ internal class DefaultModuleFactoryTest {
             fileName = fileName,
         )
 
-        Assert.assertEquals("search", module.name)
-        Assert.assertEquals("release", module.buildVariant)
+        module.name shouldBe "search"
+        module.buildVariant shouldBe "release"
     }
 
     @Test
@@ -113,8 +112,8 @@ internal class DefaultModuleFactoryTest {
                         fileName = fileName,
                     )
 
-                    Assert.assertEquals(name, module.name)
-                    Assert.assertEquals(variant, module.buildVariant)
+                    module.name shouldBe name
+                    module.buildVariant shouldBe variant
                 }
             }
         }

@@ -19,10 +19,10 @@ import com.jayasuryat.mendable.app.FakeSystemExit.FakeSystemExitException
 import com.jayasuryat.mendable.app.system.SystemExit
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
 internal class CliArgumentsTest {
@@ -33,12 +33,12 @@ internal class CliArgumentsTest {
     @JvmField
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
-    @BeforeEach
+    @Before
     fun setup() {
         temporaryFolder.create()
     }
 
-    @AfterEach
+    @After
     fun tearDown() {
         temporaryFolder.delete()
     }

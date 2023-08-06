@@ -20,8 +20,11 @@ import com.jayasuryat.mendable.MendableReportGenerator.Progress
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.ExportType
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.IncludeModules
 import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
+import io.kotest.matchers.file.shouldBeAFile
+import io.kotest.matchers.file.shouldExist
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -49,7 +52,7 @@ internal class MendableReportGeneratorTest {
 
         val result: Progress.Result = generator.generate(request = request)
 
-        Assert.assertTrue(result is Progress.Error)
+        result.shouldBeInstanceOf<Progress.Error>()
     }
 
     @Test
@@ -66,7 +69,7 @@ internal class MendableReportGeneratorTest {
 
         val result: Progress.Result = generator.generate(request = request)
 
-        Assert.assertTrue(result is Progress.Error)
+        result.shouldBeInstanceOf<Progress.Error>()
     }
 
     @Test
@@ -83,7 +86,7 @@ internal class MendableReportGeneratorTest {
 
         val result: Progress.Result = generator.generate(request = request)
 
-        Assert.assertTrue(result is Progress.Error)
+        result.shouldBeInstanceOf<Progress.Error>()
     }
 
     @Test
@@ -100,7 +103,7 @@ internal class MendableReportGeneratorTest {
 
         val result: Progress.Result = generator.generate(request = request)
 
-        Assert.assertTrue(result is Progress.NoMetricsFilesFound)
+        result.shouldBeInstanceOf<Progress.NoMetricsFilesFound>()
     }
 
     @Test
@@ -122,15 +125,14 @@ internal class MendableReportGeneratorTest {
 
         val result: Progress.Result = generator.generate(request = request)
 
-        Assert.assertTrue(result is Progress.SuccessfullyCompleted)
-        result as Progress.SuccessfullyCompleted
+        result.shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
 
-        Assert.assertEquals("${temporaryFolder.root.path}/report.html", result.outputPath)
-        Assert.assertEquals(ExportType.HTML, result.exportType)
+        result.outputPath shouldBe "${temporaryFolder.root.path}/report.html"
+        result.exportType shouldBe ExportType.HTML
 
         val output = File(result.outputPath)
-        Assert.assertTrue(output.exists())
-        Assert.assertTrue(output.isFile)
+        output.shouldExist()
+        output.shouldBeAFile()
     }
 
     @Test
@@ -152,15 +154,14 @@ internal class MendableReportGeneratorTest {
 
         val result: Progress.Result = generator.generate(request = request)
 
-        Assert.assertTrue(result is Progress.SuccessfullyCompleted)
-        result as Progress.SuccessfullyCompleted
+        result.shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
 
-        Assert.assertEquals("${temporaryFolder.root.path}/report.json", result.outputPath)
-        Assert.assertEquals(ExportType.JSON, result.exportType)
+        result.outputPath shouldBe "${temporaryFolder.root.path}/report.json"
+        result.exportType shouldBe ExportType.JSON
 
         val output = File(result.outputPath)
-        Assert.assertTrue(output.exists())
-        Assert.assertTrue(output.isFile)
+        output.shouldExist()
+        output.shouldBeAFile()
     }
 
     @Test
@@ -185,10 +186,10 @@ internal class MendableReportGeneratorTest {
             progresses.add(progress)
         }
 
-        Assert.assertTrue(progresses.removeFirst() is Progress.Initiated)
-        Assert.assertTrue(progresses.removeFirst() is Progress.MetricsFilesFound)
-        Assert.assertTrue(progresses.removeFirst() is Progress.MetricsFilesParsed)
-        Assert.assertTrue(progresses.removeFirst() is Progress.SuccessfullyCompleted)
+        progresses.removeFirst().shouldBeInstanceOf<Progress.Initiated>()
+        progresses.removeFirst().shouldBeInstanceOf<Progress.MetricsFilesFound>()
+        progresses.removeFirst().shouldBeInstanceOf<Progress.MetricsFilesParsed>()
+        progresses.removeFirst().shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
     }
 
     @Test
@@ -209,14 +210,14 @@ internal class MendableReportGeneratorTest {
         )
 
         val result: Progress.Result = generator.generate(request = request)
-        Assert.assertTrue(result is Progress.SuccessfullyCompleted)
+        result.shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
 
-        val outputPath = (result as Progress.SuccessfullyCompleted).outputPath
+        val outputPath = result.outputPath
         val outputContent = File(outputPath).readText()
         val outputModel = Gson().fromJson(outputContent, ComposeCompilerMetricsExportModel::class.java)
 
-        Assert.assertEquals(2, outputModel.totalModulesScanned)
-        Assert.assertEquals(1, outputModel.totalModulesReported)
-        Assert.assertEquals(1, outputModel.totalModulesFiltered)
+        outputModel.totalModulesScanned shouldBe 2
+        outputModel.totalModulesReported shouldBe 1
+        outputModel.totalModulesFiltered shouldBe 1
     }
 }

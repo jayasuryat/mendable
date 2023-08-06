@@ -8,12 +8,10 @@ kotlin {
 
 dependencies {
 
-    testImplementation(libs.kotlin.test.junit5)
     testImplementation(libs.junit)
-    testImplementation(libs.jsonassert)
-    testImplementation(libs.gson)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotest.assertions.json)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(projects.scanner)
 
     implementation(libs.kotlinx.html.jvm)
     implementation(libs.gson)

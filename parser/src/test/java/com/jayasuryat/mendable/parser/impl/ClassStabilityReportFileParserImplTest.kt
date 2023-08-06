@@ -23,9 +23,8 @@ import com.jayasuryat.mendable.parser.model.ClassStabilityReport.ClassDetails.Ru
 import com.jayasuryat.mendable.parser.util.RuntimeStabilityAdapter
 import com.jayasuryat.mendable.parser.util.getClassStabilityReportFileFromResources
 import com.jayasuryat.mendable.parser.util.readFileAsTextFromResources
+import io.kotest.assertions.json.*
 import org.junit.Test
-import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
 
 internal class ClassStabilityReportFileParserImplTest {
 
@@ -50,6 +49,14 @@ internal class ClassStabilityReportFileParserImplTest {
         val expectedJson = readFileAsTextFromResources("class_stability/expected.json")
 
         val actual = gson.toJson(report)
-        JSONAssert.assertEquals(expectedJson, actual, JSONCompareMode.NON_EXTENSIBLE)
+
+        actual shouldEqualJson {
+            propertyOrder = PropertyOrder.Lenient
+            arrayOrder = ArrayOrder.Lenient
+            fieldComparison = FieldComparison.Strict
+            numberFormat = NumberFormat.Strict
+            typeCoercion = TypeCoercion.Disabled
+            expectedJson
+        }
     }
 }

@@ -3,8 +3,7 @@
 kotlin = "1.9.0"
 
 junit = "4.13.2"
-kotestAssertionsCore = "5.6.2"
-jsonassert = "1.5.1"
+kotestAssertions = "5.6.2"
 kotlinxCoroutinesTest = "1.7.3"
 
 kotlinxCli = "0.3.5"
@@ -22,8 +21,8 @@ binaryCompatibilityValidator = "0.13.2"
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", version.ref = "kotlin" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
-kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotestAssertionsCore" }
-jsonassert = { group = "org.skyscreamer", name = "jsonassert", version.ref = "jsonassert" }
+kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotestAssertions" }
+kotest-assertions-json = { group = "io.kotest", name = "kotest-assertions-json", version.ref = "kotestAssertions" }
 
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 kotlinx-html-jvm = { group = "org.jetbrains.kotlinx", name = "kotlinx-html-jvm", version.ref = "kotlinxHtmlJvm" }
