@@ -15,6 +15,8 @@
  */
 package com.jayasuryat.mendable
 
+import dev.drewhamilton.poko.Poko
+
 /**
  * Represents a request for generating a mendable report.
  *
@@ -27,6 +29,7 @@ package com.jayasuryat.mendable
  * @property exportType The type of export for the report (HTML or JSON).
  * @property includeModules The inclusion criteria for modules in the report (ALL or WITH_WARNINGS).
  */
+@Poko
 public class MendableReportGeneratorRequest(
     public val scanPath: String,
     public val outputPath: String,

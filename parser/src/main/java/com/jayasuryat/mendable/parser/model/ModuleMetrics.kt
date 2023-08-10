@@ -16,6 +16,7 @@
 package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
+import dev.drewhamilton.poko.Poko
 
 /**
  * This class provides detailed metrics information about a module's composable functions and classes.
@@ -25,6 +26,7 @@ import com.jayasuryat.mendable.metricsfile.Module
  * @property module The module to which these metrics pertain.
  * @property details The detailed metrics for the module.
  */
+@Poko
 public class ModuleMetrics(
     override val module: Module,
     public val details: Details,
@@ -57,6 +59,7 @@ public class ModuleMetrics(
      * @property composableLambdas The number of composable lambdas in the module.
      * @property totalLambdas The total number of lambdas in the module.
      */
+    @Poko
     public class Details(
         public val skippableComposables: Int,
         public val restartableComposables: Int,

@@ -7,8 +7,11 @@ public abstract interface class com/jayasuryat/mendable/metricsfile/ComposeCompi
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
 	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile$Companion;
 	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getFile ()Ljava/io/File;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile$Companion {
@@ -20,8 +23,11 @@ public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFil
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
 	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile$Companion;
 	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getFile ()Ljava/io/File;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile$Companion {
@@ -30,8 +36,11 @@ public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFil
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
 	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile$Companion;
 	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getFile ()Ljava/io/File;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile$Companion {
@@ -40,8 +49,11 @@ public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFil
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile : com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile {
 	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile$Companion;
 	public fun <init> (Ljava/io/File;Lcom/jayasuryat/mendable/metricsfile/Module;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getFile ()Ljava/io/File;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile$Companion {
@@ -50,8 +62,10 @@ public final class com/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFil
 public final class com/jayasuryat/mendable/metricsfile/Module {
 	public static final field Companion Lcom/jayasuryat/mendable/metricsfile/Module$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBuildVariant ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 

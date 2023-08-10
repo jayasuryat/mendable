@@ -15,17 +15,16 @@
  */
 package com.jayasuryat.mendable.metricsfile
 
+import dev.drewhamilton.poko.Poko
+
 /**
  * [Module] represents a subproject (a gradle module for example).
  */
+@Poko
 public class Module(
     public val name: String,
     public val buildVariant: String,
 ) {
-
-    public override fun toString(): String {
-        return "Module(name='$name', buildVariant='$buildVariant')"
-    }
 
     public companion object
 }

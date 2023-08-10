@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.binary.compatibility.validator)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.poko) apply false
 }
 
 apply {

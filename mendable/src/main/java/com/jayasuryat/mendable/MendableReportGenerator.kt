@@ -27,6 +27,7 @@ import com.jayasuryat.mendable.parser.getComposableSignaturesReportFileParser
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport.ComposableDetails
 import com.jayasuryat.mendable.scanner.scanForComposableSignaturesReportFiles
+import dev.drewhamilton.poko.Poko
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -263,20 +264,17 @@ public class MendableReportGenerator(
         public sealed interface Result
 
         /** Represents the initial state of the report generation process.*/
-        public object Initiated : Progress {
-            override fun toString(): String = "Progress.Initiated"
-        }
+        public data object Initiated : Progress
 
         /**
          * Represents the state when metrics files are found for processing.
          *
          * @property files The list of metrics files found.
          */
+        @Poko
         public class MetricsFilesFound(
             public val files: List<ComposableSignaturesReportFile>,
-        ) : Progress {
-            override fun toString(): String = "Progress.MetricsFilesFound(files=$files)"
-        }
+        ) : Progress
 
         /**
          * Represents the state when metrics files are parsed, indicating count of successful and failed parsing.
@@ -284,6 +282,7 @@ public class MendableReportGenerator(
          * @property parsedSuccessfully The count of metrics files parsed successfully.
          * @property errors The list of parse errors.
          */
+        @Poko
         public class MetricsFilesParsed(
             public val parsedSuccessfully: Int,
             public val errors: List<ParseError>,
@@ -298,19 +297,11 @@ public class MendableReportGenerator(
              * @property fileName The name of the file that caused the error.
              * @property throwable The throwable that occurred during parsing.
              */
+            @Poko
             public class ParseError(
                 public val fileName: String,
                 public val throwable: Throwable,
-            ) : RuntimeException(throwable) {
-
-                override fun toString(): String {
-                    return "ParseError(fileName='$fileName', throwable=$throwable)"
-                }
-            }
-
-            override fun toString(): String {
-                return "MetricsFilesParsed(parsedSuccessfully=$parsedSuccessfully, failedToParse=$failedToParse, errors=$errors)"
-            }
+            ) : RuntimeException(throwable)
         }
 
         /**
@@ -319,29 +310,23 @@ public class MendableReportGenerator(
          * @property outputPath The output path where the result is stored.
          * @property exportType The type of export used for the result.
          */
+        @Poko
         public class SuccessfullyCompleted(
             public val outputPath: String,
             public val exportType: ExportType,
-        ) : Progress, Result {
-            override fun toString(): String =
-                "Progress.SuccessfullyCompleted(outputPath=$outputPath, exportType=$exportType)"
-        }
+        ) : Progress, Result
 
         /** Represents the progress when no metrics files are found for processing. */
-        public data object NoMetricsFilesFound : Progress, Result {
-            override fun toString(): String = "Progress.NoMetricsFilesFound"
-        }
+        public data object NoMetricsFilesFound : Progress, Result
 
         /**
          * Represents an error that occurred during the report generation process.
          *
          * @property throwable The throwable associated with the error.
          */
+        @Poko
         public class Error(
             public val throwable: Throwable,
-        ) : Progress, Result {
-
-            override fun toString(): String = "Progress.Error(throwable=$throwable)"
-        }
+        ) : Progress, Result
     }
 }

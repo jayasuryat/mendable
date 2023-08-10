@@ -15,6 +15,7 @@
  */
 package com.jayasuryat.mendable.metricsfile
 
+import dev.drewhamilton.poko.Poko
 import java.io.File
 
 /**
@@ -36,6 +37,7 @@ public sealed interface ComposeCompilerMetricsFile {
      * Represents the report containing composable function signatures.
      * Generally files with name in `<module-name>-composables.txt` format.
      */
+    @Poko
     public class ComposableSignaturesReportFile(
         override val file: File,
         override val module: Module,
@@ -48,6 +50,7 @@ public sealed interface ComposeCompilerMetricsFile {
      * Represents the report containing information about stability of classes.
      * Generally files with name in `<module-name>-classes.txt` format.
      */
+    @Poko
     public class ClassStabilityReportFile(
         override val file: File,
         override val module: Module,
@@ -60,6 +63,7 @@ public sealed interface ComposeCompilerMetricsFile {
      * Represents the report containing high-level metrics specific to every composable function in a CSV format
      * Generally files with name in `<module-name>-composables.csv` format.
      */
+    @Poko
     public class ComposableTabularReportFile(
         override val file: File,
         override val module: Module,
@@ -72,6 +76,7 @@ public sealed interface ComposeCompilerMetricsFile {
      * Represents the metrics report for an entire module.
      * Generally files with name in `<module-name>-module.json` format.
      */
+    @Poko
     public class ModuleMetricsFile(
         override val file: File,
         override val module: Module,

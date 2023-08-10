@@ -41,17 +41,23 @@ public abstract interface class com/jayasuryat/mendable/parser/ModuleMetricsFile
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport : com/jayasuryat/mendable/parser/model/ComposeCompilerMetrics {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Companion;
 	public fun <init> (Lcom/jayasuryat/mendable/metricsfile/Module;Ljava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getClasses ()Ljava/util/List;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Companion;
 	public fun <init> (Ljava/lang/String;Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability;Ljava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCondition ()Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
 	public final fun getFields ()Ljava/util/List;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getRuntimeStability ()Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Companion {
@@ -60,10 +66,13 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Cla
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$Companion;
 	public fun <init> (Ljava/lang/String;Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType;Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCondition ()Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$Condition;
 	public final fun getDeclarationType ()Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$DeclarationType;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$Field$Companion {
@@ -90,7 +99,10 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Cla
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Parameter : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
 	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCause ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Stable : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
@@ -102,7 +114,10 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Cla
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Uncertain : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
 	public fun <init> (Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCause ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Unstable : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
@@ -131,8 +146,11 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Con
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport : com/jayasuryat/mendable/parser/model/ComposeCompilerMetrics {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$Companion;
 	public fun <init> (Lcom/jayasuryat/mendable/metricsfile/Module;Ljava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getComposables ()Ljava/util/List;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$Companion {
@@ -141,11 +159,14 @@ public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesRepo
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Companion;
 	public fun <init> (Ljava/lang/String;ZZZLjava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFunctionName ()Ljava/lang/String;
 	public final fun getParams ()Ljava/util/List;
+	public fun hashCode ()I
 	public final fun isInline ()Z
 	public final fun isRestartable ()Z
 	public final fun isSkippable ()Z
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Companion {
@@ -154,10 +175,13 @@ public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesRepo
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Companion;
 	public fun <init> (Ljava/lang/String;Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;Ljava/lang/String;Ljava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCondition ()Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
 	public final fun getDefaultValue ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getType ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Companion {
@@ -180,8 +204,11 @@ public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesRepo
 public final class com/jayasuryat/mendable/parser/model/ComposableTabularReport : com/jayasuryat/mendable/parser/model/ComposeCompilerMetrics {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableTabularReport$Companion;
 	public fun <init> (Lcom/jayasuryat/mendable/metricsfile/Module;Ljava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getComposables ()Ljava/util/List;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ComposableTabularReport$Companion {
@@ -190,6 +217,7 @@ public final class com/jayasuryat/mendable/parser/model/ComposableTabularReport$
 public final class com/jayasuryat/mendable/parser/model/ComposableTabularReport$ComposableDetails {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableTabularReport$ComposableDetails$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZZZZIII)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCalls ()I
 	public final fun getDefaultsGroup ()I
 	public final fun getGroups ()I
@@ -200,7 +228,9 @@ public final class com/jayasuryat/mendable/parser/model/ComposableTabularReport$
 	public final fun getReadonly ()Z
 	public final fun getRestartable ()Z
 	public final fun getSkippable ()Z
+	public fun hashCode ()I
 	public final fun isLambda ()Z
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ComposableTabularReport$ComposableDetails$Companion {
@@ -213,8 +243,11 @@ public abstract interface class com/jayasuryat/mendable/parser/model/ComposeComp
 public final class com/jayasuryat/mendable/parser/model/ModuleMetrics : com/jayasuryat/mendable/parser/model/ComposeCompilerMetrics {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ModuleMetrics$Companion;
 	public fun <init> (Lcom/jayasuryat/mendable/metricsfile/Module;Lcom/jayasuryat/mendable/parser/model/ModuleMetrics$Details;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDetails ()Lcom/jayasuryat/mendable/parser/model/ModuleMetrics$Details;
 	public fun getModule ()Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ModuleMetrics$Companion {
@@ -223,6 +256,7 @@ public final class com/jayasuryat/mendable/parser/model/ModuleMetrics$Companion 
 public final class com/jayasuryat/mendable/parser/model/ModuleMetrics$Details {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ModuleMetrics$Details$Companion;
 	public fun <init> (IIIIIIIIIIIIIIIIIIIIIII)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCertainArguments ()I
 	public final fun getComposableLambdas ()I
 	public final fun getEffectivelyStableClasses ()I
@@ -246,6 +280,8 @@ public final class com/jayasuryat/mendable/parser/model/ModuleMetrics$Details {
 	public final fun getTotalGroups ()I
 	public final fun getTotalLambdas ()I
 	public final fun getUnknownStableArguments ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ModuleMetrics$Details$Companion {
