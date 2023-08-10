@@ -37,7 +37,6 @@ internal fun ComposeCompilerMetricsFile.Companion.from(
 
     val module: Module = moduleFactory.parseModule(name)
 
-    @Suppress("MoveVariableDeclarationIntoWhen")
     val identifier: String = name.drop(name.lastIndexOf("-"))
 
     val metricsFile: ComposeCompilerMetricsFile = when (identifier) {
