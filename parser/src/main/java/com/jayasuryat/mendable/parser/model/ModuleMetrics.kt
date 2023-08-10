@@ -17,11 +17,46 @@ package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
 
+/**
+ * This class provides detailed metrics information about a module's composable functions and classes.
+ *
+ * Generally represents files with name in `<module-name>-module.json` format.
+ *
+ * @property module The module to which these metrics pertain.
+ * @property details The detailed metrics for the module.
+ */
 public class ModuleMetrics(
     override val module: Module,
     public val details: Details,
 ) : ComposeCompilerMetrics {
 
+    /**
+     * Represents detailed metrics information for a module.
+     *
+     * @property skippableComposables The number of skippable composable functions.
+     * @property restartableComposables The number of restartable composable functions.
+     * @property readonlyComposables The number of readonly composable functions.
+     * @property totalComposables The total number of composable functions.
+     * @property restartGroups The number of restart groups in the module.
+     * @property totalGroups The total number of groups in the module.
+     * @property staticArguments The number of static arguments in the module.
+     * @property certainArguments The number of certain arguments in the module.
+     * @property knownStableArguments The number of known stable arguments in the module.
+     * @property knownUnstableArguments The number of known unstable arguments in the module.
+     * @property unknownStableArguments The number of unknown stable arguments in the module.
+     * @property totalArguments The total number of arguments in the module.
+     * @property markedStableClasses The number of classes marked as stable in the module.
+     * @property inferredStableClasses The number of classes inferred as stable in the module.
+     * @property inferredUnstableClasses The number of classes inferred as unstable in the module.
+     * @property inferredUncertainClasses The number of classes inferred as uncertain in the module.
+     * @property effectivelyStableClasses The number of effectively stable classes in the module.
+     * @property totalClasses The total number of classes in the module.
+     * @property memoizedLambdas The number of memoized lambdas in the module.
+     * @property singletonLambdas The number of singleton lambdas in the module.
+     * @property singletonComposableLambdas The number of singleton composable lambdas in the module.
+     * @property composableLambdas The number of composable lambdas in the module.
+     * @property totalLambdas The total number of lambdas in the module.
+     */
     public class Details(
         public val skippableComposables: Int,
         public val restartableComposables: Int,
