@@ -1,13 +1,44 @@
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PreviewVC()
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PreviewVI()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun PreviewVP()
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Preview(
   args: LoginArgs
 )
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun LanguageItem(
+inline fun LogCompositions(
+  stable tag: String
+)
+fun <get-InterFontFamily>()
+fun <get-TiviTypography>()
+fun defaultColor(
+  unused stable <this>: NoRippleTheme
+): Color
+fun shouldUseDynamicColors(
+  unstable <this>: TiviPreferences
+): Boolean
+readonly fun <get-success>(
+  unused stable <this>: Colors
+): Color
+fun rememberLazyListState(
+  stable empty: Boolean = @static false
+): LazyListState
+fun rememberCoroutineScope()
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EntryGrid(
+  lazyPagingItems: LazyPagingItems<EntryWithShow<E>>
+  stable title: String
+  stable onNavigateUp: Function0<Unit>
+  stable onOpenShowDetails: Function1<Long, Unit>
   stable modifier: Modifier? = @static Companion
-  language: Language
-  stable onClick: Function0<Unit>
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun EntryGridAppBar(
+  stable title: String
+  stable refreshing: Boolean
+  stable onNavigateUp: Function0<Unit>
+  stable onRefreshActionClick: Function0<Unit>
+  stable scrollBehavior: TopAppBarScrollBehavior
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[0, [0]]") fun TiviTheme(
+  stable useDarkColors: Boolean = @dynamic isSystemInDarkTheme($composer, 0)
+  stable useDynamicColors: Boolean = @static false
+  stable content: Function2<Composer, Int, Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun WebView(
   stable modifier: Modifier? = @static Companion
@@ -36,69 +67,6 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Content(
 }
 
 )
-restartable skippable scheme("[0, [0]]") fun Theme(
-  stable colors: Colors? = @static DefaultLightColorPalette
-  stable typography: Typography? = @dynamic getDefaultTypography()
-  stable shapes: Shapes? = @static DefaultShapes
-  stable content: Function2<Composer, Int, Unit>
-)
-fun defaultColor(
-  unused stable <this>: NoRippleTheme
-): Color
-fun rippleAlpha(
-  unused stable <this>: NoRippleTheme
-): RippleAlpha
-readonly fun <get-success>(
-  unused stable <this>: Colors
-): Color
-readonly fun <get-onSuccess>(
-  unused stable <this>: Colors
-): Color
-restartable skippable scheme("[0, [0]]") fun withTheme(
-  stable content: Function2<Composer, Int, Unit>
-  unused stable <this>: ThemeProvider
-)
-restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun DateRangePicker(
-  stable modifier: Modifier? = @static Companion
-  unstable state: CalendarState? = @dynamic remember({
-  CalendarState  (  )
-}
-, $composer, 0)
-  stable title: String
-  stable applyTitle: String? = @dynamic stringResource(string.apply, $composer, 0)
-  stable cancelTitle: String? = @dynamic stringResource(string.cancel, $composer, 0)
-  stable onCancelClicked: Function0<Unit>
-  stable onApplyClicked: Function2<@[ParameterName(name = 'startDate')] LocalDate, @[ParameterName(name = 'endDate')] LocalDate?, Unit>
-)
-restartable scheme("[androidx.compose.ui.UiComposable]") fun Settings(
-  stable modifier: Modifier? = @static Companion
-  header: Header
-  stable username: String
-  stable appName: String
-  unstable settingsItems: List<SettingsItem>
-  stable onSettingsItemClicked: Function1<@[ParameterName(name = 'item')] SettingsDisplayItem, Unit>
-)
-restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun SwipeDismissSnackbarHost(
-  stable hostState: SnackbarHostState
-  stable modifier: Modifier? = @static Companion
-  stable onDismiss: Function0<Unit>? = @dynamic $composer.cache($composer.changed(hostState)) {
-  {
-    hostState    .    currentSnackbarData    ?.    dismiss    (    )
-  }
-
-}
-
-  stable snackbar: Function3<SnackbarData, Composer, Int, Unit>? = @static composableLambda($composer, -1270928980, true) { data: SnackbarData, $composer: Composer?, $changed: Int ->
-  if (  isTraceInProgress  (  )  ) {
-    traceEventStart    (    -1270928980    ,     $changed    ,     -1    ,     "app.tivi.common.compose.ui.SwipeDismissSnackbarHost.<anonymous> (SwipeDismissSnackbar.kt:63)"    )
-  }
-  
-  SwipeDismissSnackbar  (  data  ,   onDismiss  ,   null  ,   $composer  ,   0b1000   or   0b01110000   and   $dirty   shr   0b0011  ,   0b0100  )  
-  if (  isTraceInProgress  (  )  ) {
-    traceEventEnd    (    )
-  }
-
-}
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Discover(
   stable state: DiscoverUiState
   stable refresh: Function0<Unit>
@@ -110,17 +78,80 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Discover(
   stable onMessageShown: Function1<@[ParameterName(name = 'id')] Long, Unit>
   stable modifier: Modifier? = @static Companion
 )
-restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun Header(
-  stable title: String
+
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun TopAppBarWithBottomContent(
+  stable title: Function2<Composer, Int, Unit>
   stable modifier: Modifier? = @static Companion
-  stable loading: Boolean = @static false
-  stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>? = @static ComposableSingletons$DiscoverKt.lambda-6
+  stable navigationIcon: Function2<Composer, Int, Unit>
+  stable bottomContent: Function2<Composer, Int, Unit>? = @static null
+  stable actions: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>? = @static ComposableSingletons$AppBarKt.lambda-1
+  stable containerColor: Color = @dynamic MaterialTheme.<get-colorScheme>($composer, MaterialTheme.$stable).surface
+  stable contentColor: Color = @dynamic contentColorFor(containerColor, $composer, 0b1110 and $dirty shr 0b1111)
+  stable elevation: Dp = @static 0.dp
 )
-restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun FilterSortPanel(
-  stable filterExpanded: Boolean
-  stable filterIcon: Function2<Composer, Int, Unit>
-  stable filterTextField: Function2<Composer, Int, Unit>
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun AutoSizedCircularProgressIndicator(
   stable modifier: Modifier? = @static Companion
+  stable color: Color = @dynamic MaterialTheme.<get-colorScheme>($composer, MaterialTheme.$stable).primary
+)
+restartable fun Backdrop(
+  unstable imageModel: Any?
+  stable modifier: Modifier? = @static Companion
+  stable shape: Shape? = @dynamic MaterialTheme.<get-shapes>($composer, MaterialTheme.$stable).medium
+  stable overline: Function2<Composer, Int, Unit>? = @static null
+  stable title: Function2<Composer, Int, Unit>? = @static null
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun DateTextField(
+  unstable selectedDate: LocalDate?
+  stable onDateSelected: Function1<LocalDate, Unit>
+  stable modifier: Modifier? = @static Companion
+)
+restartable scheme("[androidx.compose.ui.UiComposable]") fun TimeTextField(
+  unstable selectedTime: LocalTime?
+  stable onTimeSelected: Function1<LocalTime, Unit>
+  stable modifier: Modifier? = @static Companion
+  stable is24Hour: Boolean = @dynamic TimeTextFieldDefaults.<get-is24Hour>($composer, 0b0110)
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun EmptyContent(
+  stable graphic: Function2<Composer, Int, Unit>
+  stable title: Function2<Composer, Int, Unit>
+  stable prompt: Function2<Composer, Int, Unit>
+  stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun ExpandingText(
+  stable text: String
+  stable modifier: Modifier? = @static Companion
+  stable textStyle: TextStyle? = @dynamic MaterialTheme.<get-typography>($composer, MaterialTheme.$stable).bodyMedium
+  stable expandable: Boolean = @static true
+  stable collapsedMaxLines: Int = @static 4
+  stable expandedMaxLines: Int = @static Companion.MAX_VALUE
+)
+restartable fun AsyncImage(
+  unstable model: Any?
+  stable contentDescription: String?
+  stable modifier: Modifier? = @static Companion
+  stable transform: Function1<State, State>? = @dynamic Companion.DefaultTransform
+  stable onState: Function1<State, Unit>? = @static null
+  stable requestBuilder: @[ExtensionFunctionType] Function1<Builder, Builder>? = @static null
+  stable alignment: Alignment? = @static Companion.Center
+  stable contentScale: ContentScale? = @static Companion.Fit
+  stable alpha: Float = @static DefaultAlpha
+  stable colorFilter: ColorFilter? = @static null
+  stable filterQuality: FilterQuality = @dynamic Companion.DefaultFilterQuality
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable]]") fun LoadingButton(
+  stable showProgressIndicator: Boolean
+  stable onClick: Function0<Unit>
+  stable modifier: Modifier? = @static Companion
+  stable enabled: Boolean = @dynamic !showProgressIndicator
+  stable shape: Shape? = @dynamic ButtonDefaults.<get-shape>($composer, ButtonDefaults.$stable)
+  stable colors: ButtonColors? = @dynamic ButtonDefaults.buttonColors(<unsafe-coerce>(0L), <unsafe-coerce>(0L), <unsafe-coerce>(0L), <unsafe-coerce>(0L), $composer, ButtonDefaults.$stable shl 0b1100, 0b1111)
+  stable elevation: ButtonElevation? = @dynamic ButtonDefaults.buttonElevation(<unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), $composer, ButtonDefaults.$stable shl 0b1111, 0b00011111)
+  stable border: BorderStroke? = @static null
+  stable contentPadding: PaddingValues? = @dynamic ButtonDefaults.ContentPadding
+  stable interactionSource: MutableInteractionSource? = @static remember({
+  MutableInteractionSource  (  )
+}
+, $composer, 0)
   stable content: @[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>
 )
 restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Search(
@@ -138,4 +169,55 @@ restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Search(
 }
 
   stable modifier: Modifier? = @static Companion
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun Search(
+  stable state: SearchUiState
+  stable openShowDetails: Function1<@[ParameterName(name = 'showId')] Long, Unit>? = @static { it: Long ->
+
+}
+
+  stable onSearchQueryChanged: Function1<@[ParameterName(name = 'query')] String, Unit>? = @static { it: String ->
+
+}
+
+  stable onMessageShown: Function1<@[ParameterName(name = 'id')] Long, Unit>? = @static { it: Long ->
+
+}
+
+  stable modifier: Modifier? = @static Companion
+)
+fun copy(
+  stable <this>: PaddingValues
+  stable copyStart: Boolean = @static true
+  stable copyTop: Boolean = @static true
+  stable copyEnd: Boolean = @static true
+  stable copyBottom: Boolean = @static true
+): PaddingValues
+restartable skippable scheme("[androidx.compose.ui.UiComposable]") fun SearchTextField(
+  stable value: TextFieldValue
+  stable onValueChange: Function1<TextFieldValue, Unit>
+  stable hint: String
+  stable modifier: Modifier? = @static Companion
+  stable keyboardOptions: KeyboardOptions? = @static Companion.Default
+  stable keyboardActions: KeyboardActions? = @dynamic KeyboardActions()
+  stable showClearButton: Boolean = @dynamic value.text.isNotEmpty()
+  stable onCleared: Function0<Unit>? = @dynamic remember(onValueChange, {
+  {
+    onValueChange    (    TextFieldValue    (    )    )
+  }
+
+}
+, $composer, 0b1110 and $dirty shr 0b0011)
+)
+restartable skippable scheme("[androidx.compose.ui.UiComposable, [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable], [androidx.compose.ui.UiComposable]]") fun TimePickerDialog(
+  stable onDismissRequest: Function0<Unit>
+  stable confirmButton: Function2<Composer, Int, Unit>
+  stable modifier: Modifier? = @static Companion
+  stable dismissButton: Function2<Composer, Int, Unit>? = @static null
+  stable shape: Shape? = @dynamic MaterialTheme.<get-shapes>($composer, MaterialTheme.$stable).extraLarge
+  stable tonalElevation: Dp = @dynamic DatePickerDefaults.TonalElevation
+  stable properties: DialogProperties? = @static DialogProperties(
+  usePlatformDefaultWidth   =   false
+)
+  stable content: Function2<Composer, Int, Unit>
 )

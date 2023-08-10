@@ -65,6 +65,7 @@ internal class ComposableSignaturesReportFileParserImplTest {
             "Function3<@[ParameterName(name = 'showId')] Long, @[ParameterName(name = 'seasonId')] Long?, @[ParameterName(name = 'episodeId')] Long?, Unit>",
             "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>? = @static ComposableSingletons\$DiscoverKt.lambda-6",
             "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>",
+            "Color = @dynamic MaterialTheme.<get-colorScheme>(\$composer, MaterialTheme.\$stable).surface",
         )
 
         val expected = listOf(
@@ -76,6 +77,7 @@ internal class ComposableSignaturesReportFileParserImplTest {
             "Function3<@[ParameterName(name = 'showId')] Long, @[ParameterName(name = 'seasonId')] Long?, @[ParameterName(name = 'episodeId')] Long?, Unit>",
             "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>?",
             "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>",
+            "Color",
         )
 
         input.zip(expected)

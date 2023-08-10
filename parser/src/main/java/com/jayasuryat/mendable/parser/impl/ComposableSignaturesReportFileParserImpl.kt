@@ -62,40 +62,17 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
             functionBuilder.clear()
         }
 
-        // TODO : Handle parsing exceptions
         return functions.map { function -> function.parseComposable() }
     }
 
     private fun List<String>.parseComposable(): ComposableSignaturesReport.ComposableDetails {
 
-        fun List<String>.cleanFunction(): List<String> {
-
-            val lines = this.filter { line -> line.isNotBlank() }
-                .map { line -> line.trim() }
-
-            val modFunction: MutableList<String> = mutableListOf()
-
-            // TODO: Flatten multi-line param signature into a single line
-            for (line in lines) {
-                // Merging lines which only have closing curly brace of a lambda into previous line
-                if (line.trim() == "}") {
-                    val last = modFunction.removeLast()
-                    modFunction.add("$last}")
-                } else {
-                    modFunction.add(line)
-                }
-            }
-
-            return modFunction
-        }
-
         // Individual lines of a function
-        val lines: List<String> = this.cleanFunction()
+        val lines: List<String> = this
+        val firstLine: String = lines.first()
 
-        val firstLine = lines.first()
-
-        val beforeFun = firstLine.substringBefore(FUNCTION_IDENTIFIER).trim()
-        val afterFun = firstLine.substringAfter(FUNCTION_IDENTIFIER).trim()
+        val beforeFun = firstLine.requireSubStringBefore(FUNCTION_IDENTIFIER).trim()
+        val afterFun = firstLine.requireSubStringAfter(FUNCTION_IDENTIFIER).trim()
 
         val name = afterFun.take(afterFun.lastIndexOf('(')).trim()
         val isRestartable = beforeFun.contains(RESTARTABLE_IDENTIFIER)
@@ -128,7 +105,7 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
         for (param in this) {
             // A single param can be declared in multiple-lines
             // Assuming that if a line has ": " then it is a new param declaration.
-            if (param.contains(": ")) {
+            if (paramCollector.isNotBlank() && param.contains(": ")) {
                 params += paramCollector.toString().replace(oldValue = "\n", newValue = "")
                 paramCollector.clear()
             }
@@ -138,9 +115,9 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
             params.add(paramCollector.toString().replace(oldValue = "\n", newValue = ""))
         }
 
-        return params
-            .filter { param -> param.isNotEmpty() }
-            .map { param -> param.trimExtraWhiteSpaces() }
+        val modParams = params
+            .filter { param -> param.isNotBlank() }
+            .map { param -> param.trim().trimExtraWhiteSpaces() }
             .map { param ->
 
                 val stabilityAndName: String = param.take(param.indexOf(':')).trim()
@@ -183,6 +160,8 @@ internal class ComposableSignaturesReportFileParserImpl : ComposableSignaturesRe
                     defaultValue = defaultValue,
                 )
             }
+
+        return modParams
     }
 
     private val duplicateWhiteSpaceRegex: Regex by lazy { "\\s+".toRegex() }
@@ -225,6 +204,9 @@ internal fun String.extractType(
     // This property does not have any generic types, so type extraction is straightforward
     if (!this.contains('<')) return this.take(this.indexOf(identifier))
 
+    // If the generic character is in default value and not in the type
+    if (this.indexOf(identifier) < this.indexOf('<')) return this.take(this.indexOf(identifier))
+
     var symbolStack = 0
     var symbolsReached = false
     this.forEachIndexed { index, char ->
@@ -246,4 +228,20 @@ internal fun String.extractType(
     }
 
     return this
+}
+
+private fun String.requireSubStringBefore(
+    delimiter: String,
+): String {
+    val index = this.indexOf(delimiter)
+    require(index != -1) { "Line `$this` does not contain delimiter `$delimiter`" }
+    return this.substring(0, index)
+}
+
+private fun String.requireSubStringAfter(
+    delimiter: String,
+): String {
+    val index = this.indexOf(delimiter)
+    require(index != -1) { "Line `$this` does not contain delimiter `$delimiter`" }
+    return this.substring(index + delimiter.length, this.length)
 }

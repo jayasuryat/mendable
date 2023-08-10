@@ -5,20 +5,6 @@
   },
   "composables": [
     {
-      "functionName": "PreviewVC",
-      "isRestartable": true,
-      "isSkippable": true,
-      "isInline": false,
-      "params": []
-    },
-    {
-      "functionName": "PreviewVI",
-      "isRestartable": true,
-      "isSkippable": true,
-      "isInline": false,
-      "params": []
-    },
-    {
       "functionName": "PreviewVP",
       "isRestartable": true,
       "isSkippable": true,
@@ -39,26 +25,187 @@
       ]
     },
     {
-      "functionName": "LanguageItem",
+      "functionName": "LogCompositions",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": true,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "tag",
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "functionName": "<get-InterFontFamily>",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": []
+    },
+    {
+      "functionName": "<get-TiviTypography>",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": []
+    },
+    {
+      "functionName": "defaultColor",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNUSED",
+          "name": "stable <this>",
+          "type": "NoRippleTheme"
+        }
+      ]
+    },
+    {
+      "functionName": "shouldUseDynamicColors",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNSTABLE",
+          "name": "<this>",
+          "type": "TiviPreferences"
+        }
+      ]
+    },
+    {
+      "functionName": "<get-success>",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNUSED",
+          "name": "stable <this>",
+          "type": "Colors"
+        }
+      ]
+    },
+    {
+      "functionName": "rememberLazyListState",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "empty",
+          "type": "Boolean",
+          "defaultValue": "@static false"
+        }
+      ]
+    },
+    {
+      "functionName": "rememberCoroutineScope",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": []
+    },
+    {
+      "functionName": "EntryGrid",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNKNOWN",
+          "name": "lazyPagingItems",
+          "type": "LazyPagingItems<EntryWithShow<E>>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "title",
+          "type": "String"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onNavigateUp",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onOpenShowDetails",
+          "type": "Function1<Long, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "EntryGridAppBar",
       "isRestartable": true,
       "isSkippable": true,
       "isInline": false,
       "params": [
         {
           "condition": "STABLE",
-          "name": "modifier",
-          "type": "Modifier?",
-          "defaultValue": "@static Companion"
-        },
-        {
-          "condition": "UNKNOWN",
-          "name": "language",
-          "type": "Language"
+          "name": "title",
+          "type": "String"
         },
         {
           "condition": "STABLE",
-          "name": "onClick",
+          "name": "refreshing",
+          "type": "Boolean"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onNavigateUp",
           "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onRefreshActionClick",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "scrollBehavior",
+          "type": "TopAppBarScrollBehavior"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "TiviTheme",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "useDarkColors",
+          "type": "Boolean",
+          "defaultValue": "@dynamic isSystemInDarkTheme($composer, 0)"
+        },
+        {
+          "condition": "STABLE",
+          "name": "useDynamicColors",
+          "type": "Boolean",
+          "defaultValue": "@static false"
+        },
+        {
+          "condition": "STABLE",
+          "name": "content",
+          "type": "Function2<Composer, Int, Unit>"
         }
       ]
     },
@@ -140,224 +287,6 @@
       ]
     },
     {
-      "functionName": "Theme",
-      "isRestartable": true,
-      "isSkippable": true,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "STABLE",
-          "name": "colors",
-          "type": "Colors?",
-          "defaultValue": "@static DefaultLightColorPalette"
-        },
-        {
-          "condition": "STABLE",
-          "name": "typography",
-          "type": "Typography?",
-          "defaultValue": "@dynamic getDefaultTypography()"
-        },
-        {
-          "condition": "STABLE",
-          "name": "shapes",
-          "type": "Shapes?",
-          "defaultValue": "@static DefaultShapes"
-        },
-        {
-          "condition": "STABLE",
-          "name": "content",
-          "type": "Function2<Composer, Int, Unit>"
-        }
-      ]
-    },
-    {
-      "functionName": "defaultColor",
-      "isRestartable": false,
-      "isSkippable": false,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "UNUSED",
-          "name": "stable <this>",
-          "type": "NoRippleTheme"
-        }
-      ]
-    },
-    {
-      "functionName": "rippleAlpha",
-      "isRestartable": false,
-      "isSkippable": false,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "UNUSED",
-          "name": "stable <this>",
-          "type": "NoRippleTheme"
-        }
-      ]
-    },
-    {
-      "functionName": "<get-success>",
-      "isRestartable": false,
-      "isSkippable": false,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "UNUSED",
-          "name": "stable <this>",
-          "type": "Colors"
-        }
-      ]
-    },
-    {
-      "functionName": "<get-onSuccess>",
-      "isRestartable": false,
-      "isSkippable": false,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "UNUSED",
-          "name": "stable <this>",
-          "type": "Colors"
-        }
-      ]
-    },
-    {
-      "functionName": "withTheme",
-      "isRestartable": true,
-      "isSkippable": true,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "STABLE",
-          "name": "content",
-          "type": "Function2<Composer, Int, Unit>"
-        },
-        {
-          "condition": "UNUSED",
-          "name": "stable <this>",
-          "type": "ThemeProvider"
-        }
-      ]
-    },
-    {
-      "functionName": "DateRangePicker",
-      "isRestartable": true,
-      "isSkippable": true,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "STABLE",
-          "name": "modifier",
-          "type": "Modifier?",
-          "defaultValue": "@static Companion"
-        },
-        {
-          "condition": "UNSTABLE",
-          "name": "state",
-          "type": "CalendarState?",
-          "defaultValue": "@dynamic remember({CalendarState ( )}, $composer, 0)"
-        },
-        {
-          "condition": "STABLE",
-          "name": "title",
-          "type": "String"
-        },
-        {
-          "condition": "STABLE",
-          "name": "applyTitle",
-          "type": "String?",
-          "defaultValue": "@dynamic stringResource(string.apply, $composer, 0)"
-        },
-        {
-          "condition": "STABLE",
-          "name": "cancelTitle",
-          "type": "String?",
-          "defaultValue": "@dynamic stringResource(string.cancel, $composer, 0)"
-        },
-        {
-          "condition": "STABLE",
-          "name": "onCancelClicked",
-          "type": "Function0<Unit>"
-        },
-        {
-          "condition": "STABLE",
-          "name": "onApplyClicked",
-          "type": "Function2<@[ParameterName(name = 'startDate')] LocalDate, @[ParameterName(name = 'endDate')] LocalDate?, Unit>"
-        }
-      ]
-    },
-    {
-      "functionName": "Settings",
-      "isRestartable": true,
-      "isSkippable": false,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "STABLE",
-          "name": "modifier",
-          "type": "Modifier?",
-          "defaultValue": "@static Companion"
-        },
-        {
-          "condition": "UNKNOWN",
-          "name": "header",
-          "type": "Header"
-        },
-        {
-          "condition": "STABLE",
-          "name": "username",
-          "type": "String"
-        },
-        {
-          "condition": "STABLE",
-          "name": "appName",
-          "type": "String"
-        },
-        {
-          "condition": "UNSTABLE",
-          "name": "settingsItems",
-          "type": "List<SettingsItem>"
-        },
-        {
-          "condition": "STABLE",
-          "name": "onSettingsItemClicked",
-          "type": "Function1<@[ParameterName(name = 'item')] SettingsDisplayItem, Unit>"
-        }
-      ]
-    },
-    {
-      "functionName": "SwipeDismissSnackbarHost",
-      "isRestartable": true,
-      "isSkippable": true,
-      "isInline": false,
-      "params": [
-        {
-          "condition": "STABLE",
-          "name": "hostState",
-          "type": "SnackbarHostState"
-        },
-        {
-          "condition": "STABLE",
-          "name": "modifier",
-          "type": "Modifier?",
-          "defaultValue": "@static Companion"
-        },
-        {
-          "condition": "STABLE",
-          "name": "onDismiss",
-          "type": "Function0<Unit>?",
-          "defaultValue": "@dynamic $composer.cache($composer.changed(hostState)) {{hostState . currentSnackbarData ?. dismiss ( )}}"
-        },
-        {
-          "condition": "STABLE",
-          "name": "snackbar",
-          "type": "Function3<SnackbarData, Composer, Int, Unit>?",
-          "defaultValue": "@static composableLambda($composer, -1270928980, true) { data: SnackbarData, $composer: Composer?, $changed: Int ->if ( isTraceInProgress ( ) ) {traceEventStart ( -1270928980 , $changed , -1 , \"app.tivi.common.compose.ui.SwipeDismissSnackbarHost.<anonymous> (SwipeDismissSnackbar.kt:63)\" )}SwipeDismissSnackbar ( data , onDismiss , null , $composer , 0b1000 or 0b01110000 and $dirty shr 0b0011 , 0b0100 )if ( isTraceInProgress ( ) ) {"
-        }
-      ]
-    },
-    {
       "functionName": "Discover",
       "isRestartable": true,
       "isSkippable": true,
@@ -412,7 +341,7 @@
       ]
     },
     {
-      "functionName": "Header",
+      "functionName": "TopAppBarWithBottomContent",
       "isRestartable": true,
       "isSkippable": true,
       "isInline": false,
@@ -420,6 +349,200 @@
         {
           "condition": "STABLE",
           "name": "title",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "navigationIcon",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "bottomContent",
+          "type": "Function2<Composer, Int, Unit>?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "actions",
+          "type": "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>?",
+          "defaultValue": "@static ComposableSingletons$AppBarKt.lambda-1"
+        },
+        {
+          "condition": "STABLE",
+          "name": "containerColor",
+          "type": "Color",
+          "defaultValue": "@dynamic MaterialTheme.<get-colorScheme>($composer, MaterialTheme.$stable).surface"
+        },
+        {
+          "condition": "STABLE",
+          "name": "contentColor",
+          "type": "Color",
+          "defaultValue": "@dynamic contentColorFor(containerColor, $composer, 0b1110 and $dirty shr 0b1111)"
+        },
+        {
+          "condition": "STABLE",
+          "name": "elevation",
+          "type": "Dp",
+          "defaultValue": "@static 0.dp"
+        }
+      ]
+    },
+    {
+      "functionName": "AutoSizedCircularProgressIndicator",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "color",
+          "type": "Color",
+          "defaultValue": "@dynamic MaterialTheme.<get-colorScheme>($composer, MaterialTheme.$stable).primary"
+        }
+      ]
+    },
+    {
+      "functionName": "Backdrop",
+      "isRestartable": true,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNSTABLE",
+          "name": "imageModel",
+          "type": "Any?"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "shape",
+          "type": "Shape?",
+          "defaultValue": "@dynamic MaterialTheme.<get-shapes>($composer, MaterialTheme.$stable).medium"
+        },
+        {
+          "condition": "STABLE",
+          "name": "overline",
+          "type": "Function2<Composer, Int, Unit>?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "title",
+          "type": "Function2<Composer, Int, Unit>?",
+          "defaultValue": "@static null"
+        }
+      ]
+    },
+    {
+      "functionName": "DateTextField",
+      "isRestartable": true,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNSTABLE",
+          "name": "selectedDate",
+          "type": "LocalDate?"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onDateSelected",
+          "type": "Function1<LocalDate, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "TimeTextField",
+      "isRestartable": true,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "UNSTABLE",
+          "name": "selectedTime",
+          "type": "LocalTime?"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onTimeSelected",
+          "type": "Function1<LocalTime, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "is24Hour",
+          "type": "Boolean",
+          "defaultValue": "@dynamic TimeTextFieldDefaults.<get-is24Hour>($composer, 0b0110)"
+        }
+      ]
+    },
+    {
+      "functionName": "EmptyContent",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "graphic",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "title",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "prompt",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "ExpandingText",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "text",
           "type": "String"
         },
         {
@@ -430,44 +553,165 @@
         },
         {
           "condition": "STABLE",
-          "name": "loading",
-          "type": "Boolean",
-          "defaultValue": "@static false"
+          "name": "textStyle",
+          "type": "TextStyle?",
+          "defaultValue": "@dynamic MaterialTheme.<get-typography>($composer, MaterialTheme.$stable).bodyMedium"
         },
         {
           "condition": "STABLE",
-          "name": "content",
-          "type": "@[ExtensionFunctionType] Function3<RowScope, Composer, Int, Unit>?",
-          "defaultValue": "@static ComposableSingletons$DiscoverKt.lambda-6"
+          "name": "expandable",
+          "type": "Boolean",
+          "defaultValue": "@static true"
+        },
+        {
+          "condition": "STABLE",
+          "name": "collapsedMaxLines",
+          "type": "Int",
+          "defaultValue": "@static 4"
+        },
+        {
+          "condition": "STABLE",
+          "name": "expandedMaxLines",
+          "type": "Int",
+          "defaultValue": "@static Companion.MAX_VALUE"
         }
       ]
     },
     {
-      "functionName": "FilterSortPanel",
+      "functionName": "AsyncImage",
       "isRestartable": true,
-      "isSkippable": true,
+      "isSkippable": false,
       "isInline": false,
       "params": [
         {
-          "condition": "STABLE",
-          "name": "filterExpanded",
-          "type": "Boolean"
+          "condition": "UNSTABLE",
+          "name": "model",
+          "type": "Any?"
         },
         {
           "condition": "STABLE",
-          "name": "filterIcon",
-          "type": "Function2<Composer, Int, Unit>"
-        },
-        {
-          "condition": "STABLE",
-          "name": "filterTextField",
-          "type": "Function2<Composer, Int, Unit>"
+          "name": "contentDescription",
+          "type": "String?"
         },
         {
           "condition": "STABLE",
           "name": "modifier",
           "type": "Modifier?",
           "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "transform",
+          "type": "Function1<State, State>?",
+          "defaultValue": "@dynamic Companion.DefaultTransform"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onState",
+          "type": "Function1<State, Unit>?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "requestBuilder",
+          "type": "@[ExtensionFunctionType] Function1<Builder, Builder>?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "alignment",
+          "type": "Alignment?",
+          "defaultValue": "@static Companion.Center"
+        },
+        {
+          "condition": "STABLE",
+          "name": "contentScale",
+          "type": "ContentScale?",
+          "defaultValue": "@static Companion.Fit"
+        },
+        {
+          "condition": "STABLE",
+          "name": "alpha",
+          "type": "Float",
+          "defaultValue": "@static DefaultAlpha"
+        },
+        {
+          "condition": "STABLE",
+          "name": "colorFilter",
+          "type": "ColorFilter?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "filterQuality",
+          "type": "FilterQuality",
+          "defaultValue": "@dynamic Companion.DefaultFilterQuality"
+        }
+      ]
+    },
+    {
+      "functionName": "LoadingButton",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "showProgressIndicator",
+          "type": "Boolean"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onClick",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "enabled",
+          "type": "Boolean",
+          "defaultValue": "@dynamic !showProgressIndicator"
+        },
+        {
+          "condition": "STABLE",
+          "name": "shape",
+          "type": "Shape?",
+          "defaultValue": "@dynamic ButtonDefaults.<get-shape>($composer, ButtonDefaults.$stable)"
+        },
+        {
+          "condition": "STABLE",
+          "name": "colors",
+          "type": "ButtonColors?",
+          "defaultValue": "@dynamic ButtonDefaults.buttonColors(<unsafe-coerce>(0L), <unsafe-coerce>(0L), <unsafe-coerce>(0L), <unsafe-coerce>(0L), $composer, ButtonDefaults.$stable shl 0b1100, 0b1111)"
+        },
+        {
+          "condition": "STABLE",
+          "name": "elevation",
+          "type": "ButtonElevation?",
+          "defaultValue": "@dynamic ButtonDefaults.buttonElevation(<unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), <unsafe-coerce>(0.0f), $composer, ButtonDefaults.$stable shl 0b1111, 0b00011111)"
+        },
+        {
+          "condition": "STABLE",
+          "name": "border",
+          "type": "BorderStroke?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "contentPadding",
+          "type": "PaddingValues?",
+          "defaultValue": "@dynamic ButtonDefaults.ContentPadding"
+        },
+        {
+          "condition": "STABLE",
+          "name": "interactionSource",
+          "type": "MutableInteractionSource?",
+          "defaultValue": "@static remember({ MutableInteractionSource ( )}, $composer, 0)"
         },
         {
           "condition": "STABLE",
@@ -510,6 +754,186 @@
           "name": "modifier",
           "type": "Modifier?",
           "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "Search",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "state",
+          "type": "SearchUiState"
+        },
+        {
+          "condition": "STABLE",
+          "name": "openShowDetails",
+          "type": "Function1<@[ParameterName(name = 'showId')] Long, Unit>?",
+          "defaultValue": "@static { it: Long ->}"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onSearchQueryChanged",
+          "type": "Function1<@[ParameterName(name = 'query')] String, Unit>?",
+          "defaultValue": "@static { it: String ->}"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onMessageShown",
+          "type": "Function1<@[ParameterName(name = 'id')] Long, Unit>?",
+          "defaultValue": "@static { it: Long ->}"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        }
+      ]
+    },
+    {
+      "functionName": "copy",
+      "isRestartable": false,
+      "isSkippable": false,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "<this>",
+          "type": "PaddingValues"
+        },
+        {
+          "condition": "STABLE",
+          "name": "copyStart",
+          "type": "Boolean",
+          "defaultValue": "@static true"
+        },
+        {
+          "condition": "STABLE",
+          "name": "copyTop",
+          "type": "Boolean",
+          "defaultValue": "@static true"
+        },
+        {
+          "condition": "STABLE",
+          "name": "copyEnd",
+          "type": "Boolean",
+          "defaultValue": "@static true"
+        },
+        {
+          "condition": "STABLE",
+          "name": "copyBottom",
+          "type": "Boolean",
+          "defaultValue": "@static true"
+        }
+      ]
+    },
+    {
+      "functionName": "SearchTextField",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "value",
+          "type": "TextFieldValue"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onValueChange",
+          "type": "Function1<TextFieldValue, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "hint",
+          "type": "String"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "keyboardOptions",
+          "type": "KeyboardOptions?",
+          "defaultValue": "@static Companion.Default"
+        },
+        {
+          "condition": "STABLE",
+          "name": "keyboardActions",
+          "type": "KeyboardActions?",
+          "defaultValue": "@dynamic KeyboardActions()"
+        },
+        {
+          "condition": "STABLE",
+          "name": "showClearButton",
+          "type": "Boolean",
+          "defaultValue": "@dynamic value.text.isNotEmpty()"
+        },
+        {
+          "condition": "STABLE",
+          "name": "onCleared",
+          "type": "Function0<Unit>?",
+          "defaultValue": "@dynamic remember(onValueChange, { { onValueChange ( TextFieldValue ( ) ) }}, $composer, 0b1110 and $dirty shr 0b0011)"
+        }
+      ]
+    },
+    {
+      "functionName": "TimePickerDialog",
+      "isRestartable": true,
+      "isSkippable": true,
+      "isInline": false,
+      "params": [
+        {
+          "condition": "STABLE",
+          "name": "onDismissRequest",
+          "type": "Function0<Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "confirmButton",
+          "type": "Function2<Composer, Int, Unit>"
+        },
+        {
+          "condition": "STABLE",
+          "name": "modifier",
+          "type": "Modifier?",
+          "defaultValue": "@static Companion"
+        },
+        {
+          "condition": "STABLE",
+          "name": "dismissButton",
+          "type": "Function2<Composer, Int, Unit>?",
+          "defaultValue": "@static null"
+        },
+        {
+          "condition": "STABLE",
+          "name": "shape",
+          "type": "Shape?",
+          "defaultValue": "@dynamic MaterialTheme.<get-shapes>($composer, MaterialTheme.$stable).extraLarge"
+        },
+        {
+          "condition": "STABLE",
+          "name": "tonalElevation",
+          "type": "Dp",
+          "defaultValue": "@dynamic DatePickerDefaults.TonalElevation"
+        },
+        {
+          "condition": "STABLE",
+          "name": "properties",
+          "type": "DialogProperties?",
+          "defaultValue": "@static DialogProperties( usePlatformDefaultWidth = false)"
+        },
+        {
+          "condition": "STABLE",
+          "name": "content",
+          "type": "Function2<Composer, Int, Unit>"
         }
       ]
     }
