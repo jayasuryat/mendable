@@ -17,12 +17,31 @@ package com.jayasuryat.mendable.app.system
 
 import kotlin.system.exitProcess
 
+/**
+ * Represents an interface for handling system exit operations.
+ */
 internal interface SystemExit {
 
+    /**
+     * Exits the system with the specified status code.
+     *
+     * @param status The status code to exit the system with.
+     * @return [Nothing] This function always returns [Nothing] to indicate an immediate exit.
+     */
     fun exit(status: Int): Nothing
 }
 
+/**
+ * Provides the default implementation of the SystemExit interface using the exitProcess function.
+ */
 internal class DefaultSystemExit : SystemExit {
+
+    /**
+     * Exits the system with the specified status code.
+     *
+     * @param status The status code to exit the system with.
+     * @return [Nothing] This function always returns [Nothing] to indicate an immediate exit.
+     */
     override fun exit(status: Int): Nothing {
         exitProcess(status)
     }

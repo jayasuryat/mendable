@@ -95,6 +95,9 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Cla
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Stable : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
 	public static final field INSTANCE Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Stable;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Uncertain : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
@@ -104,6 +107,9 @@ public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Cla
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Unstable : com/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability {
 	public static final field INSTANCE Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport$ClassDetails$RuntimeStability$Unstable;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/parser/model/ClassStabilityReport$Companion {
@@ -147,7 +153,7 @@ public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesRepo
 
 public final class com/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter {
 	public static final field Companion Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Companion;
-	public fun <init> (Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun getCondition ()Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport$ComposableDetails$Parameter$Condition;
 	public final fun getDefaultValue ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;

@@ -36,13 +36,24 @@ import java.nio.file.Paths
 import kotlin.io.path.absolutePathString
 import kotlin.math.roundToInt
 
+/**
+ * This class is responsible for generating a mendable report based on the given request.
+ *
+ * @property computationDispatcher The dispatcher used for computational tasks.
+ * @property ioDispatcher The dispatcher used for I/O tasks.
+ */
 public class MendableReportGenerator(
     private val computationDispatcher: CoroutineDispatcher = Dispatchers.Default,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
-    // TODO : Can handle errors with an either monad here.
-
+    /**
+     * Generates a mendable report based on the given [request] and reports progress to the [progress] handler.
+     *
+     * @param request The request containing the necessary parameters for report generation.
+     * @param progress The progress handler that receives updates on the report generation progress.
+     * @return The result of the report generation.
+     */
     public suspend fun generate(
         request: MendableReportGeneratorRequest,
         progress: (progress: Progress) -> Unit = {},
@@ -85,19 +96,20 @@ public class MendableReportGenerator(
 
         progress(Progress.MetricsFilesFound(files = metricsFiles))
 
-        val parsed: List<ComposableSignaturesReport> = withContext(computationDispatcher) {
+        val parsed: ParseResult = withContext(computationDispatcher) {
             metricsFiles.parseMetrics()
         }
 
         progress(
             Progress.MetricsFilesParsed(
-                parsedSuccessfully = parsed.size,
-                failedToParse = metricsFiles.size - parsed.size,
+                parsedSuccessfully = parsed.successful.size,
+                errors = parsed.errors
             )
         )
 
         val meta = withContext(computationDispatcher) {
-            parsed.toExportModel(includeModules = request.includeModules)
+            parsed.successful
+                .toExportModel(includeModules = request.includeModules)
                 .getExportContent(type = request.exportType)
         }
 
@@ -132,11 +144,27 @@ public class MendableReportGenerator(
         require(outputFileName.isNotEmpty()) { "outputFileName cannot be empty" }
     }
 
-    private fun List<ComposableSignaturesReportFile>.parseMetrics(): List<ComposableSignaturesReport> {
+    private fun List<ComposableSignaturesReportFile>.parseMetrics(): ParseResult {
         val parser = getComposableSignaturesReportFileParser()
-        return this.mapNotNull { file ->
-            runCatching { parser.parse(file) }.getOrNull()
+
+        val parsed = mutableListOf<ComposableSignaturesReport>()
+        val errors = mutableListOf<Pair<String, Throwable>>()
+
+        this.forEach { file ->
+            runCatching { parser.parse(file) }
+                .onSuccess { value: ComposableSignaturesReport -> parsed += value }
+                .onFailure { throwable: Throwable -> errors += (file.file.path to throwable) }
         }
+
+        return ParseResult(
+            successful = parsed,
+            errors = errors.map { (fileName, throwable) ->
+                Progress.MetricsFilesParsed.ParseError(
+                    fileName = fileName,
+                    throwable = throwable,
+                )
+            }
+        )
     }
 
     private fun List<ComposableSignaturesReport>.toExportModel(
@@ -211,6 +239,11 @@ public class MendableReportGenerator(
         val extension: String,
     )
 
+    private data class ParseResult(
+        val successful: List<ComposableSignaturesReport>,
+        val errors: List<Progress.MetricsFilesParsed.ParseError>,
+    )
+
     private fun ExportMeta.save(
         outputName: String,
         outputDirectory: String,
@@ -223,41 +256,87 @@ public class MendableReportGenerator(
         return file.absolutePath
     }
 
+    /** Represents the progress of Mendable report generation.*/
     public sealed interface Progress {
 
+        /** Represents the terminal state of the report generation process.*/
         public sealed interface Result
 
+        /** Represents the initial state of the report generation process.*/
         public object Initiated : Progress {
             override fun toString(): String = "Progress.Initiated"
         }
 
+        /**
+         * Represents the state when metrics files are found for processing.
+         *
+         * @property files The list of metrics files found.
+         */
         public class MetricsFilesFound(
             public val files: List<ComposableSignaturesReportFile>,
         ) : Progress {
             override fun toString(): String = "Progress.MetricsFilesFound(files=$files)"
         }
 
+        /**
+         * Represents the state when metrics files are parsed, indicating count of successful and failed parsing.
+         *
+         * @property parsedSuccessfully The count of metrics files parsed successfully.
+         * @property errors The list of parse errors.
+         */
         public class MetricsFilesParsed(
             public val parsedSuccessfully: Int,
-            public val failedToParse: Int,
+            public val errors: List<ParseError>,
         ) : Progress {
-            // TODO: Need to present what file was not parsed and what was the reason
-            override fun toString(): String =
-                "Progress.MetricsFilesParsed(parsedSuccessfully=$parsedSuccessfully, failedToParse=$failedToParse)"
+
+            /** The count of metrics files which the parser was unable to parse. **/
+            public val failedToParse: Int = errors.size
+
+            /**
+             * Represents an error that occurred during metrics file parsing.
+             *
+             * @property fileName The name of the file that caused the error.
+             * @property throwable The throwable that occurred during parsing.
+             */
+            public class ParseError(
+                public val fileName: String,
+                public val throwable: Throwable,
+            ) : RuntimeException(throwable) {
+
+                override fun toString(): String {
+                    return "ParseError(fileName='$fileName', throwable=$throwable)"
+                }
+            }
+
+            override fun toString(): String {
+                return "MetricsFilesParsed(parsedSuccessfully=$parsedSuccessfully, failedToParse=$failedToParse, errors=$errors)"
+            }
         }
 
+        /**
+         * Represents the state when the report generation process has completed successfully.
+         *
+         * @property outputPath The output path where the result is stored.
+         * @property exportType The type of export used for the result.
+         */
         public class SuccessfullyCompleted(
             public val outputPath: String,
             public val exportType: ExportType,
         ) : Progress, Result {
             override fun toString(): String =
-                "Progress.SuccessfullyCompleted(outputDir=$outputPath, exportType=$exportType)"
+                "Progress.SuccessfullyCompleted(outputPath=$outputPath, exportType=$exportType)"
         }
 
-        public object NoMetricsFilesFound : Progress, Result {
+        /** Represents the progress when no metrics files are found for processing. */
+        public data object NoMetricsFilesFound : Progress, Result {
             override fun toString(): String = "Progress.NoMetricsFilesFound"
         }
 
+        /**
+         * Represents an error that occurred during the report generation process.
+         *
+         * @property throwable The throwable associated with the error.
+         */
         public class Error(
             public val throwable: Throwable,
         ) : Progress, Result {

@@ -21,20 +21,32 @@ import com.jayasuryat.mendable.app.system.DefaultSystemExit
 import com.jayasuryat.mendable.app.system.SystemExit
 import kotlinx.coroutines.runBlocking
 
+/**
+ * The main entry point of the Mendable application.
+ *
+ * This function reads and parses command-line arguments, transforms them into a request for generating a mendable report,
+ * and then initiates the process of generating the report using the [MendableReportGenerator].
+ *
+ * @param args The command-line arguments provided to the application.
+ *
+ * @see [CliArguments]
+ * @see [MendableReportGenerator]
+ * @see [MendableReportGeneratorRequest]
+ */
 public fun main(args: Array<String>) {
 
     val systemExit: SystemExit = DefaultSystemExit()
 
-    // Reading and parsing arguments
+    // Read and parse command-line arguments
     val arguments = CliArguments(
         args = args,
         systemExit = systemExit,
     )
 
-    // Transforming arguments into a request
+    // Transform arguments into a request for generating the report
     val request = MendableReportGeneratorRequest(
         scanPath = arguments.composablesReportsPath,
-        scanRecursively = false,
+        scanRecursively = arguments.scanRecursively,
         outputPath = arguments.outputPath,
         outputFileName = arguments.outputFileName,
         exportType = arguments.exportType,

@@ -17,7 +17,18 @@ package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
 
+/**
+ * Represents a sealed hierarchy for Compose compiler metrics.
+ *
+ * @see [ComposableSignaturesReport]
+ * @see [ClassStabilityReport]
+ * @see [ComposableTabularReport]
+ * @see [ModuleMetrics]
+ */
 public sealed interface ComposeCompilerMetrics {
 
+    /**
+     * The module associated with the compiler metrics.
+     */
     public val module: Module
 }

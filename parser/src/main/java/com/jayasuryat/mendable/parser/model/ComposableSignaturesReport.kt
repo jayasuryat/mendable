@@ -17,11 +17,29 @@ package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
 
+/**
+ * Represents a report containing information about composable functions within a module. This report includes details
+ * about each composable function's characteristics and parameters.
+ *
+ * Generally represents files with name in `<module-name>-classes.txt` format.
+ *
+ * @property module The module to which this composable signatures report pertains.
+ * @property composables The list of composables details in this report.
+ */
 public class ComposableSignaturesReport(
     public override val module: Module,
     public val composables: List<ComposableDetails>,
 ) : ComposeCompilerMetrics {
 
+    /**
+     * Represents detailed information about a composable function.
+     *
+     * @property functionName The name of the composable function.
+     * @property isRestartable Indicates whether the composable function is restartable.
+     * @property isSkippable Indicates whether the composable function is skippable.
+     * @property isInline Indicates whether the composable function is inline.
+     * @property params The list of parameters for the composable function.
+     */
     public class ComposableDetails(
         public val functionName: String,
         public val isRestartable: Boolean,
@@ -30,13 +48,24 @@ public class ComposableSignaturesReport(
         public val params: List<Parameter>,
     ) {
 
+        /**
+         * Represents a parameter of a composable function, including its condition and details.
+         *
+         * @property name The name of the parameter.
+         * @property condition The condition of the parameter.
+         * @property type The type of the parameter.
+         * @property defaultValue The default value of the parameter, if applicable.
+         */
         public class Parameter(
-            public val condition: Condition,
             public val name: String,
+            public val condition: Condition,
             public val type: String,
             public val defaultValue: String?,
         ) {
 
+            /**
+             * Represents the condition of a parameter.
+             */
             public enum class Condition {
                 STABLE,
                 UNSTABLE,

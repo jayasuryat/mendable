@@ -21,30 +21,48 @@ import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.model.ComposableTabularReport
 import com.jayasuryat.mendable.parser.model.ModuleMetrics
 
+/**
+ * A parser contract for parsing [ComposableSignaturesReportFile] into [ComposableSignaturesReport].
+ */
 public interface ComposableSignaturesReportFileParser {
     public fun parse(
         file: ComposableSignaturesReportFile,
     ): ComposableSignaturesReport
 }
 
+/**
+ * A parser contract for parsing [ClassStabilityReportFile] into [ClassStabilityReport].
+ */
 public interface ClassStabilityReportFileParser {
     public fun parse(
         file: ClassStabilityReportFile,
     ): ClassStabilityReport
 }
 
+/**
+ * A parser contract for parsing [ComposableTabularReportFile] into [ComposableTabularReport].
+ */
 public interface ComposableTabularReportFileParser {
     public fun parse(
         file: ComposableTabularReportFile,
     ): ComposableTabularReport
 }
 
+/**
+ * A parser contract for parsing [ModuleMetricsFileParser] into [ModuleMetricsFile].
+ */
 public interface ModuleMetricsFileParser {
     public fun parse(
         file: ModuleMetricsFile,
     ): ModuleMetrics
 }
 
+/**
+ * A parser that combines all known metrics-files-parsers into a single class.
+ *
+ * This parser delegates the parsing of specific report file types to its constituent parsers, which are provided during
+ * construction.
+ */
 public class ComposeCompilerMetricsParser internal constructor(
     composableSignaturesReportFileParser: ComposableSignaturesReportFileParser,
     classStabilityReportFileParser: ClassStabilityReportFileParser,

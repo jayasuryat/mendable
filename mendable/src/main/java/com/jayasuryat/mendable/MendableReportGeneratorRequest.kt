@@ -15,15 +15,28 @@
  */
 package com.jayasuryat.mendable
 
+/**
+ * Represents a request for generating a mendable report.
+ *
+ * This class encapsulates the parameters required for generating a mendable report.
+ *
+ * @property scanPath The path to the directory where metrics files will be scanned.
+ * @property outputPath The output path where the generated report will be saved.
+ * @property scanRecursively Whether to scan for metrics files recursively within the directory.
+ * @property outputFileName The name of the generated report file.
+ * @property exportType The type of export for the report (HTML or JSON).
+ * @property includeModules The inclusion criteria for modules in the report (ALL or WITH_WARNINGS).
+ */
 public class MendableReportGeneratorRequest(
     public val scanPath: String,
     public val outputPath: String,
-    public val scanRecursively: Boolean = false,
-    public val outputFileName: String = "report",
-    public val exportType: ExportType = ExportType.HTML,
-    public val includeModules: IncludeModules = IncludeModules.ALL,
+    public val scanRecursively: Boolean,
+    public val outputFileName: String,
+    public val exportType: ExportType,
+    public val includeModules: IncludeModules,
 ) {
 
+    /** Represents the type of export for the mendable report. */
     public enum class ExportType {
 
         HTML,
@@ -32,15 +45,23 @@ public class MendableReportGeneratorRequest(
 
         public companion object {
 
-            public fun find(type: String): ExportType = ExportType.values()
+            /**
+             * Finds [ExportType] based on the provided type string.
+             *
+             * @param type The type string to match against enum entries.
+             * @return The matching [ExportType].
+             * @throws IllegalArgumentException if the provided type string doesn't match any enum entry.
+             */
+            public fun find(type: String): ExportType = entries
                 .firstOrNull { entry -> entry.name.equals(type, ignoreCase = true) }
                 ?: error(
                     "$type does not match with any entries of enum `${ExportType::class.java.canonicalName}`." +
-                        " Valid choices are ${ExportType.values().map { it.name }}"
+                        " Valid choices are ${entries.map { it.name }}"
                 )
         }
     }
 
+    /** Represents the inclusion criteria for modules in the mendable report. */
     public enum class IncludeModules {
 
         ALL,
@@ -49,11 +70,18 @@ public class MendableReportGeneratorRequest(
 
         public companion object {
 
-            public fun find(type: String): IncludeModules = IncludeModules.values()
+            /**
+             * Finds an [IncludeModules] based on the provided type string.
+             *
+             * @param type The type string to match against enum entries.
+             * @return The matching [IncludeModules].
+             * @throws IllegalArgumentException if the provided type string doesn't match any enum entry.
+             */
+            public fun find(type: String): IncludeModules = entries
                 .firstOrNull { entry -> entry.name.equals(type, ignoreCase = true) }
                 ?: error(
                     "$type does not match with any entries of enum `${IncludeModules::class.java.canonicalName}`." +
-                        " Valid choices are ${IncludeModules.values().map { it.name }}"
+                        " Valid choices are ${entries.map { it.name }}"
                 )
         }
     }

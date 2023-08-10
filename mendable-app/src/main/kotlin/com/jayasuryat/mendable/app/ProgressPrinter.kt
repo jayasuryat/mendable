@@ -20,6 +20,11 @@ import com.jayasuryat.mendable.MendableReportGeneratorRequest
 import java.io.PrintWriter
 import java.io.StringWriter
 
+/**
+ * A class responsible for printing progress messages and errors during the Mendable report generation process.
+ *
+ * @param request The MendableReportGeneratorRequest containing information about the report generation.
+ */
 internal class ProgressPrinter(
     private val request: MendableReportGeneratorRequest,
 ) {
@@ -76,12 +81,15 @@ internal class ProgressPrinter(
     private fun Progress.SuccessfullyCompleted.message(): String {
         return "$exportType report successfully saved at file://$outputPath"
     }
+
+    private fun Progress.Error.message(): String {
+        return "Error : ${this.throwable.asLog()}"
+    }
 }
 
-private fun Progress.Error.message(): String {
-    return "Error : ${this.throwable.asLog()}"
-}
-
+/**
+ * Convert a Throwable to a log string.
+ */
 private fun Throwable.asLog(): String {
     val stringWriter = StringWriter(256)
     val printWriter = PrintWriter(stringWriter, false)

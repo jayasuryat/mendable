@@ -25,6 +25,17 @@ import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.absolutePathString
 
+/**
+ * Represents a class that manages command-line arguments for the Mendable report generation.
+ *
+ * This class parses command-line arguments and validates them for generating a Mendable report.
+ *
+ * @param args The array of command-line arguments.
+ * @param systemExit The implementation of the [SystemExit] interface for handling system-exits.
+ * @param defaultReadPath The default path for reading composables.txt files.
+ * @param defaultWritePath The default path for writing the report.
+ * @param defaultFileName The default name for the output report file.
+ */
 internal class CliArguments(
     args: Array<String>,
     private val systemExit: SystemExit,
@@ -35,6 +46,7 @@ internal class CliArguments(
 
     private val parser = ArgParser("Mendable")
 
+    /** The path to the directory containing all the composables.txt files. */
     val composablesReportsPath: String by parser.option(
         type = ArgType.String,
         fullName = "composablesReportsPath",
@@ -42,6 +54,15 @@ internal class CliArguments(
         description = "Path to the directory containing all of the composables.txt files",
     ).default(defaultReadPath)
 
+    /** Indicates whether to scan the directory recursively. */
+    val scanRecursively: Boolean by parser.option(
+        type = ArgType.Boolean,
+        fullName = "scanRecursively",
+        shortName = "rs",
+        description = "Should scan the directory recursively",
+    ).default(false)
+
+    /** The output directory for the generated report. */
     val outputPath: String by parser.option(
         type = ArgType.String,
         fullName = "outputPath",
@@ -49,13 +70,15 @@ internal class CliArguments(
         description = "Output directory",
     ).default(defaultWritePath)
 
+    /** The name of the output file. */
     val outputFileName: String by parser.option(
         type = ArgType.String,
         fullName = "outputName",
         shortName = "oName",
-        description = "Name of the output HTML file",
+        description = "Name of the output file",
     ).default(defaultFileName)
 
+    /** The type of export for the report (HTML or JSON). */
     val exportType: ExportType by parser.option(
         type = ArgType.Choice(toVariant = { ExportType.find(it) }, toString = { it.name }),
         fullName = "exportType",
@@ -63,6 +86,7 @@ internal class CliArguments(
         description = "Type of the export",
     ).default(ExportType.HTML)
 
+    /** The inclusion criteria for modules in the report (ALL or WITH_WARNINGS). */
     val includeModules: IncludeModules by parser.option(
         type = ArgType.Choice(toVariant = { IncludeModules.find(it) }, toString = { it.name }),
         fullName = "reportType",
@@ -75,7 +99,7 @@ internal class CliArguments(
         validateInputs()
     }
 
-    private fun validateInputs(): Boolean {
+    private fun validateInputs() {
 
         fun message(paramName: String): String {
             return "$paramName cannot be empty. Either pass an appropriate value or skip passing a value to conform to the default value."
@@ -92,8 +116,6 @@ internal class CliArguments(
         val output = File(outputPath)
         if (!output.exists()) printErrorAndExit("Directory $output does not exist")
         if (!output.isDirectory) printErrorAndExit("$output is not a directory")
-
-        return true
     }
 
     private fun printErrorAndExit(
