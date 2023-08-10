@@ -27,14 +27,24 @@ public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Metr
 }
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$MetricsFilesParsed : com/jayasuryat/mendable/MendableReportGenerator$Progress {
-	public fun <init> (II)V
+	public fun <init> (ILjava/util/List;)V
+	public final fun getErrors ()Ljava/util/List;
 	public final fun getFailedToParse ()I
 	public final fun getParsedSuccessfully ()I
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$MetricsFilesParsed$ParseError : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public final fun getFileName ()Ljava/lang/String;
+	public final fun getThrowable ()Ljava/lang/Throwable;
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$NoMetricsFilesFound : com/jayasuryat/mendable/MendableReportGenerator$Progress, com/jayasuryat/mendable/MendableReportGenerator$Progress$Result {
 	public static final field INSTANCE Lcom/jayasuryat/mendable/MendableReportGenerator$Progress$NoMetricsFilesFound;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -50,7 +60,6 @@ public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Succ
 
 public final class com/jayasuryat/mendable/MendableReportGeneratorRequest {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getExportType ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public final fun getIncludeModules ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public final fun getOutputFileName ()Ljava/lang/String;
