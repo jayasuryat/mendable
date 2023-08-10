@@ -16,6 +16,7 @@
 package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
+import dev.drewhamilton.poko.Poko
 
 /**
  * Represents a tabular report containing information about composable functions within a module. This report includes
@@ -26,6 +27,7 @@ import com.jayasuryat.mendable.metricsfile.Module
  * @property module The module to which this composable tabular report pertains.
  * @property composables The list of tabulated composable details in this report.
  */
+@Poko
 public class ComposableTabularReport(
     public override val module: Module,
     public val composables: List<ComposableDetails>,
@@ -46,6 +48,7 @@ public class ComposableTabularReport(
      * @property groups
      * @property calls The number of times the composable function is called.
      */
+    @Poko
     public class ComposableDetails(
         public val name: String,
         public val packageName: String,

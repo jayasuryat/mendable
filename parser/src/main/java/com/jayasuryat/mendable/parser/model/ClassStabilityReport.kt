@@ -16,6 +16,7 @@
 package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
+import dev.drewhamilton.poko.Poko
 
 /**
  * Represents a report containing stability information for classes in a module. Includes details about each class's
@@ -26,6 +27,7 @@ import com.jayasuryat.mendable.metricsfile.Module
  * @property module The module to which this stability report pertains.
  * @property classes The list of class details in this stability report.
  */
+@Poko
 public class ClassStabilityReport(
     public override val module: Module,
     public val classes: List<ClassDetails>,
@@ -39,6 +41,7 @@ public class ClassStabilityReport(
      * @property runtimeStability The runtime stability of the class.
      * @property fields The list of fields within the class.
      */
+    @Poko
     public class ClassDetails(
         public val name: String,
         public val condition: Condition,
@@ -54,6 +57,7 @@ public class ClassStabilityReport(
          * @property declarationType The declaration type (Val or Var) of the field.
          * @property type The type of the field.
          */
+        @Poko
         public class Field(
             public val name: String,
             public val condition: Condition,
@@ -88,6 +92,7 @@ public class ClassStabilityReport(
              *
              * @property cause The cause of uncertain runtime stability.
              */
+            @Poko
             public class Uncertain(
                 public val cause: String,
             ) : RuntimeStability
@@ -97,6 +102,7 @@ public class ClassStabilityReport(
              *
              * @property cause The cause of runtime stability being parameter-dependent.
              */
+            @Poko
             public class Parameter(
                 public val cause: String,
             ) : RuntimeStability

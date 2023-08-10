@@ -16,6 +16,7 @@
 package com.jayasuryat.mendable.parser.model
 
 import com.jayasuryat.mendable.metricsfile.Module
+import dev.drewhamilton.poko.Poko
 
 /**
  * Represents a report containing information about composable functions within a module. This report includes details
@@ -26,6 +27,7 @@ import com.jayasuryat.mendable.metricsfile.Module
  * @property module The module to which this composable signatures report pertains.
  * @property composables The list of composables details in this report.
  */
+@Poko
 public class ComposableSignaturesReport(
     public override val module: Module,
     public val composables: List<ComposableDetails>,
@@ -40,6 +42,7 @@ public class ComposableSignaturesReport(
      * @property isInline Indicates whether the composable function is inline.
      * @property params The list of parameters for the composable function.
      */
+    @Poko
     public class ComposableDetails(
         public val functionName: String,
         public val isRestartable: Boolean,
@@ -56,6 +59,7 @@ public class ComposableSignaturesReport(
          * @property type The type of the parameter.
          * @property defaultValue The default value of the parameter, if applicable.
          */
+        @Poko
         public class Parameter(
             public val name: String,
             public val condition: Condition,
