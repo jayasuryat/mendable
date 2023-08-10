@@ -11,33 +11,43 @@ public abstract interface class com/jayasuryat/mendable/MendableReportGenerator$
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Error : com/jayasuryat/mendable/MendableReportGenerator$Progress, com/jayasuryat/mendable/MendableReportGenerator$Progress$Result {
 	public fun <init> (Ljava/lang/Throwable;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getThrowable ()Ljava/lang/Throwable;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Initiated : com/jayasuryat/mendable/MendableReportGenerator$Progress {
 	public static final field INSTANCE Lcom/jayasuryat/mendable/MendableReportGenerator$Progress$Initiated;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$MetricsFilesFound : com/jayasuryat/mendable/MendableReportGenerator$Progress {
 	public fun <init> (Ljava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFiles ()Ljava/util/List;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$MetricsFilesParsed : com/jayasuryat/mendable/MendableReportGenerator$Progress {
 	public fun <init> (ILjava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getErrors ()Ljava/util/List;
 	public final fun getFailedToParse ()I
 	public final fun getParsedSuccessfully ()I
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$MetricsFilesParsed$ParseError : java/lang/RuntimeException {
 	public fun <init> (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFileName ()Ljava/lang/String;
 	public final fun getThrowable ()Ljava/lang/Throwable;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -53,19 +63,24 @@ public abstract interface class com/jayasuryat/mendable/MendableReportGenerator$
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$SuccessfullyCompleted : com/jayasuryat/mendable/MendableReportGenerator$Progress, com/jayasuryat/mendable/MendableReportGenerator$Progress$Result {
 	public fun <init> (Ljava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getExportType ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public final fun getOutputPath ()Ljava/lang/String;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/MendableReportGeneratorRequest {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;)V
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getExportType ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public final fun getIncludeModules ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public final fun getOutputFileName ()Ljava/lang/String;
 	public final fun getOutputPath ()Ljava/lang/String;
 	public final fun getScanPath ()Ljava/lang/String;
 	public final fun getScanRecursively ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType : java/lang/Enum {
