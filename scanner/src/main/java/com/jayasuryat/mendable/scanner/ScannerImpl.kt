@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:JvmName("ScannerKt")
-
 package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
@@ -47,7 +45,6 @@ private fun scanForComposeCompilerMetricsFiles(
         .filter { file -> file.isFile }
         .filter { file -> file.name.endsWithAny(postfixes) }
         .map { file -> requireNotNull(ComposeCompilerMetricsFile.from(file)) }
-        .sortedBy { file -> "${file.module.name} ${file.module.buildVariant}" }
 }
 
 private fun scanForComposeCompilerMetricsFilesRecursively(
@@ -73,7 +70,6 @@ private fun scanForComposeCompilerMetricsFilesRecursively(
         }
 
     return metricsFiles
-        .sortedBy { file -> "${file.module.name} ${file.module.buildVariant}" }
 }
 
 private fun String.endsWithAny(

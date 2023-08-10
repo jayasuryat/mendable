@@ -37,7 +37,11 @@ internal class ProgressPrinter(
 
             is Progress.MetricsFilesFound -> progress.message().println()
 
-            is Progress.MetricsFilesParsed -> progress.message().println()
+            is Progress.MetricsFilesParsed -> {
+                val (message, errorMessage) = progress.messages()
+                message.println()
+                errorMessage?.printError()
+            }
 
             is Progress.SuccessfullyCompleted -> progress.message().println()
 
@@ -49,7 +53,7 @@ internal class ProgressPrinter(
 
     @Suppress("UnusedReceiverParameter")
     private fun Progress.Initiated.message(): String {
-        return "Scanning files ${if (request.scanRecursively) "recursively " else ""}in ${request.scanPath} directory\n"
+        return "Scanning files ${if (request.scanRecursively) "recursively " else ""}in file://${request.scanPath} directory\n"
     }
 
     private fun Progress.MetricsFilesFound.message(): String {
@@ -64,9 +68,23 @@ internal class ProgressPrinter(
         return builder.toString()
     }
 
-    private fun Progress.MetricsFilesParsed.message(): String {
-        return if (failedToParse == 0) "All #$parsedSuccessfully metrics files successfully parsed \n"
-        else "#$parsedSuccessfully files parsed successfully. Failed to parse #$failedToParse files \n"
+    private fun Progress.MetricsFilesParsed.messages(): Pair<String, String?> {
+
+        if (failedToParse == 0) return "All #$parsedSuccessfully metrics files parsed successfully\n" to null
+
+        val message = StringBuilder()
+        val errorMessage = StringBuilder()
+
+        message.appendLine("#$parsedSuccessfully files parsed successfully. Failed to parse #$failedToParse files.")
+        errorMessage.appendLine("Failed to parse following files:")
+
+        val padStart = errors.size.toString().length
+        this.errors.forEachIndexed { index, error ->
+            val modIndex = (index + 1).toString().padStart(padStart)
+            errorMessage.appendLine("$modIndex. :${error.fileName}")
+        }
+
+        return message.toString() to errorMessage.toString()
     }
 
     @Suppress("UnusedReceiverParameter")

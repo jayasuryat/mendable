@@ -7,7 +7,7 @@
     </picture>
   </a>
 
-  <h1>A <code>CLI</code> tool to convert <code>multi-module</code></br><code>Jetpack Compose</code> compiler <code>metrics</code></br>into beautiful <code>HTML</code> and <code>JSON</code> reports</h1>
+  <h1>A <code>CLI</code> tool to convert <code>multi-module</code><br><code>Jetpack Compose</code> compiler <code>metrics</code><br>into beautiful <code>HTML</code> and <code>JSON</code> reports</h1>
 
   <a href="https://github.com/jayasuryat/mendable/releases/download/0.6.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.6.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
   
@@ -53,7 +53,7 @@ non-problematic.**
 Mendable also takes reports of `multiple modules` and merges them into different sections of a single
 beautiful `HTML page` or `Formatted JSON report` to reduce going back and forth while working.
 
-> **Note** : To generate report, Mendable targets the '<module>-composables.txt` files.
+> **Note** : To generate report, Mendable targets the '<module>-composables.txt' files.
 
 <details>
   <summary><h2>3. Gradle setup - for generating Compose compiler metrics</h2></summary>
