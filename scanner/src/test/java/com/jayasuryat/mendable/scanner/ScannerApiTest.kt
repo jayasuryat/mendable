@@ -17,6 +17,7 @@ package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -143,8 +144,11 @@ internal class ScannerApiTest {
 
         reports.size shouldBe 2
 
-        val report = reports.first()
-        report.file.name shouldBe fileName
+        val root = reports.firstOrNull { report -> report.file.name == fileName }
+        val nested = reports.firstOrNull { report -> report.file.name == nestedFileName }
+
+        root shouldNotBe null
+        nested shouldNotBe null
     }
 
     @Test
@@ -164,8 +168,11 @@ internal class ScannerApiTest {
 
         reports.size shouldBe 2
 
-        val report = reports.first()
-        report.file.name shouldBe fileName
+        val root = reports.firstOrNull { report -> report.file.name == fileName }
+        val nested = reports.firstOrNull { report -> report.file.name == nestedFileName }
+
+        root shouldNotBe null
+        nested shouldNotBe null
     }
 
     @Test
@@ -185,8 +192,11 @@ internal class ScannerApiTest {
 
         reports.size shouldBe 2
 
-        val report = reports.first()
-        report.file.name shouldBe fileName
+        val root = reports.firstOrNull { report -> report.file.name == fileName }
+        val nested = reports.firstOrNull { report -> report.file.name == nestedFileName }
+
+        root shouldNotBe null
+        nested shouldNotBe null
     }
 
     @Test
@@ -206,8 +216,11 @@ internal class ScannerApiTest {
 
         reports.size shouldBe 2
 
-        val report = reports.first()
-        report.file.name shouldBe fileName
+        val root = reports.firstOrNull { report -> report.file.name == fileName }
+        val nested = reports.firstOrNull { report -> report.file.name == nestedFileName }
+
+        root shouldNotBe null
+        nested shouldNotBe null
     }
     // endregion
 
