@@ -15,6 +15,7 @@ gson = "2.10.1"
 # Plugins
 spoltess = "6.3.0"
 binaryCompatibilityValidator = "0.13.2"
+poko = "0.15.0"
 
 [libraries]
 
@@ -35,3 +36,4 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spoltess" }
+poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
