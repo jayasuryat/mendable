@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.binary.compatibility.validator)
     alias(libs.plugins.spotless)
     alias(libs.plugins.poko) apply false
+    alias(libs.plugins.dokka)
     alias(libs.plugins.gradle.nexus.publish)
 }
 
