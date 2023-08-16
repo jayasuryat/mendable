@@ -16,6 +16,11 @@ gson = "2.10.1"
 spoltess = "6.3.0"
 binaryCompatibilityValidator = "0.13.2"
 poko = "0.15.0"
+dokka = "1.8.20"
+gradleNexusPublish = "1.1.0"
+
+# Mendable publish
+mendablePublishVersion = "0.6.0"
 
 [libraries]
 
@@ -37,3 +42,5 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spoltess" }
 poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+gradle-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "gradleNexusPublish" }

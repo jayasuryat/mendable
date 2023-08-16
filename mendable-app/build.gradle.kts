@@ -7,6 +7,13 @@ plugins {
 }
 
 val mainCliClassName = "com.jayasuryat.mendable.app.MainKt"
+application {
+    mainClass.set(mainCliClassName)
+}
+
+kotlin {
+    explicitApi()
+}
 
 dependencies {
 
@@ -18,14 +25,6 @@ dependencies {
     implementation(libs.kotlinx.cli)
 
     implementation(projects.mendable)
-}
-
-application {
-    mainClass.set(mainCliClassName)
-}
-
-kotlin {
-    explicitApi()
 }
 
 tasks.named<Test>("test") {
