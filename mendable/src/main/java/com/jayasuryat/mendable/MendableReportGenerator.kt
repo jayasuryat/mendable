@@ -48,6 +48,11 @@ public class MendableReportGenerator(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
+    public constructor() : this(
+        computationDispatcher = Dispatchers.Default,
+        ioDispatcher = Dispatchers.IO,
+    )
+
     /**
      * Generates a mendable report based on the given [request] and reports progress to the [progress] handler.
      *
@@ -260,7 +265,7 @@ public class MendableReportGenerator(
     /** Represents the progress of Mendable report generation.*/
     public sealed interface Progress {
 
-        /** Represents the terminal state of the report generation process.*/
+        /** Represents a terminal state of the report generation process.*/
         public sealed interface Result
 
         /** Represents the initial state of the report generation process.*/
@@ -305,7 +310,7 @@ public class MendableReportGenerator(
         }
 
         /**
-         * Represents the state when the report generation process has completed successfully.
+         * Represents the terminal state when the report generation process has completed successfully.
          *
          * @property outputPath The output path where the result is stored.
          * @property exportType The type of export used for the result.
@@ -316,11 +321,12 @@ public class MendableReportGenerator(
             public val exportType: ExportType,
         ) : Progress, Result
 
-        /** Represents the progress when no metrics files are found for processing. */
+        /** Represents the terminal state where when no metrics files are found and processing has stopped. */
         public data object NoMetricsFilesFound : Progress, Result
 
         /**
-         * Represents an error that occurred during the report generation process.
+         * Represents the terminal state where an error has occurred and further processing has been stopped in the
+         * report generation process.
          *
          * @property throwable The throwable associated with the error.
          */
