@@ -21,7 +21,11 @@ import com.jayasuryat.mendable.parser.impl.ClassStabilityReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ComposableSignaturesReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ComposableTabularReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ModuleMetricsFileParserImpl
-import com.jayasuryat.mendable.parser.model.*
+import com.jayasuryat.mendable.parser.model.ClassStabilityReport
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
+import com.jayasuryat.mendable.parser.model.ComposableTabularReport
+import com.jayasuryat.mendable.parser.model.ComposeCompilerMetrics
+import com.jayasuryat.mendable.parser.model.ModuleMetrics
 
 // region : Parser factories
 /**
