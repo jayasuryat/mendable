@@ -1,0 +1,70 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.java.srcDirs
+    from sourceSets.main.kotlin.srcDirs
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // The coordinates of the library,
+
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+
+                // Two artifacts, the `aar` (or `jar`) and the sources
+                from components.java
+
+                artifact sourcesJar
+
+                // Metadata
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = 'Mendable - Scan, parse and render Jetpack Compose compiler metrics as beautiful HTML/JSON reports'
+                    url = 'https://github.com/jayasuryat/mendable'
+                    licenses {
+                        license {
+                            name = 'Apache License 2.0'
+                            url = 'https://github.com/jayasuryat/mendable/blob/main/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'jayasuryat'
+                            name = 'Jaya Surya Thotapalli'
+                            email = 'jayasurya.dc@gmail.com'
+                        }
+                    }
+
+                    // Version control info
+                    scm {
+                        connection = 'scm:git:github.com/jayasuryat/mendable.git'
+                        developerConnection = 'scm:git:ssh://github.com/jayasuryat/mendable.git'
+                        url = 'https://github.com/jayasuryat/mendable/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+            rootProject.ext["signing.keyId"],
+            rootProject.ext["signing.key"],
+            rootProject.ext["signing.password"],
+    )
+    sign publishing.publications
+}

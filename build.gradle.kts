@@ -6,11 +6,15 @@ plugins {
     alias(libs.plugins.binary.compatibility.validator)
     alias(libs.plugins.spotless)
     alias(libs.plugins.poko) apply false
+    alias(libs.plugins.gradle.nexus.publish)
 }
 
 apply {
     from("buildScripts/spotless_pre_commit_hook.gradle")
+    from("buildScripts/publish/publish-root.gradle")
 }
+
+ext.set("publishGroupId", "com.jayasuryat.mendable")
 
 allprojects.forEach { project ->
     project.apply {
@@ -20,4 +24,16 @@ allprojects.forEach { project ->
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.register("publishAllPublicationsToSonatypeRepository")
+private val publishAll = tasks.findByName("publishAllPublicationsToSonatypeRepository")
+if (publishAll != null) {
+    allprojects {
+        tasks.whenTaskAdded {
+            if (this is PublishToMavenRepository) {
+                publishAll.dependsOn(this)
+            }
+        }
+    }
 }
