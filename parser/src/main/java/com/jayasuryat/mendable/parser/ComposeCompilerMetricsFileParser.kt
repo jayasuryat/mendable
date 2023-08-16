@@ -17,6 +17,11 @@ package com.jayasuryat.mendable.parser
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.*
+import com.jayasuryat.mendable.parser.model.ClassStabilityReport
+import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
+import com.jayasuryat.mendable.parser.model.ComposableTabularReport
+import com.jayasuryat.mendable.parser.model.ComposeCompilerMetrics
+import com.jayasuryat.mendable.parser.model.ModuleMetrics
 
 /**
  * A parser contract for parsing [ComposableSignaturesReportFile] into [ComposableSignaturesReport].
