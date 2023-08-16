@@ -15,35 +15,33 @@
  */
 package com.jayasuryat.mendable.parser
 
+import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.*
 import com.jayasuryat.mendable.parser.impl.ClassStabilityReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ComposableSignaturesReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ComposableTabularReportFileParserImpl
 import com.jayasuryat.mendable.parser.impl.ModuleMetricsFileParserImpl
-import com.jayasuryat.mendable.parser.model.ClassStabilityReport
-import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
-import com.jayasuryat.mendable.parser.model.ComposableTabularReport
-import com.jayasuryat.mendable.parser.model.ModuleMetrics
+import com.jayasuryat.mendable.parser.model.*
 
 // region : Parser factories
 /**
- * Factory function for creating an instance of [ComposeCompilerMetricsParser] using default or custom parsers for
+ * Factory function for creating an instance of [ComposeCompilerMetricsFileParser] using default or custom parsers for
  * each Compose compiler metrics file.
  *
  * @param composableSignaturesReportFileParser to parse [ComposableSignaturesReportFile].
  * @param classStabilityReportFileParser to parse [ClassStabilityReportFile].
  * @param composableTabularReportFileParser to parse [ComposableTabularReportFile].
  * @param moduleMetricsFileParser to parse [ModuleMetricsFile].
- * @return A composed instance of all the parsers, [ComposeCompilerMetricsParser].
+ * @return A composed instance of all the parsers, [ComposeCompilerMetricsFileParser].
  */
-public fun getComposeCompilerMetricsParser(
+public fun getComposeCompilerMetricsFileParser(
     composableSignaturesReportFileParser: ComposableSignaturesReportFileParser = ComposableSignaturesReportFileParserImpl(),
     classStabilityReportFileParser: ClassStabilityReportFileParser = ClassStabilityReportFileParserImpl(),
     composableTabularReportFileParser: ComposableTabularReportFileParser = ComposableTabularReportFileParserImpl(),
     moduleMetricsFileParser: ModuleMetricsFileParser = ModuleMetricsFileParserImpl(),
-): ComposeCompilerMetricsParser {
+): ComposeCompilerMetricsFileParser {
 
-    return ComposeCompilerMetricsParser(
+    return ComposeCompilerMetricsFileParser(
         composableSignaturesReportFileParser = composableSignaturesReportFileParser,
         classStabilityReportFileParser = classStabilityReportFileParser,
         composableTabularReportFileParser = composableTabularReportFileParser,
@@ -85,7 +83,7 @@ public fun getModuleMetricsFileParser(): ModuleMetricsFileParser {
 
 // region : File parsers
 /**
- * Extension function for parsing a [ComposableSignaturesReportFile] and generating a [ComposableSignaturesReport].
+ * Extension function for parsing a [ComposableSignaturesReportFile] and generating [ComposableSignaturesReport].
  *
  * This extension function uses the default [ComposableSignaturesReportFileParser] implementation to parse the given
  * [ComposableSignaturesReportFile] and return a corresponding [ComposableSignaturesReport].
@@ -99,7 +97,7 @@ public fun ComposableSignaturesReportFile.parse(): ComposableSignaturesReport {
 }
 
 /**
- * Extension function for parsing a [ClassStabilityReportFile] and generating a [ClassStabilityReport].
+ * Extension function for parsing a [ClassStabilityReportFile] and generating [ClassStabilityReport].
  *
  * This extension function uses the default [ClassStabilityReportFileParser] implementation to parse the given
  * [ClassStabilityReportFile] and return a corresponding [ClassStabilityReport].
@@ -113,7 +111,7 @@ public fun ClassStabilityReportFile.parse(): ClassStabilityReport {
 }
 
 /**
- * Extension function for parsing a [ComposableTabularReportFile] and generating a [ComposableTabularReport].
+ * Extension function for parsing a [ComposableTabularReportFile] and generating [ComposableTabularReport].
  *
  * This extension function uses the default [ComposableTabularReportFileParser] implementation to parse the given
  * [ComposableTabularReportFile] and return a corresponding [ComposableTabularReport].
@@ -127,7 +125,7 @@ public fun ComposableTabularReportFile.parse(): ComposableTabularReport {
 }
 
 /**
- * Extension function for parsing a [ModuleMetricsFile] and generating a [ModuleMetrics].
+ * Extension function for parsing a [ModuleMetricsFile] and generating [ModuleMetrics].
  *
  * This extension function uses the default [ModuleMetricsFileParser] implementation to parse the given
  * [ModuleMetricsFile] and return a corresponding [ModuleMetrics].
@@ -139,4 +137,19 @@ public fun ModuleMetricsFile.parse(): ModuleMetrics {
     val parser = getModuleMetricsFileParser()
     return parser.parse(this)
 }
+
+/**
+ * Extension function for parsing a [ComposeCompilerMetricsFile] and generating [ComposeCompilerMetrics].
+ *
+ * This extension function uses [ComposeCompilerMetricsFileParser] to parse the given
+ * [ComposeCompilerMetricsFile] and return a corresponding [ComposeCompilerMetrics].
+ *
+ * @receiver The [ComposeCompilerMetricsFile] to be parsed.
+ * @return A [ComposeCompilerMetrics] generated from the provided [ComposeCompilerMetricsFile].
+ */
+public fun ComposeCompilerMetricsFile.parse(): ComposeCompilerMetrics {
+    val parser = getComposeCompilerMetricsFileParser()
+    return parser.parse(this)
+}
+
 // endregion

@@ -10,28 +10,30 @@ public abstract interface class com/jayasuryat/mendable/parser/ComposableTabular
 	public abstract fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile;)Lcom/jayasuryat/mendable/parser/model/ComposableTabularReport;
 }
 
-public final class com/jayasuryat/mendable/parser/ComposeCompilerMetricsParser : com/jayasuryat/mendable/parser/ClassStabilityReportFileParser, com/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser, com/jayasuryat/mendable/parser/ComposableTabularReportFileParser, com/jayasuryat/mendable/parser/ModuleMetricsFileParser {
-	public static final field Companion Lcom/jayasuryat/mendable/parser/ComposeCompilerMetricsParser$Companion;
+public final class com/jayasuryat/mendable/parser/ComposeCompilerMetricsFileParser : com/jayasuryat/mendable/parser/ClassStabilityReportFileParser, com/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser, com/jayasuryat/mendable/parser/ComposableTabularReportFileParser, com/jayasuryat/mendable/parser/ModuleMetricsFileParser {
+	public static final field Companion Lcom/jayasuryat/mendable/parser/ComposeCompilerMetricsFileParser$Companion;
 	public fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile;)Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport;
 	public fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile;)Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport;
 	public fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile;)Lcom/jayasuryat/mendable/parser/model/ComposableTabularReport;
 	public fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile;)Lcom/jayasuryat/mendable/parser/model/ModuleMetrics;
+	public final fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile;)Lcom/jayasuryat/mendable/parser/model/ComposeCompilerMetrics;
 }
 
-public final class com/jayasuryat/mendable/parser/ComposeCompilerMetricsParser$Companion {
+public final class com/jayasuryat/mendable/parser/ComposeCompilerMetricsFileParser$Companion {
 }
 
 public final class com/jayasuryat/mendable/parser/ComposeCompilerMetricsParserApiKt {
 	public static final fun getClassStabilityReportFileParser ()Lcom/jayasuryat/mendable/parser/ClassStabilityReportFileParser;
 	public static final fun getComposableSignaturesReportFileParser ()Lcom/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser;
 	public static final fun getComposableTabularReportFileParser ()Lcom/jayasuryat/mendable/parser/ComposableTabularReportFileParser;
-	public static final fun getComposeCompilerMetricsParser (Lcom/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser;Lcom/jayasuryat/mendable/parser/ClassStabilityReportFileParser;Lcom/jayasuryat/mendable/parser/ComposableTabularReportFileParser;Lcom/jayasuryat/mendable/parser/ModuleMetricsFileParser;)Lcom/jayasuryat/mendable/parser/ComposeCompilerMetricsParser;
-	public static synthetic fun getComposeCompilerMetricsParser$default (Lcom/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser;Lcom/jayasuryat/mendable/parser/ClassStabilityReportFileParser;Lcom/jayasuryat/mendable/parser/ComposableTabularReportFileParser;Lcom/jayasuryat/mendable/parser/ModuleMetricsFileParser;ILjava/lang/Object;)Lcom/jayasuryat/mendable/parser/ComposeCompilerMetricsParser;
+	public static final fun getComposeCompilerMetricsFileParser (Lcom/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser;Lcom/jayasuryat/mendable/parser/ClassStabilityReportFileParser;Lcom/jayasuryat/mendable/parser/ComposableTabularReportFileParser;Lcom/jayasuryat/mendable/parser/ModuleMetricsFileParser;)Lcom/jayasuryat/mendable/parser/ComposeCompilerMetricsFileParser;
+	public static synthetic fun getComposeCompilerMetricsFileParser$default (Lcom/jayasuryat/mendable/parser/ComposableSignaturesReportFileParser;Lcom/jayasuryat/mendable/parser/ClassStabilityReportFileParser;Lcom/jayasuryat/mendable/parser/ComposableTabularReportFileParser;Lcom/jayasuryat/mendable/parser/ModuleMetricsFileParser;ILjava/lang/Object;)Lcom/jayasuryat/mendable/parser/ComposeCompilerMetricsFileParser;
 	public static final fun getModuleMetricsFileParser ()Lcom/jayasuryat/mendable/parser/ModuleMetricsFileParser;
 	public static final fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ClassStabilityReportFile;)Lcom/jayasuryat/mendable/parser/model/ClassStabilityReport;
 	public static final fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableSignaturesReportFile;)Lcom/jayasuryat/mendable/parser/model/ComposableSignaturesReport;
 	public static final fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ComposableTabularReportFile;)Lcom/jayasuryat/mendable/parser/model/ComposableTabularReport;
 	public static final fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile$ModuleMetricsFile;)Lcom/jayasuryat/mendable/parser/model/ModuleMetrics;
+	public static final fun parse (Lcom/jayasuryat/mendable/metricsfile/ComposeCompilerMetricsFile;)Lcom/jayasuryat/mendable/parser/model/ComposeCompilerMetrics;
 }
 
 public abstract interface class com/jayasuryat/mendable/parser/ModuleMetricsFileParser {

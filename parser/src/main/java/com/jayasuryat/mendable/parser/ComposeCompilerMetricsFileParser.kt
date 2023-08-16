@@ -15,11 +15,9 @@
  */
 package com.jayasuryat.mendable.parser
 
+import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.*
-import com.jayasuryat.mendable.parser.model.ClassStabilityReport
-import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
-import com.jayasuryat.mendable.parser.model.ComposableTabularReport
-import com.jayasuryat.mendable.parser.model.ModuleMetrics
+import com.jayasuryat.mendable.parser.model.*
 
 /**
  * A parser contract for parsing [ComposableSignaturesReportFile] into [ComposableSignaturesReport].
@@ -63,7 +61,7 @@ public interface ModuleMetricsFileParser {
  * This parser delegates the parsing of specific report file types to its constituent parsers, which are provided during
  * construction.
  */
-public class ComposeCompilerMetricsParser internal constructor(
+public class ComposeCompilerMetricsFileParser internal constructor(
     composableSignaturesReportFileParser: ComposableSignaturesReportFileParser,
     classStabilityReportFileParser: ClassStabilityReportFileParser,
     composableTabularReportFileParser: ComposableTabularReportFileParser,
@@ -72,6 +70,15 @@ public class ComposeCompilerMetricsParser internal constructor(
     ClassStabilityReportFileParser by classStabilityReportFileParser,
     ComposableTabularReportFileParser by composableTabularReportFileParser,
     ModuleMetricsFileParser by moduleMetricsFileParser {
+
+    public fun parse(file: ComposeCompilerMetricsFile): ComposeCompilerMetrics {
+        return when (file) {
+            is ClassStabilityReportFile -> parse(file)
+            is ComposableSignaturesReportFile -> parse(file)
+            is ComposableTabularReportFile -> parse(file)
+            is ModuleMetricsFile -> parse(file)
+        }
+    }
 
     public companion object
 }
