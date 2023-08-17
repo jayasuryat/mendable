@@ -58,7 +58,7 @@ internal class CliArguments(
     val scanRecursively: Boolean by parser.option(
         type = ArgType.Boolean,
         fullName = "scanRecursively",
-        shortName = "rs",
+        shortName = "sr",
         description = "Should scan the directory recursively",
     ).default(false)
 
