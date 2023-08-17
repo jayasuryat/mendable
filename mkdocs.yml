@@ -28,6 +28,12 @@ theme:
     code: JetBrains Mono
 
   palette:
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
     # Palette toggle for light mode
     - scheme: default
       primary: black
@@ -35,12 +41,6 @@ theme:
       toggle:
         icon: material/toggle-switch
         name: Switch to dark mode
-    # Palette toggle for dark mode
-    - scheme: slate
-      primary: black
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: Switch to light mode
 
   features:
     - navigation.tracking
