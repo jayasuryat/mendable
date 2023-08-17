@@ -1,1 +1,75 @@
-site_name: My Docs
+site_name: Mendable
+repo_url: https://github.com/jayasuryat/mendable
+edit_uri: edit/main/docs/
+
+nav:
+  - Overview: index.md
+  - How to use:
+      - howto/index.md
+      - Mendable - CLI tool: howto/Cli.md
+      - Mendable libraries: howto/Library.md
+  - Others:
+      - What are Jetpack Compose compiler metrics?: others/WhatAreJCCM.md
+      - How to generate Compose Compiler Metrics?: others/HowToGenerate.md
+      - Why HTML / JSON reports: others/WhyMendable.md
+      - Acknowledgements: others/Acknowledgements.md
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    admonition:
+      info: material/information
+      success: material/download
+  font:
+    code: JetBrains Mono
+
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: black
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+
+  features:
+    - navigation.tracking
+    - navigation.footer
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+#    - content.action.edit TODO : Consider enabling this
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jayasuryat
+      name: jayasuryat on GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/jayasuryat/
+      name: jayasuryat on LinkedIn
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/jaya_surya_t
+      name: jaya_surya_t on Twitter
+
+copyright: Copyright &copy; 2023 Jaya Surya Thotapalli
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - stylesheets/extra.css
