@@ -269,7 +269,9 @@ public class MendableReportGenerator(
         public sealed interface Result
 
         /** Represents the initial state of the report generation process.*/
-        public data object Initiated : Progress
+        public object Initiated : Progress {
+            override fun toString(): String = "Progress.Initiated"
+        }
 
         /**
          * Represents the state when metrics files are found for processing.
@@ -322,7 +324,9 @@ public class MendableReportGenerator(
         ) : Progress, Result
 
         /** Represents the terminal state where when no metrics files are found and processing has stopped. */
-        public data object NoMetricsFilesFound : Progress, Result
+        public object NoMetricsFilesFound : Progress, Result {
+            override fun toString(): String = "Progress.NoMetricsFilesFound"
+        }
 
         /**
          * Represents the terminal state where an error has occurred and further processing has been stopped in the
