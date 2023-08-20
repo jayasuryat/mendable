@@ -55,11 +55,11 @@ public class MendableReportGeneratorRequest(
              * @return The matching [ExportType].
              * @throws IllegalArgumentException if the provided type string doesn't match any enum entry.
              */
-            public fun find(type: String): ExportType = entries
+            public fun find(type: String): ExportType = values()
                 .firstOrNull { entry -> entry.name.equals(type, ignoreCase = true) }
                 ?: error(
                     "$type does not match with any entries of enum `${ExportType::class.java.canonicalName}`." +
-                        " Valid choices are ${entries.map { it.name }}"
+                        " Valid choices are ${values().map { it.name }}"
                 )
         }
     }
@@ -80,11 +80,11 @@ public class MendableReportGeneratorRequest(
              * @return The matching [IncludeModules].
              * @throws IllegalArgumentException if the provided type string doesn't match any enum entry.
              */
-            public fun find(type: String): IncludeModules = entries
+            public fun find(type: String): IncludeModules = values()
                 .firstOrNull { entry -> entry.name.equals(type, ignoreCase = true) }
                 ?: error(
                     "$type does not match with any entries of enum `${IncludeModules::class.java.canonicalName}`." +
-                        " Valid choices are ${entries.map { it.name }}"
+                        " Valid choices are ${values().map { it.name }}"
                 )
         }
     }

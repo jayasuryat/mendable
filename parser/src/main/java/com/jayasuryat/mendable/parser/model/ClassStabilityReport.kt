@@ -84,8 +84,13 @@ public class ClassStabilityReport(
          */
         public sealed interface RuntimeStability {
 
-            public data object Stable : RuntimeStability
-            public data object Unstable : RuntimeStability
+            public object Stable : RuntimeStability {
+                override fun toString(): String = "RuntimeStability.Stable"
+            }
+
+            public object Unstable : RuntimeStability {
+                override fun toString(): String = "RuntimeStability.Unstable"
+            }
 
             /**
              * Represents a class with uncertain runtime stability due to a specific cause.

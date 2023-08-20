@@ -19,8 +19,6 @@ public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Erro
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Initiated : com/jayasuryat/mendable/MendableReportGenerator$Progress {
 	public static final field INSTANCE Lcom/jayasuryat/mendable/MendableReportGenerator$Progress$Initiated;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -53,8 +51,6 @@ public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Metr
 
 public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$NoMetricsFilesFound : com/jayasuryat/mendable/MendableReportGenerator$Progress, com/jayasuryat/mendable/MendableReportGenerator$Progress$Result {
 	public static final field INSTANCE Lcom/jayasuryat/mendable/MendableReportGenerator$Progress$NoMetricsFilesFound;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -87,7 +83,6 @@ public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$Export
 	public static final field Companion Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType$Companion;
 	public static final field HTML Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public static final field JSON Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public static fun values ()[Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 }
@@ -100,7 +95,6 @@ public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$Includ
 	public static final field ALL Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public static final field Companion Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules$Companion;
 	public static final field WITH_WARNINGS Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public static fun values ()[Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 }

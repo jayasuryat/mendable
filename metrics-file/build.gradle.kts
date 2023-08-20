@@ -19,3 +19,7 @@ apply {
 kotlin {
     explicitApi()
 }
+
+dependencies {
+    compileOnly(libs.kotlin.std.lib)
+}
