@@ -11,7 +11,7 @@ plugins {
 }
 
 apply {
-//    from("buildScripts/spotless_pre_commit_hook.gradle")
+    from("buildScripts/spotless_pre_commit_hook.gradle")
     from("buildScripts/publish/publish-root.gradle")
 }
 
