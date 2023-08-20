@@ -28,6 +28,7 @@ dependencies {
     testImplementation(libs.kotest.assertions.json)
 
     api(projects.metricsFile)
+    compileOnly(libs.kotlin.std.lib)
 }
 
 tasks.named<Test>("test") {

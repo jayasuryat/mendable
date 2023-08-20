@@ -33,6 +33,7 @@ dependencies {
 
     implementation(libs.gson)
     api(projects.metricsFile)
+    compileOnly(libs.kotlin.std.lib)
 }
 
 tasks.named<Test>("test") {

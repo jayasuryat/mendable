@@ -37,6 +37,7 @@ dependencies {
     api(projects.metricsFile)
     implementation(projects.scanner)
     implementation(projects.parser)
+    compileOnly(libs.kotlin.std.lib)
 }
 
 tasks.named<Test>("test") {
