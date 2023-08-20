@@ -11,7 +11,7 @@ plugins {
 }
 
 apply {
-    from("buildScripts/spotless_pre_commit_hook.gradle")
+//    from("buildScripts/spotless_pre_commit_hook.gradle")
     from("buildScripts/publish/publish-root.gradle")
 }
 
@@ -23,8 +23,16 @@ allprojects.forEach { project ->
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+subprojects {
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
 }
 
 tasks.register("publishAllPublicationsToSonatypeRepository")
@@ -37,4 +45,22 @@ if (publishAll != null) {
             }
         }
     }
+}
+
+project("mendable-app").afterEvaluate {
+
+    fun findJarTaskInSubproject(projectName: String): Task? {
+        return project.rootProject.subprojects
+            .find { project -> project.name == projectName }
+            ?.tasks?.named("jar")
+            ?.get()
+    }
+
+    val metricsFile = findJarTaskInSubproject("metrics-file") ?: return@afterEvaluate
+    val scanner = findJarTaskInSubproject("scanner") ?: return@afterEvaluate
+    val parser = findJarTaskInSubproject("parser") ?: return@afterEvaluate
+    val mendable = findJarTaskInSubproject("mendable") ?: return@afterEvaluate
+    val mendableApp = findJarTaskInSubproject("mendable-app") ?: return@afterEvaluate
+
+    mendableApp.dependsOn(metricsFile, scanner, parser, mendable)
 }
