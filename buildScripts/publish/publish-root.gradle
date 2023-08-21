@@ -9,11 +9,13 @@ ext["snapshot"] = ''
 
 File secretPropsFile = project.rootProject.file('local.properties')
 if (secretPropsFile.exists()) {
+    println("Setting up secrets from local.properties")
     // Read local.properties file first if it exists
     Properties p = new Properties()
     new FileInputStream(secretPropsFile).withCloseable { is -> p.load(is) }
     p.each { name, value -> ext[name] = value }
 } else {
+    println("Setting up secrets from environment vars")
     // Use system environment variables
     ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
     ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
