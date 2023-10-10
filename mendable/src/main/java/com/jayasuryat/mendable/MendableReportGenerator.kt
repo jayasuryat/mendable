@@ -89,7 +89,7 @@ public class MendableReportGenerator(
 
         val metricsFiles: List<ComposableSignaturesReportFile> = withContext(ioDispatcher) {
             scanForComposableSignaturesReportFiles(
-                directory = request.scanPath,
+                directory = File(request.scanPath),
                 scanRecursively = request.scanRecursively,
             )
         }

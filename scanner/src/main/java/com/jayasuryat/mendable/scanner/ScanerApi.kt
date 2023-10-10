@@ -34,14 +34,6 @@ import java.io.File
  * @return A [List] of [ComposeCompilerMetricsFile] objects representing the found metrics files.
  */
 public fun scanForAllComposeCompilerMetricsFiles(
-    directory: String,
-    scanRecursively: Boolean = false,
-): List<ComposeCompilerMetricsFile> = scanForAllComposeCompilerMetricsFiles(
-    directory = File(directory),
-    scanRecursively = scanRecursively,
-)
-
-public fun scanForAllComposeCompilerMetricsFiles(
     directory: File,
     scanRecursively: Boolean = false,
 ): List<ComposeCompilerMetricsFile> {
@@ -65,14 +57,6 @@ public fun scanForAllComposeCompilerMetricsFiles(
  * @return A [List] of [ComposableSignaturesReportFile] objects representing the found metrics files.
  */
 public fun scanForComposableSignaturesReportFiles(
-    directory: String,
-    scanRecursively: Boolean = false,
-): List<ComposableSignaturesReportFile> = scanForComposableSignaturesReportFiles(
-    directory = File(directory),
-    scanRecursively = scanRecursively,
-)
-
-public fun scanForComposableSignaturesReportFiles(
     directory: File,
     scanRecursively: Boolean = false,
 ): List<ComposableSignaturesReportFile> {
@@ -94,14 +78,6 @@ public fun scanForComposableSignaturesReportFiles(
  *                        Default value is false.
  * @return A [List] of [ClassStabilityReportFile] objects representing the found metrics files.
  */
-public fun scanForClassStabilityReportFiles(
-    directory: String,
-    scanRecursively: Boolean = false,
-): List<ClassStabilityReportFile> = scanForClassStabilityReportFiles(
-    directory = File(directory),
-    scanRecursively = scanRecursively,
-)
-
 public fun scanForClassStabilityReportFiles(
     directory: File,
     scanRecursively: Boolean = false,
@@ -126,14 +102,6 @@ public fun scanForClassStabilityReportFiles(
  * @return A [List] of [ComposableTabularReportFile] objects representing the found metrics files.
  */
 public fun scanForComposableTabularReportFiles(
-    directory: String,
-    scanRecursively: Boolean = false,
-): List<ComposableTabularReportFile> = scanForComposableTabularReportFiles(
-    directory = File(directory),
-    scanRecursively = scanRecursively,
-)
-
-public fun scanForComposableTabularReportFiles(
     directory: File,
     scanRecursively: Boolean = false,
 ): List<ComposableTabularReportFile> {
@@ -156,14 +124,6 @@ public fun scanForComposableTabularReportFiles(
  *                        Default value is false.
  * @return A [List] of [ModuleMetricsFile] objects representing the found metrics files.
  */
-public fun scanForModuleMetricsFiles(
-    directory: String,
-    scanRecursively: Boolean = false,
-): List<ModuleMetricsFile> = scanForModuleMetricsFiles(
-    directory = File(directory),
-    scanRecursively = scanRecursively,
-)
-
 public fun scanForModuleMetricsFiles(
     directory: File,
     scanRecursively: Boolean = false,

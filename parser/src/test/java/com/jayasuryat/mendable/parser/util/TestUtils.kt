@@ -37,7 +37,11 @@ internal fun Any.getResourceFile(fileName: String): File {
     return this::class.java.classLoader
         ?.getResource(fileName)
         ?.path
-        ?.let { File(it) }
+        ?.let { path ->
+            val file = File(path)
+            assert(file.exists())
+            file
+        }
         ?: error("No file with name `$fileName` found in resources")
 }
 
@@ -52,7 +56,7 @@ internal fun Any.getComposableSignaturesReportFileFromResources(
     val parentPath: String = getResourceFile(fileName).parent
 
     val absoluteFileName = fileName.absoluteFileName()
-    return scanForComposableSignaturesReportFiles(parentPath)
+    return scanForComposableSignaturesReportFiles(File(parentPath))
         .first { file -> file.file.name == absoluteFileName }
 }
 
@@ -63,7 +67,7 @@ internal fun Any.getClassStabilityReportFileFromResources(
     val parentPath: String = getResourceFile(fileName).parent
 
     val absoluteFileName = fileName.absoluteFileName()
-    return scanForClassStabilityReportFiles(parentPath)
+    return scanForClassStabilityReportFiles(File(parentPath))
         .first { file -> file.file.name == absoluteFileName }
 }
 
@@ -74,7 +78,7 @@ internal fun Any.getComposableTabularReportFileFromResources(
     val parentPath: String = getResourceFile(fileName).parent
 
     val absoluteFileName = fileName.absoluteFileName()
-    return scanForComposableTabularReportFiles(parentPath)
+    return scanForComposableTabularReportFiles(File(parentPath))
         .first { file -> file.file.name == absoluteFileName }
 }
 
@@ -85,7 +89,7 @@ internal fun Any.getModuleMetricsFileFromResources(
     val parentPath: String = getResourceFile(fileName).parent
 
     val absoluteFileName = fileName.absoluteFileName()
-    return scanForModuleMetricsFiles(parentPath)
+    return scanForModuleMetricsFiles(File(parentPath))
         .first { file -> file.file.name == absoluteFileName }
 }
 
