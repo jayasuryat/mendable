@@ -21,6 +21,7 @@ import com.jayasuryat.mendable.app.system.SystemExit
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
+import kotlinx.cli.delimiter
 import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.absolutePathString
@@ -46,13 +47,14 @@ internal class CliArguments(
 
     private val parser = ArgParser("Mendable")
 
-    /** The path to the directory containing all the composables.txt files. */
-    val composablesReportsPath: String by parser.option(
+    /** Paths to the directories containing the composables.txt files. */
+    val scanPaths: List<String> by parser.option(
         type = ArgType.String,
-        fullName = "composablesReportsPath",
+        fullName = "scanPaths",
         shortName = "i",
-        description = "Path to the directory containing all of the composables.txt files",
-    ).default(defaultReadPath)
+        description = "Paths to the directories containing the composables.txt files (for multiple paths use \"path1 path2\" format)",
+    ).delimiter(" ")
+        .default(listOf(defaultReadPath))
 
     /** Indicates whether to scan the directory recursively. */
     val scanRecursively: Boolean by parser.option(
@@ -105,13 +107,18 @@ internal class CliArguments(
             return "$paramName cannot be empty. Either pass an appropriate value or skip passing a value to conform to the default value."
         }
 
-        if (composablesReportsPath.isBlank()) printErrorAndExit(message("--composablesReportsPath or -i"))
+        if (scanPaths.isEmpty()) printErrorAndExit(message("--scanPaths or -i"))
+        val areAllPathsEmpty = scanPaths.all { scanPath -> scanPath.isBlank() }
+        if (areAllPathsEmpty) printErrorAndExit(message("--scanPaths or -i"))
+
+        scanPaths.forEach { scanPath ->
+            val input = File(scanPath)
+            if (!input.exists()) printErrorAndExit("Directory $scanPath does not exist")
+            if (!input.isDirectory) printErrorAndExit("$scanPath is not a directory")
+        }
+
         if (outputPath.isBlank()) printErrorAndExit(message("--outputPath or -o"))
         if (outputFileName.isBlank()) printErrorAndExit(message("--outputFileName or -oName"))
-
-        val input = File(composablesReportsPath)
-        if (!input.exists()) printErrorAndExit("Directory $input does not exist")
-        if (!input.isDirectory) printErrorAndExit("$input is not a directory")
 
         val output = File(outputPath)
         if (!output.exists()) printErrorAndExit("Directory $output does not exist")

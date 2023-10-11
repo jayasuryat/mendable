@@ -68,12 +68,14 @@ public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Succ
 
 public final class com/jayasuryat/mendable/MendableReportGeneratorRequest {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;)V
+	public fun <init> (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getExportType ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public final fun getIncludeModules ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public final fun getOutputFileName ()Ljava/lang/String;
 	public final fun getOutputPath ()Ljava/lang/String;
 	public final fun getScanPath ()Ljava/lang/String;
+	public final fun getScanPaths ()Ljava/util/List;
 	public final fun getScanRecursively ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
