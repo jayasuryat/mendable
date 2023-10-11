@@ -74,6 +74,35 @@ internal class MendableReportGeneratorTest {
     }
 
     @Test
+    fun `should not throw error for non-existent output path`() = runTest {
+
+        val path = this::class.java.classLoader?.getResource("app_release-composables.txt")?.path
+        require(!path.isNullOrEmpty())
+
+        val scanPath = File(path).parent
+        val outputPath = "${temporaryFolder.root}${File.separator}some-folder"
+        val outputName = "output"
+
+        val request = MendableReportGeneratorRequest(
+            scanPath = scanPath,
+            outputPath = outputPath,
+            scanRecursively = false,
+            outputFileName = outputName,
+            exportType = ExportType.HTML,
+            includeModules = IncludeModules.ALL,
+        )
+
+        val result: Progress.Result = generator.generate(request = request)
+
+        result.shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
+
+        val output = File(result.outputPath)
+
+        output.exists() shouldBe true
+        output.isFile shouldBe true
+    }
+
+    @Test
     fun `should throw error for empty output file name`() = runTest {
 
         val request = MendableReportGeneratorRequest(

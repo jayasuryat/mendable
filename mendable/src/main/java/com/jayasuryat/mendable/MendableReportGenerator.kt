@@ -146,9 +146,6 @@ public class MendableReportGenerator(
         }
 
         require(outputPath.isNotEmpty()) { "outputPath cannot be empty" }
-        val output = File(outputPath)
-        require(output.exists()) { "$output does not exist" }
-        require(output.isDirectory) { "$output is not a directory" }
 
         require(outputFileName.isNotEmpty()) { "outputFileName cannot be empty" }
     }
@@ -259,6 +256,7 @@ public class MendableReportGenerator(
     ): String {
 
         val directory = File(Paths.get(outputDirectory).absolutePathString())
+        directory.mkdirs()
         val file = File("${directory.absolutePath}/$outputName.$extension")
         file.writeText(content)
 
