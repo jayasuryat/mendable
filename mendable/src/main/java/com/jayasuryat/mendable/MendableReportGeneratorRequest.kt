@@ -39,6 +39,8 @@ public class MendableReportGeneratorRequest(
     public val includeModules: IncludeModules,
 ) {
 
+    public val scanPath: String by lazy(LazyThreadSafetyMode.NONE) { scanPaths.first() }
+
     public constructor(
         scanPath: String,
         outputPath: String,

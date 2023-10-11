@@ -74,6 +74,7 @@ public final class com/jayasuryat/mendable/MendableReportGeneratorRequest {
 	public final fun getIncludeModules ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
 	public final fun getOutputFileName ()Ljava/lang/String;
 	public final fun getOutputPath ()Ljava/lang/String;
+	public final fun getScanPath ()Ljava/lang/String;
 	public final fun getScanPaths ()Ljava/util/List;
 	public final fun getScanRecursively ()Z
 	public fun hashCode ()I
