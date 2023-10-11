@@ -237,7 +237,7 @@ internal class MendableReportGeneratorTest {
         val request = MendableReportGeneratorRequest(
             scanPath = resourceRoot,
             outputPath = temporaryFolder.root.path,
-            scanRecursively = false,
+            scanRecursively = true,
             outputFileName = "report",
             exportType = ExportType.JSON,
             includeModules = IncludeModules.WITH_WARNINGS,
