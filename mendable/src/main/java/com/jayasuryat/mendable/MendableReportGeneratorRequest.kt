@@ -39,8 +39,22 @@ public class MendableReportGeneratorRequest(
     public val includeModules: IncludeModules,
 ) {
 
+    @Deprecated(
+        message = "Property scanPath is deprecated and will be removed soon. Use scanPaths instead.",
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(
+            expression = "scanPaths[0]",
+        )
+    )
     public val scanPath: String by lazy(LazyThreadSafetyMode.NONE) { scanPaths.first() }
 
+    @Deprecated(
+        message = "Use the primary constructor with multiple scanPaths arg, this constructor will be removed soon.",
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(
+            expression = "MendableReportGeneratorRequest(listOf(scanPath), outputPath, scanRecursively, outputFileName, exportType, includeModules)",
+        )
+    )
     public constructor(
         scanPath: String,
         outputPath: String,
