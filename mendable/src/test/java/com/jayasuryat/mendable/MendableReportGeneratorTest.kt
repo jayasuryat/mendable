@@ -127,7 +127,7 @@ internal class MendableReportGeneratorTest {
 
         result.shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
 
-        result.outputPath shouldBe "${temporaryFolder.root.path}/report.html"
+        result.outputPath shouldBe "${temporaryFolder.root.path}${File.separator}report.html"
         result.exportType shouldBe ExportType.HTML
 
         val output = File(result.outputPath)
@@ -156,7 +156,7 @@ internal class MendableReportGeneratorTest {
 
         result.shouldBeInstanceOf<Progress.SuccessfullyCompleted>()
 
-        result.outputPath shouldBe "${temporaryFolder.root.path}/report.json"
+        result.outputPath shouldBe "${temporaryFolder.root.path}${File.separator}report.json"
         result.exportType shouldBe ExportType.JSON
 
         val output = File(result.outputPath)
