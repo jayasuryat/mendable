@@ -22,6 +22,7 @@ import com.jayasuryat.mendable.MendableReportGeneratorRequest.IncludeModules
 import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
 import io.kotest.matchers.file.shouldBeAFile
 import io.kotest.matchers.file.shouldExist
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlinx.coroutines.test.runTest
@@ -162,6 +163,39 @@ internal class MendableReportGeneratorTest {
         val output = File(result.outputPath)
         output.shouldExist()
         output.shouldBeAFile()
+    }
+
+    @Test
+    fun `should consider multiple scan paths for report generation`() = runTest {
+
+        val path1 = this::class.java.classLoader?.getResource("app_release-composables.txt")?.path
+        val path2 = this::class.java.classLoader?.getResource("child/child_release-composables.txt")?.path
+        require(!path1.isNullOrEmpty())
+        require(!path2.isNullOrEmpty())
+
+        val resourceRoot = File(path1).parent
+        val childRoot = File(path2).parent
+
+        val request = MendableReportGeneratorRequest(
+            scanPaths = listOf(resourceRoot, childRoot),
+            outputPath = temporaryFolder.root.path,
+            scanRecursively = false,
+            outputFileName = "report",
+            exportType = ExportType.HTML,
+            includeModules = IncludeModules.ALL,
+        )
+
+        var foundMetrics: Progress.MetricsFilesFound? = null
+        generator.generate(request = request) { progress ->
+            if (progress is Progress.MetricsFilesFound) {
+                foundMetrics = progress
+            }
+        }
+
+        val metrics = foundMetrics
+
+        metrics.shouldNotBeNull()
+        metrics.files.size shouldBe 2
     }
 
     @Test
