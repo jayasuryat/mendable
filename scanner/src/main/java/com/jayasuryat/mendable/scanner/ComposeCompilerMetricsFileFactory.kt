@@ -24,13 +24,12 @@ import java.io.File
  *
  * @param file The [File] representing the Compose compiler metrics file.
  * @param moduleFactory The [ModuleFactory] used to parse the [Module] object from the file name.
- *                      Default is [DefaultModuleFactory].
  * @return A [ComposeCompilerMetricsFile] instance representing the parsed metrics file.
  * @throws IllegalArgumentException if the file name doesn't match any known Compose-Compiler-Metrics file name signatures.
  */
 internal fun ComposeCompilerMetricsFile.Companion.from(
     file: File,
-    moduleFactory: ModuleFactory = DefaultModuleFactory(),
+    moduleFactory: ModuleFactory,
 ): ComposeCompilerMetricsFile {
 
     val name = file.name

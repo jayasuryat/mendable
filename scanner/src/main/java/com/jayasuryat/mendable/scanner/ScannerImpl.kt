@@ -22,20 +22,24 @@ internal fun scanForComposeCompilerMetricsFiles(
     directory: File,
     scanRecursively: Boolean,
     postfixes: List<String>,
+    moduleFactory: ModuleFactory,
 ): List<ComposeCompilerMetricsFile> {
 
     return if (scanRecursively) scanForComposeCompilerMetricsFilesRecursively(
         directory = directory,
         postfixes = postfixes,
+        moduleFactory = moduleFactory,
     ) else scanForComposeCompilerMetricsFiles(
         directory = directory,
         postfixes = postfixes,
+        moduleFactory = moduleFactory,
     )
 }
 
 private fun scanForComposeCompilerMetricsFiles(
     directory: File,
     postfixes: List<String>,
+    moduleFactory: ModuleFactory,
 ): List<ComposeCompilerMetricsFile> {
 
     if (!directory.exists() || !directory.isDirectory) return emptyList()
@@ -44,12 +48,20 @@ private fun scanForComposeCompilerMetricsFiles(
         .listFiles().orEmpty()
         .filter { file -> file.isFile }
         .filter { file -> file.name.endsWithAny(postfixes) }
-        .map { file -> requireNotNull(ComposeCompilerMetricsFile.from(file)) }
+        .map { file ->
+            requireNotNull(
+                ComposeCompilerMetricsFile.from(
+                    file = file,
+                    moduleFactory = moduleFactory,
+                )
+            )
+        }
 }
 
 private fun scanForComposeCompilerMetricsFilesRecursively(
     directory: File,
     postfixes: List<String>,
+    moduleFactory: ModuleFactory,
 ): List<ComposeCompilerMetricsFile> {
 
     if (!directory.isDirectory) return emptyList()
@@ -61,9 +73,18 @@ private fun scanForComposeCompilerMetricsFilesRecursively(
         .forEach { file: File ->
             when {
 
-                file.isDirectory -> metricsFiles.addAll(scanForComposeCompilerMetricsFilesRecursively(file, postfixes))
+                file.isDirectory -> {
+                    val files = scanForComposeCompilerMetricsFilesRecursively(file, postfixes, moduleFactory)
+                    metricsFiles.addAll(files)
+                }
 
-                file.isFile && file.name.endsWithAny(postfixes) -> metricsFiles.add(ComposeCompilerMetricsFile.from(file))
+                file.isFile && file.name.endsWithAny(postfixes) -> {
+                    val metricsFile: ComposeCompilerMetricsFile = ComposeCompilerMetricsFile.from(
+                        file = file,
+                        moduleFactory = moduleFactory,
+                    )
+                    metricsFiles.add(metricsFile)
+                }
 
                 else -> Unit /* Do nothing */
             }

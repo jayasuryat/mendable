@@ -16,6 +16,7 @@
 package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
+import com.jayasuryat.mendable.metricsfile.Module
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.After
@@ -30,6 +31,12 @@ internal class ScannerApiTest {
     @JvmField
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
+    private val stubModule: Module = Module(
+        name = "stubModuleName",
+        buildVariant = "release"
+    )
+    private val stubModuleFactory: ModuleFactory = ModuleFactory { _ -> stubModule }
+
     @Before
     fun setup() {
         temporaryFolder.create()
@@ -39,6 +46,76 @@ internal class ScannerApiTest {
     fun teardown() {
         temporaryFolder.delete()
     }
+
+    // region : Test module factory use
+    @Test
+    fun `scanForComposableSignaturesReportFiles should use module factory correctly`() {
+
+        val fileName = "discover_release$COMPOSABLE_SIGNATURES_REPORT_POSTFIX"
+
+        temporaryFolder.newFile(fileName)
+
+        val reports = scanForComposableSignaturesReportFiles(
+            directory = temporaryFolder.root,
+            scanRecursively = false,
+            moduleFactory = stubModuleFactory,
+        )
+
+        val report = reports.first()
+        report.module shouldBe stubModule
+    }
+
+    @Test
+    fun `scanForClassStabilityReportFiles should use module factory correctly`() {
+
+        val fileName = "discover_release$CLASS_STABILITY_REPORT_POSTFIX"
+
+        temporaryFolder.newFile(fileName)
+
+        val reports = scanForClassStabilityReportFiles(
+            directory = temporaryFolder.root,
+            scanRecursively = false,
+            moduleFactory = stubModuleFactory,
+        )
+
+        val report = reports.first()
+        report.module shouldBe stubModule
+    }
+
+    @Test
+    fun `scanForComposableTabularReportFiles should use module factory correctly`() {
+
+        val fileName = "discover_release$COMPOSABLE_TABULAR_REPORT_POSTFIX"
+
+        temporaryFolder.newFile(fileName)
+
+        val reports = scanForComposableTabularReportFiles(
+            directory = temporaryFolder.root,
+            scanRecursively = false,
+            moduleFactory = stubModuleFactory,
+        )
+
+        val report = reports.first()
+        report.module shouldBe stubModule
+    }
+
+    @Test
+    fun `scanForModuleMetricsFiles should use module factory correctly`() {
+
+        val fileName = "discover_release$MODULE_METRICS_POSTFIX"
+
+        temporaryFolder.newFile(fileName)
+
+        val reports = scanForModuleMetricsFiles(
+            directory = temporaryFolder.root,
+            scanRecursively = false,
+            moduleFactory = stubModuleFactory,
+        )
+
+        val report = reports.first()
+        report.module shouldBe stubModule
+    }
+    // endregion
 
     // region : Scan test
     @Test
