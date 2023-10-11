@@ -17,6 +17,7 @@ package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile
 import com.jayasuryat.mendable.metricsfile.ComposeCompilerMetricsFile.*
+import com.jayasuryat.mendable.metricsfile.Module
 import java.io.File
 
 /**
@@ -31,17 +32,21 @@ import java.io.File
  *                        If set to true, subdirectories will also be scanned (recursively) for metrics files.
  *                        If set to false, only the specified directory will be scanned.
  *                        Default value is false.
+ * @param moduleFactory The [ModuleFactory] used to parse the [Module] object from the file name.
+ *                      Default is [DefaultModuleFactory].
  * @return A [List] of [ComposeCompilerMetricsFile] objects representing the found metrics files.
  */
 public fun scanForAllComposeCompilerMetricsFiles(
     directory: File,
     scanRecursively: Boolean = false,
+    moduleFactory: ModuleFactory = DefaultModuleFactory(),
 ): List<ComposeCompilerMetricsFile> {
 
     return scanForComposeCompilerMetricsFiles(
         directory = directory,
         scanRecursively = scanRecursively,
         postfixes = allPostfixes,
+        moduleFactory = moduleFactory,
     )
 }
 
@@ -54,17 +59,21 @@ public fun scanForAllComposeCompilerMetricsFiles(
  *                        If set to true, subdirectories will also be scanned (recursively) for metrics files.
  *                        If set to false, only the specified directory will be scanned.
  *                        Default value is false.
+ * @param moduleFactory The [ModuleFactory] used to parse the [Module] object from the file name.
+ *                      Default is [DefaultModuleFactory].
  * @return A [List] of [ComposableSignaturesReportFile] objects representing the found metrics files.
  */
 public fun scanForComposableSignaturesReportFiles(
     directory: File,
     scanRecursively: Boolean = false,
+    moduleFactory: ModuleFactory = DefaultModuleFactory(),
 ): List<ComposableSignaturesReportFile> {
 
     return scanForComposeCompilerMetricsFiles(
         directory = directory,
         scanRecursively = scanRecursively,
-        postfixes = listOf(COMPOSABLE_SIGNATURES_REPORT_POSTFIX)
+        postfixes = listOf(COMPOSABLE_SIGNATURES_REPORT_POSTFIX),
+        moduleFactory = moduleFactory,
     ).filterIsInstance<ComposableSignaturesReportFile>()
 }
 
@@ -76,17 +85,21 @@ public fun scanForComposableSignaturesReportFiles(
  *                        If set to true, subdirectories will also be scanned (recursively) for metrics files.
  *                        If set to false, only the specified directory will be scanned.
  *                        Default value is false.
+ * @param moduleFactory The [ModuleFactory] used to parse the [Module] object from the file name.
+ *                      Default is [DefaultModuleFactory].
  * @return A [List] of [ClassStabilityReportFile] objects representing the found metrics files.
  */
 public fun scanForClassStabilityReportFiles(
     directory: File,
     scanRecursively: Boolean = false,
+    moduleFactory: ModuleFactory = DefaultModuleFactory(),
 ): List<ClassStabilityReportFile> {
 
     return scanForComposeCompilerMetricsFiles(
         directory = directory,
         scanRecursively = scanRecursively,
-        postfixes = listOf(CLASS_STABILITY_REPORT_POSTFIX)
+        postfixes = listOf(CLASS_STABILITY_REPORT_POSTFIX),
+        moduleFactory = moduleFactory,
     ).filterIsInstance<ClassStabilityReportFile>()
 }
 
@@ -99,17 +112,21 @@ public fun scanForClassStabilityReportFiles(
  *                        If set to true, subdirectories will also be scanned (recursively) for metrics files.
  *                        If set to false, only the specified directory will be scanned.
  *                        Default value is false.
+ * @param moduleFactory The [ModuleFactory] used to parse the [Module] object from the file name.
+ *                      Default is [DefaultModuleFactory].
  * @return A [List] of [ComposableTabularReportFile] objects representing the found metrics files.
  */
 public fun scanForComposableTabularReportFiles(
     directory: File,
     scanRecursively: Boolean = false,
+    moduleFactory: ModuleFactory = DefaultModuleFactory(),
 ): List<ComposableTabularReportFile> {
 
     return scanForComposeCompilerMetricsFiles(
         directory = directory,
         scanRecursively = scanRecursively,
-        postfixes = listOf(COMPOSABLE_TABULAR_REPORT_POSTFIX)
+        postfixes = listOf(COMPOSABLE_TABULAR_REPORT_POSTFIX),
+        moduleFactory = moduleFactory,
     ).filterIsInstance<ComposableTabularReportFile>()
 }
 
@@ -122,16 +139,20 @@ public fun scanForComposableTabularReportFiles(
  *                        If set to true, subdirectories will also be scanned (recursively) for metrics files.
  *                        If set to false, only the specified directory will be scanned.
  *                        Default value is false.
+ * @param moduleFactory The [ModuleFactory] used to parse the [Module] object from the file name.
+ *                      Default is [DefaultModuleFactory].
  * @return A [List] of [ModuleMetricsFile] objects representing the found metrics files.
  */
 public fun scanForModuleMetricsFiles(
     directory: File,
     scanRecursively: Boolean = false,
+    moduleFactory: ModuleFactory = DefaultModuleFactory(),
 ): List<ModuleMetricsFile> {
 
     return scanForComposeCompilerMetricsFiles(
         directory = directory,
         scanRecursively = scanRecursively,
-        postfixes = listOf(MODULE_METRICS_POSTFIX)
+        postfixes = listOf(MODULE_METRICS_POSTFIX),
+        moduleFactory = moduleFactory,
     ).filterIsInstance<ModuleMetricsFile>()
 }
