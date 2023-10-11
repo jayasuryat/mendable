@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
-
+// All of the other changes
+// composablesReportsPath renamed to scanPaths
+// scanPath renamed to scanPaths
 > Upcoming
 
 ## [v0.6.1](https://github.com/jayasuryat/mendable/releases/tag/0.6.1) - 2022-08-20
