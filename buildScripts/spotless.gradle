@@ -21,7 +21,7 @@ spotless {
                 "$buildDir/**/*.kt",
                 "bin/**/*.kt",
                 "buildSrc/**/*.kt",
-                "${rootProject.rootDir}/mendable/src/main/kotlin/com/jayasuryat/mendable/html/CssStyle.kt",
+                "${rootProject.rootDir}/mendable/src/main/java/com/jayasuryat/mendable/export/html/CssStyle.kt",
         )
         ktlint().userData(["disabled_rules": "no-wildcard-imports"])
         indentWithSpaces()
