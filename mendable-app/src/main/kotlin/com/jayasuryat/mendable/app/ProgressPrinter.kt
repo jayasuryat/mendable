@@ -17,6 +17,7 @@ package com.jayasuryat.mendable.app
 
 import com.jayasuryat.mendable.MendableReportGenerator.Progress
 import com.jayasuryat.mendable.MendableReportGeneratorRequest
+import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -53,7 +54,21 @@ internal class ProgressPrinter(
 
     @Suppress("UnusedReceiverParameter")
     private fun Progress.Initiated.message(): String {
-        return "Scanning files ${if (request.scanRecursively) "recursively " else ""}in file://${request.scanPath} directory\n"
+
+        val message = StringBuilder("Scanning files ${if (request.scanRecursively) "recursively " else ""}")
+
+        if (request.scanPaths.size == 1) {
+            message.append("in file:${File.separator}${File.separator}${request.scanPaths.first()} directory\n")
+        } else {
+            message.append("in the following directories:\n")
+            val padStart = request.scanPaths.size.toString().length
+            request.scanPaths.forEachIndexed { index, scanPath ->
+                val modIndex = (index + 1).toString().padStart(padStart)
+                message.append("$modIndex. $scanPath \n")
+            }
+        }
+
+        return message.toString()
     }
 
     private fun Progress.MetricsFilesFound.message(): String {
@@ -90,14 +105,14 @@ internal class ProgressPrinter(
     @Suppress("UnusedReceiverParameter")
     private fun Progress.NoMetricsFilesFound.message(): String {
         return """
-            No composables.txt files found in the directory : ${request.scanPath}
-            Make sure to point the application to the directory which contains all the composables.txt files via the '--composablesReportsPath' or '--i' argument.
+            No composables.txt files found in the following directories : ${request.scanPaths.joinToString()}
+            Make sure to point the application to the directory which contains all the composables.txt files via the '--scanPaths' or '--i' argument.
             For more help execute the jar with '-h' argument
         """.trimIndent()
     }
 
     private fun Progress.SuccessfullyCompleted.message(): String {
-        return "$exportType report successfully saved at file://$outputPath"
+        return "$exportType report successfully saved at file:${File.separator}${File.separator}$outputPath"
     }
 
     private fun Progress.Error.message(): String {
