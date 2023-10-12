@@ -68,10 +68,12 @@ public final class com/jayasuryat/mendable/MendableReportGenerator$Progress$Succ
 
 public final class com/jayasuryat/mendable/MendableReportGeneratorRequest {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;)V
-	public fun <init> (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;)V
+	public fun <init> (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;Lcom/jayasuryat/mendable/ModuleProducer;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;Lcom/jayasuryat/mendable/ModuleProducer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getExportType ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$ExportType;
 	public final fun getIncludeModules ()Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
+	public final fun getModuleProducer ()Lcom/jayasuryat/mendable/ModuleProducer;
 	public final fun getOutputFileName ()Ljava/lang/String;
 	public final fun getOutputPath ()Ljava/lang/String;
 	public final fun getScanPath ()Ljava/lang/String;
@@ -103,5 +105,14 @@ public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$Includ
 
 public final class com/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules$Companion {
 	public final fun find (Ljava/lang/String;)Lcom/jayasuryat/mendable/MendableReportGeneratorRequest$IncludeModules;
+}
+
+public abstract interface class com/jayasuryat/mendable/ModuleProducer {
+	public static final field Companion Lcom/jayasuryat/mendable/ModuleProducer$Companion;
+	public abstract fun parseModule (Ljava/io/File;)Lcom/jayasuryat/mendable/metricsfile/Module;
+}
+
+public final class com/jayasuryat/mendable/ModuleProducer$Companion {
+	public final fun getDefault ()Lcom/jayasuryat/mendable/ModuleProducer;
 }
 

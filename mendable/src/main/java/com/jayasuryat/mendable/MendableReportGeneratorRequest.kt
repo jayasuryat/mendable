@@ -37,6 +37,7 @@ public class MendableReportGeneratorRequest(
     public val outputFileName: String,
     public val exportType: ExportType,
     public val includeModules: IncludeModules,
+    public val moduleProducer: ModuleProducer = ModuleProducer.Default,
 ) {
 
     @Deprecated(
