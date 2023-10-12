@@ -2,7 +2,7 @@
 
 !!! success inline end "Download"
 
-    <a href="https://github.com/jayasuryat/mendable/releases/download/v0.6.0/mendable-app.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.6.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
+    <a href="https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.7.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
 
 It is very straightforward. Download and execute the `jar` file while **pointing it to the directory** which
 contains all the Compose-compiler generated metrics files.
