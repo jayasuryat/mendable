@@ -52,15 +52,29 @@ java -jar mendable.jar
 
 For example :
 
-```
-java -jar mendable.jar
-    --scanRecursively \
-    -i "/Users/username/Desktop/Your-project/build/compose_metrics /Users/username/Desktop/Other-project/build/compose_metrics" \
-    -o /Users/username/Desktop/Reports \
-    -oName Your-project-metrics \
-    -eType html \
-    -rType all \
-```
+=== "macOS"
+
+    ```
+    java -jar mendable.jar
+        --scanRecursively \
+        -i "/Users/username/Desktop/Your-project/build/compose_metrics /Users/username/Desktop/Other-project/build/compose_metrics" \
+        -o /Users/username/Desktop/Reports \
+        -oName Your-project-metrics \
+        -eType html \
+        -rType all \
+    ```
+
+=== "Windows"
+
+    ```
+    java -jar mendable.jar `
+        --scanRecursively `
+        -i "/Users/username/Desktop/Your-project/build/compose_metrics /Users/username/Desktop/Other-project/build/compose_metrics" `
+        -o /Users/username/Desktop/Reports `
+        -oName Your-project-metrics `
+        -eType html `
+        -rType all `
+    ```
 
 For the above command, files will be `read` from `/Users/username/Desktop/Your-project/build/compose_metrics`
 and `/Users/username/Desktop/Other-project/build/compose_metrics` by recurisvely going through every directory in these
