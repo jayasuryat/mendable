@@ -1,10 +1,10 @@
 public final class com/jayasuryat/mendable/scanner/DefaultModuleFactory : com/jayasuryat/mendable/scanner/ModuleFactory {
 	public fun <init> ()V
-	public fun parseModule (Ljava/lang/String;)Lcom/jayasuryat/mendable/metricsfile/Module;
+	public fun parseModule (Ljava/io/File;)Lcom/jayasuryat/mendable/metricsfile/Module;
 }
 
 public abstract interface class com/jayasuryat/mendable/scanner/ModuleFactory {
-	public abstract fun parseModule (Ljava/lang/String;)Lcom/jayasuryat/mendable/metricsfile/Module;
+	public abstract fun parseModule (Ljava/io/File;)Lcom/jayasuryat/mendable/metricsfile/Module;
 }
 
 public final class com/jayasuryat/mendable/scanner/ScanerApiKt {
