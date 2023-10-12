@@ -94,7 +94,7 @@ internal class CliArguments(
         fullName = "reportType",
         shortName = "rType",
         description = "Type of the report",
-    ).default(IncludeModules.WITH_WARNINGS)
+    ).default(IncludeModules.ALL)
 
     init {
         parser.parse(args)
