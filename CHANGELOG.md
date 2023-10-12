@@ -12,27 +12,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- ([#28](https://github.com/jayasuryat/mendable/issues/28)) Suport for `ModuleFactory` while scanning files via `scanFor<>Files()` methods
+- ([#28](https://github.com/jayasuryat/mendable/issues/28)) Support for `ModuleFactory` while scanning files via `scanFor<>Files()` methods
 - ([#39](https://github.com/jayasuryat/mendable/issues/39)) Support for multiple `scanPaths` in report generation
 - ([#42](https://github.com/jayasuryat/mendable/issues/42)) Support for controlling module names computed in `MendableReportGenerator`
 
 ### Changed
 
 - ([#31](https://github.com/jayasuryat/mendable/issues/31)) Change `ModuleFactory`'s signature to parse based on `File` instead of `filename`
-- ([#38](https://github.com/jayasuryat/mendable/issues/38)) Create `directory` for `outputPath` if it does not exists
+- ([#38](https://github.com/jayasuryat/mendable/issues/38)) Create `directory` for `outputPath` if it does not exist
 - ([#35](https://github.com/jayasuryat/mendable/issues/35)) Handle different `directory` `file separators` for different `Operating Systems`
-- Rename CLI argument `composablesReportsPath` to `scanPaths` and accept multiple scan paths (space seperated strings in quotes) in https://github.com/jayasuryat/mendable/pull/40
+- Rename CLI argument `composablesReportsPath` to `scanPaths` and accept multiple scan paths (space separated strings in quotes) in ([#40](https://github.com/jayasuryat/mendable/pull/40))
 - Fix `license header` for `CssStyle.kt` in [3b77aa2](https://github.com/jayasuryat/mendable/commit/3b77aa2e6b065ab56b345cb8b12ca90505f871fd)
 
 ### Removed
 
-- (#29) Removed overloaded `scanFor<>Files()` methods
+- ([#29](https://github.com/jayasuryat/mendable/issues/29)) Removed overloaded `scanFor<>Files()` methods
 - Remove `spotless` `pre-commit hook` in [e94d5da](https://github.com/jayasuryat/mendable/commit/e94d5da5283e18f0aae04d0c71791d667698815b)
 
 ### Deprecated
 
-- [`MendableReportGeneratorRequest`'s construcotr](https://github.com/jayasuryat/mendable/blob/964c51e63681ea04811b2e65cfffd9159e3cb1a1/mendable/src/main/java/com/jayasuryat/mendable/MendableReportGeneratorRequest.kt#L59) with single `scan path` parameter in (#39)
-- [`MendableReportGeneratorRequest.scanPath`](https://github.com/jayasuryat/mendable/blob/964c51e63681ea04811b2e65cfffd9159e3cb1a1/mendable/src/main/java/com/jayasuryat/mendable/MendableReportGeneratorRequest.kt#L50C16-L50C24) property in (#39)
+- [`MendableReportGeneratorRequest`'s constructor](https://github.com/jayasuryat/mendable/blob/964c51e63681ea04811b2e65cfffd9159e3cb1a1/mendable/src/main/java/com/jayasuryat/mendable/MendableReportGeneratorRequest.kt#L59) with single `scan path` parameter in ([#39](https://github.com/jayasuryat/mendable/issues/39))
+- [`MendableReportGeneratorRequest.scanPath`](https://github.com/jayasuryat/mendable/blob/964c51e63681ea04811b2e65cfffd9159e3cb1a1/mendable/src/main/java/com/jayasuryat/mendable/MendableReportGeneratorRequest.kt#L50C16-L50C24) property in ([#39](https://github.com/jayasuryat/mendable/issues/39))
 
 ## [v0.6.1](https://github.com/jayasuryat/mendable/releases/tag/0.6.1) - 2023-08-20
 
