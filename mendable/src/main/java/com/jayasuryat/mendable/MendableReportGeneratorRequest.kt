@@ -22,7 +22,7 @@ import dev.drewhamilton.poko.Poko
  *
  * This class encapsulates the parameters required for generating a mendable report.
  *
- * @property scanPath The path to the directory where metrics files will be scanned.
+ * @property scanPaths Paths to the directories where metrics files will be scanned from.
  * @property outputPath The output path where the generated report will be saved.
  * @property scanRecursively Whether to scan for metrics files recursively within the directory.
  * @property outputFileName The name of the generated report file.
@@ -31,13 +31,46 @@ import dev.drewhamilton.poko.Poko
  */
 @Poko
 public class MendableReportGeneratorRequest(
-    public val scanPath: String,
+    public val scanPaths: List<String>,
     public val outputPath: String,
     public val scanRecursively: Boolean,
     public val outputFileName: String,
     public val exportType: ExportType,
     public val includeModules: IncludeModules,
+    public val moduleProducer: ModuleProducer = ModuleProducer.Default,
 ) {
+
+    @Deprecated(
+        message = "Property scanPath is deprecated and will be removed soon. Use scanPaths instead.",
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(
+            expression = "scanPaths[0]",
+        )
+    )
+    public val scanPath: String by lazy(LazyThreadSafetyMode.NONE) { scanPaths.first() }
+
+    @Deprecated(
+        message = "Use the primary constructor with multiple scanPaths arg, this constructor will be removed soon.",
+        level = DeprecationLevel.WARNING,
+        replaceWith = ReplaceWith(
+            expression = "MendableReportGeneratorRequest(listOf(scanPath), outputPath, scanRecursively, outputFileName, exportType, includeModules)",
+        )
+    )
+    public constructor(
+        scanPath: String,
+        outputPath: String,
+        scanRecursively: Boolean,
+        outputFileName: String,
+        exportType: ExportType,
+        includeModules: IncludeModules,
+    ) : this(
+        scanPaths = listOf(scanPath),
+        outputPath = outputPath,
+        scanRecursively = scanRecursively,
+        outputFileName = outputFileName,
+        exportType = exportType,
+        includeModules = includeModules
+    )
 
     /** Represents the type of export for the mendable report. */
     public enum class ExportType {

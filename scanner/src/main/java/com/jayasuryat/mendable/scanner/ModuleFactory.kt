@@ -16,6 +16,7 @@
 package com.jayasuryat.mendable.scanner
 
 import com.jayasuryat.mendable.metricsfile.Module
+import java.io.File
 
 /**
  * A factory to produce [Module] from the passed file name. `filename` here represents any generated
@@ -24,7 +25,7 @@ import com.jayasuryat.mendable.metricsfile.Module
 public fun interface ModuleFactory {
 
     public fun parseModule(
-        fileName: String,
+        file: File,
     ): Module
 }
 
@@ -42,8 +43,9 @@ public fun interface ModuleFactory {
 public class DefaultModuleFactory : ModuleFactory {
 
     override fun parseModule(
-        fileName: String,
+        file: File,
     ): Module {
+        val fileName = file.name
         val partialFileName = fileName.take(fileName.lastIndexOf('-'))
         val separatorIndex: Int = partialFileName.lastIndexOf('_')
         val moduleName: String = partialFileName.take(separatorIndex)

@@ -4,7 +4,6 @@
 
     <a href="https://github.com/jayasuryat/mendable/releases/download/v0.6.0/mendable-app.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.6.0-%2306090E?style=for-the-badge&logo=jetpackcompose"/></a>
 
-
 It is very straightforward. Download and execute the `jar` file while **pointing it to the directory** which
 contains all the Compose-compiler generated metrics files.
 
@@ -21,8 +20,10 @@ and `generate` a beautiful `report` for you.
 
 ### ✨ Generate report with a single command ✨
 
-[Download](https://github.com/jayasuryat/mendable/releases/download/v0.6.0/mendable-app.jar) and place the `jar` file in the
-same folder which contains all the generated Compose compiler metrics (should be `YourProject/build/compose_metrics`). And then execute the `jar` file with the following `command`.
+[Download](https://github.com/jayasuryat/mendable/releases/download/v0.6.0/mendable-app.jar) and place the `jar` file in
+the
+same folder which contains all the generated Compose compiler metrics (should be `YourProject/build/compose_metrics`).
+And then execute the `jar` file with the following `command`.
 
 ```
 java -jar mendable-app.jar
@@ -34,12 +35,13 @@ combined metrics of all the modules.
 ---
 
 ### ✨Configuration ✨
+
 While the above method is the easiest, and should work fine for most of the use cases, `Mendable` also supports some
 configuration. The following are the supported options via `CLI arguments`.
 
 ```
 java -jar mendable.jar
-    --composablesReportsPath, -i  [Default value : <Current working dir>] -> Path to the directory containing all of the composables.txt files
+    --scanPaths, -i               [Default value : <Current working dir>] -> Paths to the directories containing the composables.txt files (for multiple paths use this format "path1 path2")
     --scanRecursively, -sr        [Default value : false]                 -> Weather to scan the directory recursively or not
     --outputPath, -o              [Default value : <Current working dir>] -> Report output directory
     --outputName, -oName          [Default value : "index"]               -> Name of the output file
@@ -53,16 +55,16 @@ For example :
 ```
 java -jar mendable.jar
     --scanRecursively \
-    -i /Users/username/Desktop/Your-project/build/compose_metrics \
+    -i "/Users/username/Desktop/Your-project/build/compose_metrics /Users/username/Desktop/Other-project/build/compose_metrics" \
     -o /Users/username/Desktop/Reports \
     -oName Your-project-metrics \
     -eType html \
     -rType all \
 ```
 
-For the above command, files will be `read` from `/Users/username/Desktop/Your-project/build/compose_metrics` by recurisvely
-going through every directory in this directory and the `output` file will be `saved` at
-`/Users/username/Desktop/Reports/Your-project-metrics.html`.
+For the above command, files will be `read` from `/Users/username/Desktop/Your-project/build/compose_metrics`
+and `/Users/username/Desktop/Other-project/build/compose_metrics` by recurisvely going through every directory in these
+directories and the `output` file will be `saved` at `/Users/username/Desktop/Reports/Your-project-metrics.html`.
 
 ---
 

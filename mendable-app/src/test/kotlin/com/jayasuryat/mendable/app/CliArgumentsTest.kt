@@ -19,6 +19,7 @@ import com.jayasuryat.mendable.app.FakeSystemExit.FakeSystemExitException
 import com.jayasuryat.mendable.app.system.SystemExit
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.shouldBe
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -60,7 +61,7 @@ internal class CliArgumentsTest {
     @Test
     fun `should throw error for empty scan path`() {
 
-        val args = arrayOf("--composablesReportsPath", "")
+        val args = arrayOf("--scanPaths", "")
 
         shouldThrow<FakeSystemExitException> {
 
@@ -69,6 +70,38 @@ internal class CliArgumentsTest {
                 systemExit = systemExit,
             )
         }
+    }
+
+    @Test
+    fun `should parse single scan path correctly`() {
+
+        val file = temporaryFolder.newFolder()
+        val args = arrayOf("--scanPaths", file.path)
+
+        val parsed = CliArguments(
+            args = args,
+            systemExit = systemExit,
+        )
+
+        parsed.scanPaths.size shouldBe 1
+        parsed.scanPaths.first() shouldBe file.path
+    }
+
+    @Test
+    fun `should parse multiple scan paths correctly`() {
+
+        val file1 = temporaryFolder.newFolder()
+        val file2 = temporaryFolder.newFolder()
+        val args = arrayOf("--scanPaths", "${file1.path} ${file2.path}")
+
+        val parsed = CliArguments(
+            args = args,
+            systemExit = systemExit,
+        )
+
+        parsed.scanPaths.size shouldBe 2
+        parsed.scanPaths[0] shouldBe file1.path
+        parsed.scanPaths[1] shouldBe file2.path
     }
 
     @Test

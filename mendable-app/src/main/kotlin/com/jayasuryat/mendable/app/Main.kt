@@ -45,7 +45,7 @@ public fun main(args: Array<String>) {
 
     // Transform arguments into a request for generating the report
     val request = MendableReportGeneratorRequest(
-        scanPath = arguments.composablesReportsPath,
+        scanPaths = arguments.scanPaths,
         scanRecursively = arguments.scanRecursively,
         outputPath = arguments.outputPath,
         outputFileName = arguments.outputFileName,

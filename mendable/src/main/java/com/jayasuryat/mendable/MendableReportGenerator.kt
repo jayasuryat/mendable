@@ -26,12 +26,10 @@ import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel.Overview
 import com.jayasuryat.mendable.parser.getComposableSignaturesReportFileParser
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport.ComposableDetails
+import com.jayasuryat.mendable.scanner.ModuleFactory
 import com.jayasuryat.mendable.scanner.scanForComposableSignaturesReportFiles
 import dev.drewhamilton.poko.Poko
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.File
 import java.nio.file.Paths
 import kotlin.io.path.absolutePathString
@@ -87,11 +85,17 @@ public class MendableReportGenerator(
 
         progress(Progress.Initiated)
 
+        val moduleFactory: ModuleFactory = request.moduleProducer.toModuleFactory()
         val metricsFiles: List<ComposableSignaturesReportFile> = withContext(ioDispatcher) {
-            scanForComposableSignaturesReportFiles(
-                directory = File(request.scanPath),
-                scanRecursively = request.scanRecursively,
-            )
+            request.scanPaths.map { scanPath ->
+                async {
+                    scanForComposableSignaturesReportFiles(
+                        directory = File(scanPath),
+                        scanRecursively = request.scanRecursively,
+                        moduleFactory = moduleFactory,
+                    )
+                }
+            }.awaitAll().flatten()
         }
 
         if (metricsFiles.isEmpty()) {
@@ -137,15 +141,14 @@ public class MendableReportGenerator(
 
     private fun MendableReportGeneratorRequest.validate() {
 
-        require(scanPath.isNotEmpty()) { "scanPath cannot be empty" }
-        val input = File(scanPath)
-        require(input.exists()) { "$scanPath does not exist" }
-        require(input.isDirectory) { "$scanPath is not a directory" }
+        scanPaths.forEach { scanPath ->
+            require(scanPath.isNotEmpty()) { "scanPath cannot be empty" }
+            val input = File(scanPath)
+            require(input.exists()) { "$scanPath does not exist" }
+            require(input.isDirectory) { "$scanPath is not a directory" }
+        }
 
         require(outputPath.isNotEmpty()) { "outputPath cannot be empty" }
-        val output = File(outputPath)
-        require(output.exists()) { "$output does not exist" }
-        require(output.isDirectory) { "$output is not a directory" }
 
         require(outputFileName.isNotEmpty()) { "outputFileName cannot be empty" }
     }
@@ -256,6 +259,7 @@ public class MendableReportGenerator(
     ): String {
 
         val directory = File(Paths.get(outputDirectory).absolutePathString())
+        directory.mkdirs()
         val file = File("${directory.absolutePath}/$outputName.$extension")
         file.writeText(content)
 
