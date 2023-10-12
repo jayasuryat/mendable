@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - ([#35](https://github.com/jayasuryat/mendable/issues/35)) Handle different `directory` `file separators` for different `Operating Systems`
 - Rename CLI argument `composablesReportsPath` to `scanPaths` and accept multiple scan paths (space separated strings in quotes) in ([#40](https://github.com/jayasuryat/mendable/pull/40))
 - Fix `license header` for `CssStyle.kt` in [3b77aa2](https://github.com/jayasuryat/mendable/commit/3b77aa2e6b065ab56b345cb8b12ca90505f871fd)
+- Make `CliArguments.includeModules` default to `IncludeModules.ALL` in [0ba24f0](https://github.com/jayasuryat/mendable/commit/0ba24f07373e7e0a3d417cbedccfb7bfcba1889c)
 
 ### Removed
 
