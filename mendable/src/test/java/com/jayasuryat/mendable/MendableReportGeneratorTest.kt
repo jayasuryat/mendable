@@ -19,9 +19,11 @@ import com.google.gson.Gson
 import com.jayasuryat.mendable.MendableReportGenerator.Progress
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.ExportType
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.IncludeModules
+import com.jayasuryat.mendable.metricsfile.Module
 import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
 import io.kotest.matchers.file.shouldBeAFile
 import io.kotest.matchers.file.shouldExist
+import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -38,6 +40,12 @@ internal class MendableReportGeneratorTest {
     val temporaryFolder: TemporaryFolder = TemporaryFolder()
 
     private val generator = MendableReportGenerator()
+
+    private val stubModule: Module = Module(
+        name = "stubModuleName",
+        buildVariant = "release"
+    )
+    private val stubModuleProducer: ModuleProducer = ModuleProducer { stubModule }
 
     @Test
     fun `should throw error for empty scan path`() = runTest {
@@ -134,6 +142,39 @@ internal class MendableReportGeneratorTest {
         val result: Progress.Result = generator.generate(request = request)
 
         result.shouldBeInstanceOf<Progress.NoMetricsFilesFound>()
+    }
+
+    @Test
+    fun `should use passed module factory`() = runTest {
+
+        val path = this::class.java.classLoader?.getResource("app_release-composables.txt")?.path
+        require(!path.isNullOrEmpty())
+
+        val resourceRoot = File(path).parent
+
+        val request = MendableReportGeneratorRequest(
+            scanPaths = listOf(resourceRoot),
+            outputPath = temporaryFolder.root.path,
+            scanRecursively = false,
+            outputFileName = "report",
+            exportType = ExportType.HTML,
+            includeModules = IncludeModules.ALL,
+            moduleProducer = stubModuleProducer,
+        )
+
+        var filesFound: Progress.MetricsFilesFound? = null
+        generator.generate(request = request) { progress ->
+            if (progress is Progress.MetricsFilesFound) filesFound = progress
+        }
+
+        val metricsFiles = filesFound?.files
+
+        metricsFiles.shouldNotBeNull()
+        metricsFiles.size shouldBeGreaterThan 0
+
+        metricsFiles.forEach { metricsFile ->
+            metricsFile.module shouldBe stubModule
+        }
     }
 
     @Test
