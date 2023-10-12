@@ -34,7 +34,7 @@ internal fun ComposeCompilerMetricsFile.Companion.from(
 
     val name = file.name
 
-    val module: Module = moduleFactory.parseModule(name)
+    val module: Module = moduleFactory.parseModule(file)
 
     val identifier: String = name.drop(name.lastIndexOf("-"))
 

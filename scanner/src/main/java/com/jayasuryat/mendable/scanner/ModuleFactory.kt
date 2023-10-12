@@ -43,8 +43,9 @@ public fun interface ModuleFactory {
 public class DefaultModuleFactory : ModuleFactory {
 
     override fun parseModule(
-        fileName: String,
+        file: File,
     ): Module {
+        val fileName = file.name
         val partialFileName = fileName.take(fileName.lastIndexOf('-'))
         val separatorIndex: Int = partialFileName.lastIndexOf('_')
         val moduleName: String = partialFileName.take(separatorIndex)
