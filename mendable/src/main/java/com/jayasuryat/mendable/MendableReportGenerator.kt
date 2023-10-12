@@ -26,6 +26,7 @@ import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel.Overview
 import com.jayasuryat.mendable.parser.getComposableSignaturesReportFileParser
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport
 import com.jayasuryat.mendable.parser.model.ComposableSignaturesReport.ComposableDetails
+import com.jayasuryat.mendable.scanner.ModuleFactory
 import com.jayasuryat.mendable.scanner.scanForComposableSignaturesReportFiles
 import dev.drewhamilton.poko.Poko
 import kotlinx.coroutines.*
@@ -84,12 +85,14 @@ public class MendableReportGenerator(
 
         progress(Progress.Initiated)
 
+        val moduleFactory: ModuleFactory = request.moduleProducer.toModuleFactory()
         val metricsFiles: List<ComposableSignaturesReportFile> = withContext(ioDispatcher) {
             request.scanPaths.map { scanPath ->
                 async {
                     scanForComposableSignaturesReportFiles(
                         directory = File(scanPath),
                         scanRecursively = request.scanRecursively,
+                        moduleFactory = moduleFactory,
                     )
                 }
             }.awaitAll().flatten()
