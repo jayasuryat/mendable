@@ -18,6 +18,7 @@ package com.jayasuryat.mendable.scanner
 import com.jayasuryat.mendable.metricsfile.Module
 import io.kotest.matchers.shouldBe
 import org.junit.Test
+import java.io.File
 
 internal class DefaultModuleFactoryTest {
 
@@ -25,10 +26,10 @@ internal class DefaultModuleFactoryTest {
 
     @Test
     fun `should parse correctly for simple composables-txt file`() {
-        val fileName = "app_qaRelease-composables.txt"
 
+        val file = File("app_qaRelease-composables.txt")
         val module: Module = factory.parseModule(
-            fileName = fileName,
+            file = file,
         )
 
         module.name shouldBe "app"
@@ -41,10 +42,9 @@ internal class DefaultModuleFactoryTest {
     @Test
     fun `should parse correctly for complex input`() {
 
-        val fileName = "feature_a_build_variant-composables.txt"
-
-        val module = factory.parseModule(
-            fileName = fileName,
+        val file = File("feature_a_build_variant-composables.txt")
+        val module: Module = factory.parseModule(
+            file = file,
         )
 
         module.name shouldBe "feature_a_build"
@@ -53,10 +53,10 @@ internal class DefaultModuleFactoryTest {
 
     @Test
     fun `should parse correctly for simple compose_release-classes-txt file`() {
-        val fileName = "compose_release-classes.txt"
 
+        val file = File("compose_release-classes.txt")
         val module: Module = factory.parseModule(
-            fileName = fileName,
+            file = file,
         )
 
         module.name shouldBe "compose"
@@ -65,21 +65,22 @@ internal class DefaultModuleFactoryTest {
 
     @Test
     fun `should parse correctly for simple discover_release-composables-csv file`() {
-        val fileName = "discover_release-composables.csv"
 
+        val file = File("discover_release-composables.csv")
         val module: Module = factory.parseModule(
-            fileName = fileName,
+            file = file,
         )
+
         module.name shouldBe "discover"
         module.buildVariant shouldBe "release"
     }
 
     @Test
     fun `should parse correctly for search_release-module-json file`() {
-        val fileName = "search_release-module.json"
 
+        val file = File("search_release-module.json")
         val module: Module = factory.parseModule(
-            fileName = fileName,
+            file = file,
         )
 
         module.name shouldBe "search"
@@ -109,7 +110,7 @@ internal class DefaultModuleFactoryTest {
 
                     val fileName = "${name}_${variant}$type"
                     val module = factory.parseModule(
-                        fileName = fileName,
+                        file = File(fileName),
                     )
 
                     module.name shouldBe name
