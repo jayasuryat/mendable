@@ -20,7 +20,7 @@ dokka = "1.8.20"
 gradleNexusPublish = "1.1.0"
 
 # Mendable publish
-mendablePublishVersion = "0.6.1"
+mendablePublishVersion = "0.7.0"
 
 [libraries]
 

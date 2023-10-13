@@ -61,7 +61,7 @@ non-problematic ones. It consolidates reports from multiple `modules` into a sin
 
 #### 3.1 Download Mendable CLI tool
 
-<a href="https://github.com/jayasuryat/mendable/releases/download/v0.6.0/mendable-app.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.6.0-%2306090E?style=for-the-badge&logo=jetpackcompose&color=%2332cc57"/></a>
+<a href="https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable-app.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.7.0-%2306090E?style=for-the-badge&logo=jetpackcompose&color=%2332cc57"/></a>
 
 #### 3.2 Or, download Mendable Maven Artifacts
 
@@ -71,9 +71,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.jayasuryat.mendable:scanner:0.6.1")
-    implementation("com.jayasuryat.mendable:parser:0.6.1")
-    implementation("com.jayasuryat.mendable:mendable:0.6.1")
+    implementation("com.jayasuryat.mendable:scanner:0.7.0")
+    implementation("com.jayasuryat.mendable:parser:0.7.0")
+    implementation("com.jayasuryat.mendable:mendable:0.7.0")
 }
 ```
 

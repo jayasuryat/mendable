@@ -20,7 +20,7 @@ and `generate` a beautiful `report` for you.
 
 ### ✨ Generate report with a single command ✨
 
-[Download](https://github.com/jayasuryat/mendable/releases/download/v0.6.0/mendable-app.jar) and place the `jar` file in
+[Download](https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable-app.jar) and place the `jar` file in
 the
 same folder which contains all the generated Compose compiler metrics (should be `YourProject/build/compose_metrics`).
 And then execute the `jar` file with the following `command`.

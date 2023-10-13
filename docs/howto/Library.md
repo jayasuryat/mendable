@@ -24,9 +24,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.jayasuryat.mendable:scanner:0.6.1")
-    implementation("com.jayasuryat.mendable:parser:0.6.1")
-    implementation("com.jayasuryat.mendable:mendable:0.6.1")
+    implementation("com.jayasuryat.mendable:scanner:0.7.0")
+    implementation("com.jayasuryat.mendable:parser:0.7.0")
+    implementation("com.jayasuryat.mendable:mendable:0.7.0")
 }
 ```
 
