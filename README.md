@@ -11,7 +11,7 @@
 
  <p align="center">
       <a href="https://repo1.maven.org/maven2/com/jayasuryat/mendable/"><img alt="Mendable at MavenCentral" src="https://staging.shields.io/maven-central/v/com.jayasuryat.mendable/mendable?style=for-the-badge&color=%2332cc57"/></a>
-    <a href="https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable-app.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.7.0-%2306090E?style=for-the-badge&logo=jetpackcompose&color=%2332cc57"/></a>
+    <a href="https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.7.0-%2306090E?style=for-the-badge&logo=jetpackcompose&color=%2332cc57"/></a>
   </p>
 
   <p align="center">
@@ -61,7 +61,7 @@ non-problematic ones. It consolidates reports from multiple `modules` into a sin
 
 #### 3.1 Download Mendable CLI tool
 
-<a href="https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable-app.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.7.0-%2306090E?style=for-the-badge&logo=jetpackcompose&color=%2332cc57"/></a>
+<a href="https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable.jar"><img alt="Download Mendable" src="https://img.shields.io/badge/Mendable.jar-0.7.0-%2306090E?style=for-the-badge&logo=jetpackcompose&color=%2332cc57"/></a>
 
 #### 3.2 Or, download Mendable Maven Artifacts
 

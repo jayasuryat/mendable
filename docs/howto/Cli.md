@@ -20,13 +20,13 @@ and `generate` a beautiful `report` for you.
 
 ### ✨ Generate report with a single command ✨
 
-[Download](https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable-app.jar) and place the `jar` file in
+[Download](https://github.com/jayasuryat/mendable/releases/download/v0.7.0/mendable.jar) and place the `jar` file in
 the
 same folder which contains all the generated Compose compiler metrics (should be `YourProject/build/compose_metrics`).
 And then execute the `jar` file with the following `command`.
 
 ```
-java -jar mendable-app.jar
+java -jar mendable.jar
 ```
 
 After executing this `command` there should be `index.html` file generated in the same folder, which will contain the
