@@ -119,4 +119,16 @@ internal class DefaultModuleFactoryTest {
             }
         }
     }
+
+    @Test
+    fun `should parse correctly for file name without build variant`() {
+
+        val file = File("resources-composables.txt")
+        val module: Module = factory.parseModule(
+            file = file,
+        )
+
+        module.name shouldBe "resources"
+        module.buildVariant shouldBe null
+    }
 }

@@ -77,9 +77,11 @@ private fun BODY.ModuleOverviews(
 
                 span("module-overview-title") { +":${module.module.name}\n" }
                 br {
-                    span("module-overview-details") {
-                        setStyle(fontSize = "18px")
-                        +"(${module.module.buildVariant})"
+                    if (module.module.buildVariant.isNullOrEmpty().not()) {
+                        span("module-overview-details") {
+                            setStyle(fontSize = "18px")
+                            +"(${module.module.buildVariant})"
+                        }
                     }
                 }
 

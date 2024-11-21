@@ -21,6 +21,7 @@ import com.jayasuryat.mendable.MendableReportGeneratorRequest.ExportType
 import com.jayasuryat.mendable.MendableReportGeneratorRequest.IncludeModules
 import com.jayasuryat.mendable.metricsfile.Module
 import com.jayasuryat.mendable.model.ComposeCompilerMetricsExportModel
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.matchers.file.shouldBeAFile
 import io.kotest.matchers.file.shouldExist
 import io.kotest.matchers.ints.shouldBeGreaterThan
@@ -323,5 +324,41 @@ internal class MendableReportGeneratorTest {
         outputModel.totalModulesScanned shouldBe 2
         outputModel.totalModulesReported shouldBe 1
         outputModel.totalModulesFiltered shouldBe 1
+    }
+
+    @Test
+    fun `should not throw exception for null build variant`() = runTest {
+
+        val path = this::class.java.classLoader?.getResource("app_release-composables.txt")?.path
+        require(!path.isNullOrEmpty())
+
+        val resourceRoot = File(path).parent
+
+        val request = MendableReportGeneratorRequest(
+            scanPaths = listOf(resourceRoot),
+            outputPath = temporaryFolder.root.path,
+            scanRecursively = false,
+            outputFileName = "report",
+            exportType = ExportType.HTML,
+            includeModules = IncludeModules.ALL,
+            moduleProducer = {
+                Module(
+                    name = "resources",
+                    buildVariant = null,
+                )
+            },
+        )
+
+        shouldNotThrow<Throwable> {
+
+            var filesFound: Progress.MetricsFilesFound? = null
+            generator.generate(request = request) { progress ->
+                if (progress is Progress.MetricsFilesFound) filesFound = progress
+            }
+
+            val metricsFiles = filesFound?.files
+            metricsFiles.shouldNotBeNull()
+            metricsFiles.size shouldBeGreaterThan 0
+        }
     }
 }
