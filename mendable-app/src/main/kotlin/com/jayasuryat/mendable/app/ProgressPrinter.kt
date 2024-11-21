@@ -78,7 +78,10 @@ internal class ProgressPrinter(
         files.forEachIndexed { index, file ->
             val modIndex = (index + 1).toString().padStart(padStart)
             val module = file.module
-            builder.append("$modIndex. :${module.name} (${module.buildVariant}) \n")
+            val variant = module.buildVariant
+                .takeIf { name -> name.isNullOrEmpty().not() }
+                ?.let { name -> "($name)" } ?: ""
+            builder.append("$modIndex. :${module.name} $variant\n")
         }
         return builder.toString()
     }

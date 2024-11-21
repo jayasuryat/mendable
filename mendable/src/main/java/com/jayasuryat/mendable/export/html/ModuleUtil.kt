@@ -21,4 +21,9 @@ internal val Module.id: String
     get() = "${name}_$buildVariant"
 
 internal val Module.displayName: String
-    get() = "$name ($buildVariant)"
+    get() {
+        val variant = buildVariant
+            .takeIf { name -> name.isNullOrEmpty().not() }
+            ?.let { name -> "($name)" } ?: ""
+        return "$name $variant"
+    }

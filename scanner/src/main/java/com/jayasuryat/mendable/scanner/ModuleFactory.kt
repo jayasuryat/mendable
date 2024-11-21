@@ -30,15 +30,24 @@ public fun interface ModuleFactory {
 }
 
 /**
- * A default implementation of [ModuleFactory]. Parses [Module] using underscore and hyphens ('_' & '-') as delimiters.
- * For example: For "app_qaRelease-composables.txt", a [Module] with "app" as [Module.name] and "qaRelease" as
- * [Module.buildVariant] would be produced.
+ * Default implementation of [ModuleFactory].
  *
- * Note : While this implementation should work for most of the cases, this will not generate expected outputs for files
- * whose original module's build variants' name have underscores in them.
- * For example: "feature_a_build_variant-composables.txt"; here expectation is "feature_a" should be the [Module.name]
- * and "build_variant" should be [Module.buildVariant]. But due to the nature of this implementation, "feature_a_build"
- * and "variant" would be [Module.name] and [Module.buildVariant] respectively for this case.
+ * This implementation parses a [Module] from a file name using underscores ('_') and hyphens ('-')
+ * as delimiters. It assumes a convention where:
+ * - The file name is structured as "<module_name>_<build_variant>-<suffix>.<extension>".
+ * - The [Module.name] is derived from the part of the file name before the last underscore ('_').
+ * - The [Module.buildVariant] is derived from the part of the file name between the last underscore
+ *   ('_') and the last hyphen ('-'). Build variant is considered optional, if build variant is
+ *   missing in the file name, the resulting [Module] will have [Module.buildVariant] as `null`.
+ *
+ * ### Example
+ * For a file named `app_qaRelease-composables.txt`:
+ * - [Module.name] would be `"app"`
+ * - [Module.buildVariant] would be `"qaRelease"`
+ *
+ * ### Limitations
+ * This implementation may produce unexpected results for file names where the build variant or the
+ * module name contains hyphens or underscores.
  */
 public class DefaultModuleFactory : ModuleFactory {
 
@@ -48,8 +57,18 @@ public class DefaultModuleFactory : ModuleFactory {
         val fileName = file.name
         val partialFileName = fileName.take(fileName.lastIndexOf('-'))
         val separatorIndex: Int = partialFileName.lastIndexOf('_')
-        val moduleName: String = partialFileName.take(separatorIndex)
-        val buildVariant: String = partialFileName.removePrefix(moduleName).drop(1)
+
+        val hasBuildVariant = separatorIndex != -1
+        val moduleName: String
+        val buildVariant: String?
+        if (hasBuildVariant) {
+            moduleName = partialFileName.take(separatorIndex)
+            buildVariant = partialFileName.removePrefix(moduleName).drop(1)
+        } else {
+            moduleName = partialFileName
+            buildVariant = null
+        }
+
         return Module(
             name = moduleName,
             buildVariant = buildVariant,

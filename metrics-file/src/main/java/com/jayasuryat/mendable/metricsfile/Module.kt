@@ -23,7 +23,7 @@ import dev.drewhamilton.poko.Poko
 @Poko
 public class Module(
     public val name: String,
-    public val buildVariant: String,
+    public val buildVariant: String?,
 ) {
 
     public companion object
